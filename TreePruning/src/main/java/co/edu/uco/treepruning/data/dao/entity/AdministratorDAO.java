@@ -8,7 +8,7 @@ import co.edu.uco.treepruning.data.dao.RetrieveDAO;
 import co.edu.uco.treepruning.data.dao.UpdateDAO;
 import co.edu.uco.treepruning.entity.AdministratorEntity;
 
-public interface AdministradorDAO 
+public interface AdministratorDAO 
 	extends CreateDAO<AdministratorEntity>, 
 		   RetrieveDAO<AdministratorEntity, UUID>, 
 		   UpdateDAO<AdministratorEntity>, 
