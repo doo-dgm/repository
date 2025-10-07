@@ -12,7 +12,6 @@ public abstract class DAOFactory {
 	}
 	
 	public abstract AdministratorDAO getAdministratorDAO();
-	public abstract CityDAO getCityDAO();
 	public abstract CountryDAO getCountryDAO();
 	public abstract DocumentDAO getDocumentDAO();
 	public abstract FamilyDAO getFamilyDAO();
