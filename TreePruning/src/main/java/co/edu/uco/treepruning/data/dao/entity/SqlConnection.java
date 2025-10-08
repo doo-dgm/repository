@@ -42,26 +42,28 @@ public abstract class SqlConnection {
         this.connection = connection;
     }
 
-    public void validateTransactionActive() {
-        if (ObjectHelper.isNull(connection)) {
-            throw TreePruningException.create(
-                MessagesEnum.USER_ERROR_SQL_CONNECTION_IS_EMPTY.getContent(),
-                MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_IS_EMPTY.getContent()
-            );
-        }
-        try {
-            if (connection.getAutoCommit()) {
-                throw TreePruningException.create(
-                    "La conexión no está en modo transaccional.",
-                    "El autoCommit está activado, no hay transacción activa."
-                );
-            }
-        } catch (SQLException e) {
-            throw TreePruningException.create(
-                e,
-                MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS.getContent(),
-                MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS.getContent()
-            );
-        }
-    }
+	public void validateTransactionActive() {
+		if (ObjectHelper.isNull(connection)) {
+			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_IS_EMPTY.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_IS_EMPTY.getContent();
+			throw TreePruningException.create(userMessage, technicalMessage);
+		}
+		try {
+			if (connection.isClosed()) {
+				var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_IS_CLOSED.getContent();
+				var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_IS_CLOSED.getContent();
+				throw TreePruningException.create(userMessage, technicalMessage);
+			}
+			if (connection.getAutoCommit()) {
+				var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_NOT_IN_TRANSACTION.getContent();
+				var technicalMessage = MessagesEnum.TECHNICAL_SQL_CONNECTION_NOT_IN_TRANSACTION.getContent();
+				throw TreePruningException.create(userMessage, technicalMessage);
+			}
+		} catch (final SQLException exception ) {
+			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS.getContent();
+			throw TreePruningException.create(userMessage, technicalMessage);
+		}
+	}
+
 }
