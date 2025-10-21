@@ -60,94 +60,266 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_TRANSACTION_IS_OPEN("Error validando estado de transaccion ya iniciada",
 			"Se presento un error al validar que la transaccion no estuviera iniciada antes de la operacion. Revise la traza de errores para mas detalles."),
 	
-	// DAO - City
-	USER_ERROR_CITY_FIND_ALL("Ocurrió un problema al ejecutar la consulta de ciudades",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_CITY_FIND_ALL("Error SQL ejecutando CityDAO.findAll",
-		"Error SQL ejecutando el query en CitySqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_CITY_FIND_ALL_UNEXPECTED("Ocurrió un problema INESPERADO al ejecutar la consulta de ciudades",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_CITY_FIND_ALL_UNEXPECTED("Error inesperado ejecutando CityDAO.findAll",
-		"Error inesperado ejecutando el query en CitySqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_CITY_FIND_BY_ID("Ocurrió un problema al ejecutar la consulta de ciudad",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_CITY_FIND_BY_ID("Error SQL ejecutando CityDAO.findById",
-		"Error SQL ejecutando el query en CitySqlServerDAO.findById. Revise la traza de errores para mas detalles."),
-	
-	// DAO - Country
-	USER_ERROR_COUNTRY_FIND_ALL("Ocurrió un problema al ejecutar la consulta de paises",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_COUNTRY_FIND_ALL("Error SQL ejecutando CountryDAO.findAll",
-		"Error SQL ejecutando el query en CountrySqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_COUNTRY_FIND_ALL_UNEXPECTED("Ocurrió un problema INESPERADO al ejecutar la consulta de paises",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_COUNTRY_FIND_ALL_UNEXPECTED("Error inesperado ejecutando CountryDAO.findAll",
-		"Error inesperado ejecutando el query en CountrySqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_COUNTRY_FIND_BY_ID("Ocurrió un problema al ejecutar la consulta de pais",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_COUNTRY_FIND_BY_ID("Error SQL ejecutando CountryDAO.findById",
-		"Error SQL ejecutando el query en CountrySqlServerDAO.findById. Revise la traza de errores para mas detalles."),
-	
-	// DAO - State
-	USER_ERROR_STATE_FIND_ALL("Ocurrió un problema al ejecutar la consulta de estados",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_STATE_FIND_ALL("Error SQL ejecutando StateDAO.findAll",
-		"Error SQL ejecutando el query en StateSqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_STATE_FIND_ALL_UNEXPECTED("Ocurrió un problema INESPERADO al ejecutar la consulta de estados",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_STATE_FIND_ALL_UNEXPECTED("Error inesperado ejecutando StateDAO.findAll",
-		"Error inesperado ejecutando el query en StateSqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_STATE_FIND_BY_ID("Ocurrió un problema al ejecutar la consulta de estado",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_STATE_FIND_BY_ID("Error SQL ejecutando StateDAO.findById",
-		"Error SQL ejecutando el query en StateSqlServerDAO.findById. Revise la traza de errores para mas detalles."),
-	
-	// DAO - IdType
-	USER_ERROR_IDTYPE_FIND_ALL("Ocurrió un problema al ejecutar la consulta de tipos de identificacion",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_IDTYPE_FIND_ALL("Error SQL ejecutando IdTypeDAO.findAll",
-		"Error SQL ejecutando el query en IdTypeSqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_IDTYPE_FIND_ALL_UNEXPECTED("Ocurrió un problema INESPERADO al ejecutar la consulta de tipos de identificacion",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_IDTYPE_FIND_ALL_UNEXPECTED("Error inesperado ejecutando IdTypeDAO.findAll",
-		"Error inesperado ejecutando el query en IdTypeSqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_IDTYPE_FIND_BY_ID("Ocurrió un problema al ejecutar la consulta de tipo de identificacion",
-		"Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
-	TECHNICAL_ERROR_IDTYPE_FIND_BY_ID("Error SQL ejecutando IdTypeDAO.findById",
-		"Error SQL ejecutando el query en IdTypeSqlServerDAO.findById. Revise la traza de errores para mas detalles."),
-	
-	// DAO - User
-	USER_ERROR_USER_CREATE("Se ha presentado un problema tratando de registrar la informacion del nuevo usuario. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema al tratar de ejecutar el proceso de creacion de un usuario"),
-	TECHNICAL_ERROR_USER_CREATE("Error creando usuario",
-		"Se ha presentado un error SQL al intentar crear un usuario. Revise la traza de errores para mas detalles."),
-	USER_ERROR_USER_CREATE_UNEXPECTED("Se ha presentado un problema INESPERADO tratando de crear un nuevo usuario. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema inesperado al tratar de ejecutar el proceso de creacion de un usuario"),
-	TECHNICAL_ERROR_USER_CREATE_UNEXPECTED("Error inesperado creando usuario",
-		"Se ha presentado un error inesperado al intentar crear un usuario. Revise la traza de errores para mas detalles."),
-	
-	USER_ERROR_USER_FIND_ALL("Se ha presentado un problema tratando de consultar la informacion de los usuarios. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema al tratar de ejecutar el proceso de consulta de usuarios. Por favor verifique que la informacion este correcta"),
-	TECHNICAL_ERROR_USER_FIND_ALL("Error ejecutando UserDAO.findAll",
-		"Error ejecutando el query en UserSqlServerDAO.findAll. Revise la traza de errores para mas detalles."),
-	USER_ERROR_USER_FIND_ALL_UNEXPECTED("Se ha presentado un problema INESPERADO tratando de consultar la informacion de los usuarios. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema INESPERADO al tratar de ejecutar el proceso de consulta de usuarios. Revise la traza de errores para mas detalles."),
-	
-	USER_ERROR_USER_FIND_BY_ID("Se ha presentado un problema tratando de consultar la informacion del usuario deseado. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema al tratar de ejecutar el proceso de consulta del usuario deseado. Por favor verifique que la informacion este correcta"),
-	TECHNICAL_ERROR_USER_FIND_BY_ID("Error ejecutando UserDAO.findById",
-		"Error ejecutando el query en UserSqlServerDAO.findById. Revise la traza de errores para mas detalles."),
-	
-	USER_ERROR_USER_UPDATE("Se ha presentado un problema tratando de modificar la informacion del usuario. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema al tratar de ejecutar el proceso de modificacion de un usuario"),
-	TECHNICAL_ERROR_USER_UPDATE("Error modificando usuario",
-		"Error SQL ejecutando el proceso de actualizacion de usuario. Revise la traza de errores para mas detalles."),
-	
-	USER_ERROR_USER_DELETE("Se ha presentado un problema tratando de eliminar la informacion del usuario. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se ha presentado un problema al tratar de ejecutar el proceso de eliminacion de usuario"),
-	TECHNICAL_ERROR_USER_DELETE("Error eliminando usuario",
-		"Error SQL ejecutando el proceso de eliminacion de usuario. Revise la traza de errores para mas detalles.");
+	USER_ERROR_FACTORY_NOT_INITIALIZED(
+		    "Factoría no inicializada","No se ha seleccionado o inicializado la factoría de DAOs requerida. Por favor configure la factoría e intente de nuevo."),
+TECHNICAL_ERROR_FACTORY_NOT_INITIALIZED(
+		    "Factoría no inicializada ","No se encontró una factoría de DAOs válida para la operación solicitada."),
 
+USER_ERROR_SQL_TRANSACTION_BEGIN(
+			    "No fue posible iniciar la transacción","No se pudo iniciar la transacción contra la fuente de datos. Por favor intente de nuevo y si el problema persiste contacte al administrador de la aplicación."),
+TECHNICAL_ERROR_SQL_TRANSACTION_BEGIN(
+			    "Error técnico iniciando transacción","Se produjo un error técnico al intentar deshabilitar autoCommit (iniciar transacción). Revise la traza para más detalles."),
+
+USER_ERROR_SQL_TRANSACTION_COMMIT(
+			    "No fue posible confirmar la transacción",
+			    "Ocurrió un problema al confirmar la transacción. Por favor intente de nuevo y si el problema persiste contacte al administrador de la aplicación."),
+TECHNICAL_ERROR_SQL_TRANSACTION_COMMIT(
+			    "Error técnico confirmando transacción",
+			    "Se produjo un error técnico al ejecutar commit() en la conexión. Revise la consola de errores para más detalles."),
+
+USER_ERROR_SQL_TRANSACTION_ROLLBACK(
+			    "No fue posible revertir la transacción",
+			    "Ocurrió un problema al revertir la transacción. Por favor intente de nuevo y si el problema persiste contacte al administrador de la aplicación."),
+TECHNICAL_ERROR_SQL_TRANSACTION_ROLLBACK(
+			    "Error técnico revirtiendo transacción",
+			    "Se produjo un error técnico al ejecutar rollback() en la conexión. Revise la consola de errores para más detalles."),
+
+USER_ERROR_SQL_CONNECTION_CLOSE(
+			    "No fue posible cerrar la conexión",
+			    "Ocurrió un problema al cerrar la conexión con la fuente de datos. Por favor contacte al administrador de la aplicación."),
+TECHNICAL_ERROR_SQL_CONNECTION_CLOSE(
+			    "Error técnico cerrando la conexión",
+			    "Se produjo un error técnico al intentar cerrar la conexión. Revise la consola de errores para más detalles."),		
+
+USER_ERROR_USER_CREATE("Error creando usuario","Se ha presentado un problema tratando de registrar la informacion del nuevo usuario. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_CREATE("Error creando usuario","Se ha presentado un problema al tratar de ejecutar el proceso de creacion de un usuario"),
+
+USER_ERROR_USER_CREATE_UNEXPECTED("Error inesperado creando usuario",
+        "Se ha presentado un problema INESPERADO tratando de crear un nuevo usuario. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_CREATE_UNEXPECTED("Error inesperado creando usuario","Se ha presentado un problema inesperado al tratar de ejecutar el proceso de creación de usuario"),
+
+USER_ERROR_USER_FIND_ALL("Error consultando usuarios",
+        "Se ha presentado un problema tratando de consultar la informacion de los usuarios. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_FIND_ALL("Error consultando usuarios",
+        "Se ha presentado un problema al tratar de ejecutar el proceso de consulta de usuarios. "
+      + "Por favor verifique que la informacion este correcta"),
+
+USER_ERROR_USER_FIND_ALL_UNEXPECTED("Error inesperado consultando usuarios",
+        "Se ha presentado un problema INESPERADO tratando de consultar la informacion de los usuarios. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_FIND_ALL_UNEXPECTED("Error inesperado consultando usuarios",
+        "Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de usuarios"),
+
+USER_ERROR_USER_FIND_BY_FILTER("Error consultando usuarios con filtro",
+        "Se ha presentado un problema tratando de consultar la informacion de los usuarios. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_FIND_BY_FILTER("Error consultando usuarios con filtro",
+        "Se ha presentado un problema al tratar de ejecutar el proceso de consulta de usuarios con filtro. "
+      + "Por favor verifique que la informacion este correcta"),
+
+USER_ERROR_USER_FIND_BY_FILTER_UNEXPECTED("Error inesperadoconsultando usuarios con filtro",
+        "Se ha presentado un problema inesperado tratando de consultar la informacion de los usuarios. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_FIND_BY_FILTER_UNEXPECTED("Error inesperado consultando usuarios con filtro",
+        "Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de usuarios con filtro"),
+
+USER_ERROR_USER_FIND_BY_ID("Error consultando usuario por ID",
+        "Se ha presentado un problema tratando de consultar la informacion del usuario deseado. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_FIND_BY_ID("Error consultando usuario por ID",
+        "Se ha presentado un problema al tratar de ejecutar el proceso de consulta del usuario deseado. "
+      + "Por favor verifique que la informacion este correcta"),
+
+USER_ERROR_USER_FIND_BY_ID_UNEXPECTED("Error inesperado consultando usuario por ID",
+        "Se ha presentado un problema inesperado tratando de consultar la informacion del usuario deseado. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_FIND_BY_ID_UNEXPECTED("Error inesperado consultando usuario por ID",
+        "Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta del usuario deseado"),
+
+USER_ERROR_USER_UPDATE("Error modificando usuario",
+        "Se ha presentado un problema tratando de modificar la informacion del usuario. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_UPDATE("Error modificando usuario",
+        "Se ha presentado un problema al tratar de ejecutar el proceso de modificacion de un usuario"),
+
+USER_ERROR_USER_UPDATE_UNEXPECTED("Error inesperado modificando usuario",
+        "Se ha presentado un problema inesperado tratando de modificar la informacion del usuario. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_UPDATE_UNEXPECTED("Error inesperado modificando usuario",
+        "Se ha presentado un problema inesperado al tratar de ejecutar el proceso de modificacion de un usuario"),
+
+USER_ERROR_USER_DELETE("Error eliminando usuario",
+        "Se ha presentado un problema tratando de eliminar la informacion del usuario. "
+      + "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_USER_DELETE("Error eliminando usuario",
+        "Se ha presentado un problema al tratar de ejecutar el proceso de eliminacion del usuario"),
+
+USER_ERROR_USER_DELETE_UNEXPECTED("Error inesperado eliminando usuario",
+        "Se ha presentado un problema inesperado tratando de eliminar la informacion del usuario"),
+TECHNICAL_ERROR_USER_DELETE_UNEXPECTED("Error inesperado eliminando usuario",
+        "Se ha presentado un problema inesperado al tratar de ejecutar el proceso de eliminacion del usuario"),
+	
+USER_ERROR_IDENTIFICATIONTYPE_FIND_ALL("Se ha presentado un problema tratando de consultar la información de los tipos de identificación", 
+   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema"),
+TECHNICAL_ERROR_IDENTIFICATIONTYPE_FIND_ALL("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de tipos de identificación. ",
+   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_IDENTIFICATIONTYPE_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de los tipos de identificación. ",
+  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATIONTYPE_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de tipos de identificación. ",
+  "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_IDENTIFICATIONTYPE_FIND_BY_FILTER("Se ha presentado un problema tratando de consultar la información de los tipos de identificación aplicando filtros. ",
+   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATIONTYPE_FIND_BY_FILTER("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de tipos de identificación con filtros. ",
+  "Por favor verifique que la información esté correcta."),
+USER_ERROR_IDENTIFICATIONTYPE_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de los tipos de identificación aplicando filtros. ",
+  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATIONTYPE_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de tipos de identificación con filtros. ",
+  "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_IDENTIFICATIONTYPE_FIND_BY_ID("Se ha presentado un problema tratando de consultar la información del tipo de identificación deseado. ",
+  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATIONTYPE_FIND_BY_ID("Se ha presentado un problema al tratar de ejecutar el proceso de consulta del tipo de identificación deseado. ",
+   "Por favor verifique que la información esté correcta."),
+USER_ERROR_IDENTIFICATIONTYPE_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información del tipo de identificación deseado. ",
+   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATIONTYPE_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta del tipo de identificación deseado. ",
+   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_DEPARTMENT_FIND_ALL("Se ha presentado un problema tratando de consultar la información de los departamentos. ",
+		  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_FIND_ALL("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de departamentos. ",
+		  "Por favor verifique que la información esté correcta."),
+		
+USER_ERROR_DEPARTMENT_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de los departamentos. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de departamentos. ",
+		   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_DEPARTMENT_FIND_BY_FILTER("Se ha presentado un problema tratando de consultar la información de los departamentos aplicando filtros. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_FIND_BY_FILTER("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de departamentos con filtros. ",
+		   "Por favor verifique que la información esté correcta."),
+USER_ERROR_DEPARTMENT_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de los departamentos aplicando filtros. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de departamentos con filtros. ",
+		   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_DEPARTMENT_FIND_BY_ID("Se ha presentado un problema tratando de consultar la información del departamento deseado. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_FIND_BY_ID("Se ha presentado un problema al tratar de ejecutar el proceso de consulta del departamento deseado. ",
+		   "Por favor verifique que la información esté correcta."),
+USER_ERROR_DEPARTMENT_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información del departamento deseado. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta del departamento deseado. ",
+		   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_COUNTRY_FIND_ALL("Se ha presentado un problema tratando de consultar la información de los países. ",
+  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_FIND_ALL("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de países. ",
+   "Por favor verifique que la información esté correcta."),
+USER_ERROR_COUNTRY_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de los países. ",
+   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de países. ",
+  "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_COUNTRY_FIND_BY_FILTER("Se ha presentado un problema tratando de consultar la información de los países aplicando filtros. ",
+  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_FIND_BY_FILTER("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de países con filtros. ",
+  "Por favor verifique que la información esté correcta."),
+USER_ERROR_COUNTRY_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de los países aplicando filtros. ",
+  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de países con filtros. ",
+   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_COUNTRY_FIND_BY_ID("Se ha presentado un problema tratando de consultar la información del país deseado. ",
+   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_FIND_BY_ID("Se ha presentado un problema al tratar de ejecutar el proceso de consulta del país deseado. ",
+   "Por favor verifique que la información esté correcta."),
+USER_ERROR_COUNTRY_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información del país deseado. ",
+   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta del país deseado. ",
+   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_CITY_FIND_ALL("Se ha presentado un problema tratando de consultar la información de las ciudades. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_FIND_ALL("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de ciudades. ",
+		   "Por favor verifique que la información esté correcta."),
+USER_ERROR_CITY_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de las ciudades. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_FIND_ALL_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de ciudades. ",
+		   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_CITY_FIND_BY_FILTER("Se ha presentado un problema tratando de consultar la información de las ciudades aplicando filtros. ",
+		  "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_FIND_BY_FILTER("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de ciudades con filtros. ",
+		   "Por favor verifique que la información esté correcta."),
+USER_ERROR_CITY_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de las ciudades aplicando filtros. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de ciudades con filtros. ",
+		   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_CITY_FIND_BY_ID("Se ha presentado un problema tratando de consultar la información de la ciudad deseada. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_FIND_BY_ID("Se ha presentado un problema al tratar de ejecutar el proceso de consulta de la ciudad deseada. ",
+		   "Por favor verifique que la información esté correcta."),
+USER_ERROR_CITY_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado tratando de consultar la información de la ciudad deseada. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_FIND_BY_ID_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de consulta de la ciudad deseada. ",
+		   "Por favor verifique que la información esté correcta."),
+
+USER_ERROR_CITY_MAPPER("Se ha presentado un problema tratando de mapear la información de la ciudad desde los datos obtenidos. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_MAPPER("Se ha presentado un problema al tratar de ejecutar el proceso de mapeo de datos de la ciudad. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),		
+USER_ERROR_CITY_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado tratando de mapear la información de la ciudad. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_CITY_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de mapeo de datos de la ciudad. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+
+USER_ERROR_DEPARTMENT_MAPPER("Se ha presentado un problema tratando de mapear la información del departamento desde los datos obtenidos. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_MAPPER("Se ha presentado un problema al tratar de ejecutar el proceso de mapeo de datos del departamento. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),			
+USER_ERROR_DEPARTMENT_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado tratando de mapear la información del departamento. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_DEPARTMENT_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de mapeo de datos del departamento. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+
+USER_ERROR_COUNTRY_MAPPER("Se ha presentado un problema tratando de mapear la información del país desde los datos obtenidos. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_MAPPER("Se ha presentado un problema al tratar de ejecutar el proceso de mapeo de datos del país. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+		
+USER_ERROR_COUNTRY_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado tratando de mapear la información del país. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_COUNTRY_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de mapeo de datos del país. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+
+USER_ERROR_IDENTIFICATION_TYPE_MAPPER("Se ha presentado un problema tratando de mapear la información del tipo de identificación desde los datos obtenidos. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATION_TYPE_MAPPER("Se ha presentado un problema al tratar de ejecutar el proceso de mapeo de datos del tipo de identificación. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+		
+USER_ERROR_IDENTIFICATION_TYPE_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado tratando de mapear la información del tipo de identificación. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_IDENTIFICATION_TYPE_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de mapeo de datos del tipo de identificación. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+
+USER_ERROR_USER_MAPPER("Se ha presentado un problema tratando de mapear la información del usuario desde los datos obtenidos. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_USER_MAPPER("Se ha presentado un problema al tratar de ejecutar el proceso de mapeo de datos del usuario. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+		
+USER_ERROR_USER_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado tratando de mapear la información del usuario. ",
+		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+TECHNICAL_ERROR_USER_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de mapeo de datos del usuario. ",
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+;
 	
 	private String title;
 	private String content;

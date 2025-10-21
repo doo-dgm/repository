@@ -1,11 +1,16 @@
 package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.data.dao.entity.FamilyDAO;
 
 public class FamilySqlServerDAO implements FamilyDAO {
+
+	public FamilySqlServerDAO(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void create(FamilyDAO entity) {

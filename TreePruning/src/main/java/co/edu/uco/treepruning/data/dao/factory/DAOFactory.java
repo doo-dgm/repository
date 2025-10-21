@@ -1,12 +1,11 @@
 package co.edu.uco.treepruning.data.dao.factory;
 
 import java.sql.Connection;
-import java.sql.ConnectionBuilder;
 import java.sql.SQLException;
 
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
-import co.edu.uco.treepruning.data.dao.factory.FactoryEnum;
 import co.edu.uco.treepruning.data.dao.entity.*;
 import co.edu.uco.treepruning.data.dao.factory.sqlserver.SqlServerDAOFactory;
 
@@ -20,8 +19,8 @@ public abstract class DAOFactory {
 		if(FactoryEnum.SQLSERVER.equals(factory)) {
 			return new SqlServerDAOFactory();
 		} else {
-			var userMessage = "Factoria no iniciada";
-			var technicalMessage = "Factoria no valida";
+			var userMessage = MessagesEnum.USER_ERROR_FACTORY_NOT_INITIALIZED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_FACTORY_NOT_INITIALIZED.getContent();
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 	}
@@ -54,13 +53,13 @@ public abstract class DAOFactory {
 		try {
 			connection.setAutoCommit(false);
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_TRANSACTION_BEGIN.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_TRANSACTION_BEGIN.getContent();
 			throw TreePruningException.create(userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
-			throw TreePruningException.create(userMessage, technicalMessage);
+			var userMessage = MessagesEnum.USER_ERROR_SQL_TRANSACTION_BEGIN.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_TRANSACTION_BEGIN.getContent();
+			throw TreePruningException.create(exception,userMessage, technicalMessage);
 		}
 	}
 
@@ -69,12 +68,12 @@ public abstract class DAOFactory {
 		try {
 			connection.commit();
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_TRANSACTION_COMMIT.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_TRANSACTION_COMMIT.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_TRANSACTION_COMMIT.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_TRANSACTION_COMMIT.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -84,12 +83,12 @@ public abstract class DAOFactory {
 		try {
 			connection.rollback();
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_TRANSACTION_ROLLBACK.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_TRANSACTION_ROLLBACK.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_TRANSACTION_ROLLBACK.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_TRANSACTION_ROLLBACK.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -99,12 +98,12 @@ public abstract class DAOFactory {
 		try {
 			connection.close();
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_CLOSE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_CLOSE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_CLOSE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_CLOSE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 	}
 	

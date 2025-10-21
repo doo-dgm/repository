@@ -5,7 +5,10 @@ import java.util.Properties;
 import org.springframework.jdbc.core.JdbcTemplate;
 import java.io.InputStream;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
+import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.data.dao.entity.AdministratorDAO;
@@ -28,6 +31,25 @@ import co.edu.uco.treepruning.data.dao.entity.StatusDAO;
 import co.edu.uco.treepruning.data.dao.entity.ToolDAO;
 import co.edu.uco.treepruning.data.dao.entity.TreeDAO;
 import co.edu.uco.treepruning.data.dao.entity.TypeDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.AdministratorSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.CountrySqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.DocumentSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.FamilySqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.ManagerSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.MunicipalitySqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.OperatorSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.PQRSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.PersonSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.ProgrammingSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.PruningSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.PruningToolSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.QuadrilleSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.RiskSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.SectorSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.StateSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.StatusSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.TreeSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.TypeSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class SqlServerDAOFactory extends DAOFactory {
@@ -55,132 +77,119 @@ public class SqlServerDAOFactory extends DAOFactory {
             String username = prop.getProperty("spring.datasource.username");
             String password = prop.getProperty("spring.datasource.password");
 
-            this.connection = DriverManager.getConnection(url, username, password);
+		}catch (final SQLException exception) {
+			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
+	                .getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
+	                .getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "Error en la conexión a la base de datos.";
-			var technicalMessage = "Error en la conexión a la base de datos. Detalles técnicos: " + exception.getMessage();
-			throw TreePruningException.create(userMessage, technicalMessage);
-		}
+			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
+	                .getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
+	                .getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+	}
 	}
 
 	@Override
 	public AdministratorDAO getAdministratorDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new AdministratorSqlServerDAO(connection);
 	}
 
 	@Override
 	public CountryDAO getCountryDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CountrySqlServerDAO(connection);
 	}
 
 	@Override
 	public DocumentDAO getDocumentDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DocumentSqlServerDAO(connection);
 	}
 
 	@Override
 	public FamilyDAO getFamilyDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new FamilySqlServerDAO(connection);
 	}
 
 	@Override
 	public ManagerDAO getManagerDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ManagerSqlServerDAO(connection);
 	}
 
 	@Override
 	public MunicipalityDAO getMunicipalityDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new MunicipalitySqlServerDAO(connection);
 	}
 
 	@Override
 	public OperatorDAO getOperatorDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OperatorSqlServerDAO(connection);
 	}
 
 	@Override
 	public PersonDAO getPersonDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return PersonSqlServerDAO(connection);
 	}
 
 	@Override
 	public PQRDAO getPQRDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PQRSqlServerDAO(connection);
 	}
 
 	@Override
 	public ProgrammingDAO getProgrammingDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ProgrammingSqlServerDAO(connection);
 	}
 
 	@Override
 	public PruningDAO getPruningDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PruningSqlServerDAO(connection);
 	}
 
 	@Override
 	public PruningToolDAO getPrunningToolDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PruningToolSqlServerDAO (connection);
 	}
 
 	@Override
 	public QuadrilleDAO getQuadrilleDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new QuadrilleSqlServerDAO(connection);
 	}
 
 	@Override
 	public RiskDAO getRiskDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new RiskSqlServerDAO(connection);
 	}
 
 	@Override
 	public SectorDAO getSectorDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SectorSqlServerDAO(connection);
 	}
 
 	@Override
 	public StateDAO getStateDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new StateSqlServerDAO(connection);
 	}
 
 	@Override
 	public StatusDAO getStatusDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new StatusSqlServerDAO(connection);
 	}
 
 	@Override
 	public ToolDAO getToolDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ToolSqlServerDAO(connection);
 	}
 
 	@Override
 	public TreeDAO getTreeDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TreeSqlServerDAO(connection);
 	}
 
 	@Override
 	public TypeDAO getTypeDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TypeSqlServerDAO(connection);
 	}
 
 }

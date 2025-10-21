@@ -1,5 +1,6 @@
 package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,6 +8,10 @@ import co.edu.uco.treepruning.data.dao.entity.OperatorDAO;
 import co.edu.uco.treepruning.entity.OperatorEntity;
 
 public class OperatorSqlServerDAO implements OperatorDAO {
+
+	public OperatorSqlServerDAO(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void create(OperatorEntity entity) {

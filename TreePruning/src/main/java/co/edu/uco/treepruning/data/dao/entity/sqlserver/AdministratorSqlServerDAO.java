@@ -1,5 +1,6 @@
 package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,6 +8,10 @@ import co.edu.uco.treepruning.data.dao.entity.AdministratorDAO;
 import co.edu.uco.treepruning.entity.AdministratorEntity;
 
 public class AdministratorSqlServerDAO implements AdministratorDAO {
+
+	public AdministratorSqlServerDAO(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void create(AdministratorEntity entity) {

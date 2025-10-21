@@ -1,12 +1,19 @@
 package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.data.dao.entity.PersonDAO;
 import co.edu.uco.treepruning.entity.PersonEntity;
+import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 
 public class PersonSqlServerDAO implements PersonDAO {
+	
+	public PersonSqlServerDAO(final Connection connection) {
+        super(connection);
+    }
+
 
 	@Override
 	public void create(PersonEntity entity) {

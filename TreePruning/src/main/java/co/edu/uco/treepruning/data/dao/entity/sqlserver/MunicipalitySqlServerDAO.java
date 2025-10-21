@@ -1,5 +1,6 @@
 package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
@@ -7,6 +8,10 @@ import co.edu.uco.treepruning.data.dao.entity.MunicipalityDAO;
 import co.edu.uco.treepruning.entity.MunicipalityEntity;
 
 public class MunicipalitySqlServerDAO implements MunicipalityDAO {
+
+	public MunicipalitySqlServerDAO(Connection connection) {
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public List<MunicipalityEntity> findAll() {

@@ -1,12 +1,18 @@
 package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.data.dao.entity.ProgrammingDAO;
 import co.edu.uco.treepruning.entity.ProgrammingEntity;
+import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 
 public class ProgrammingSqlServerDAO implements ProgrammingDAO {
+
+	public ProgrammingSqlServerDAO(final Connection connection) {
+		super(connection);
+	}
 
 	@Override
 	public void create(ProgrammingEntity entity) {
