@@ -11,10 +11,6 @@ import co.edu.uco.treepruning.entity.PruningEntity;
 
 public final class PruningMapper {
 
-    private PruningMapper() {
-        super();
-    }
-
     public static PruningEntity map(final ResultSet resultSet) {
         var pruning = new PruningEntity();
 
