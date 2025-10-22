@@ -13,6 +13,11 @@ public final class RiskDomain extends Domain {
         super(UUIDHelper.getUUIDHelper().getDefault());
         setName(TextHelper.getDefault());
     }
+    
+    public RiskDomain(final UUID id) {
+        super(id);
+        setName(TextHelper.getDefault());
+    }
 
     public RiskDomain(final UUID id, final String name) {
         super(id);

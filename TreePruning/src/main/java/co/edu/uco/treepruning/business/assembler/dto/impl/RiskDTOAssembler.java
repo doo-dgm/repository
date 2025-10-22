@@ -1,9 +1,13 @@
 package co.edu.uco.treepruning.business.assembler.dto.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uco.treepruning.business.assembler.dto.DTOAssembler;
 import co.edu.uco.treepruning.business.domain.RiskDomain;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.RiskDTO;
 
 public class RiskDTOAssembler implements DTOAssembler<RiskDTO, RiskDomain>{
@@ -20,20 +24,25 @@ public class RiskDTOAssembler implements DTOAssembler<RiskDTO, RiskDomain>{
 
 	@Override
 	public RiskDTO toDTO(RiskDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		var domainTmp = ObjectHelper.getDefault(domain, new RiskDomain(UUIDHelper.getUUIDHelper().getDefault()));
+		return new RiskDTO(domainTmp.getId(), domainTmp.getName());
 	}
 
 	@Override
 	public RiskDomain toDomain(RiskDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
+		var dtoTmp = ObjectHelper.getDefault(dto, new RiskDTO(UUIDHelper.getUUIDHelper().getDefault()));
+		return new RiskDomain(dtoTmp.getId(), dtoTmp.getName());
 	}
 
 	@Override
 	public List<RiskDTO> toDTO(List<RiskDomain> domainList) {
-		// TODO Auto-generated method stub
-		return null;
+		var riskDTOList = new ArrayList<RiskDTO>();
+		
+		for (var risk : domainList) {
+			riskDTOList.add(toDTO(risk));
+		}
+		
+		return riskDTOList;
 	}
 
 }
