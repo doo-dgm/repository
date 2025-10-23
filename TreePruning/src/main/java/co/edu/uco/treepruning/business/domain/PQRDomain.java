@@ -10,7 +10,7 @@ import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 public final class PQRDomain extends Domain {
 
     private LocalDate date;
-    private StateDomain state;
+    private StatusDomain status;
     private RiskDomain risk;
     private SectorDomain sector;
     private PersonDomain person;
@@ -19,27 +19,32 @@ public final class PQRDomain extends Domain {
     public PQRDomain() {
         super(UUIDHelper.getUUIDHelper().getDefault());
         setDate(LocalDate.now());
-        setState(new StateDomain());
+        setStatus(new StatusDomain());
+        setRisk(new RiskDomain());
+        setSector(new SectorDomain());
+        setPerson(new PersonDomain());
+        setPhotographicRecordPath(TextHelper.getDefault());
+    }
+    
+    public PQRDomain(UUID id) {
+        super(id);
+        setDate(LocalDate.now());
+        setStatus(new StatusDomain());
         setRisk(new RiskDomain());
         setSector(new SectorDomain());
         setPerson(new PersonDomain());
         setPhotographicRecordPath(TextHelper.getDefault());
     }
 
-    public PQRDomain(final UUID id, final LocalDate date, final StateDomain state, final RiskDomain risk,
+    public PQRDomain(final UUID id, final LocalDate date, final StatusDomain status, final RiskDomain risk,
             final SectorDomain sector, final PersonDomain person, final String photographicRecordPath) {
         super(id);
         setDate(date);
-        setState(state);
+        setStatus(status);
         setRisk(risk);
         setSector(sector);
         setPerson(person);
         setPhotographicRecordPath(photographicRecordPath);
-    }
-
-    public static PQRDomain create(final UUID id, final LocalDate date, final StateDomain state, final RiskDomain risk,
-            final SectorDomain sector, final PersonDomain person, final String photographicRecordPath) {
-        return new PQRDomain(id, date, state, risk, sector, person, photographicRecordPath);
     }
 
     public LocalDate getDate() {
@@ -50,12 +55,12 @@ public final class PQRDomain extends Domain {
         this.date = ObjectHelper.getDefault(date, LocalDate.now());
     }
 
-    public StateDomain getState() {
-        return state;
+    public StatusDomain getStatus() {
+        return status;
     }
 
-    private void setState(final StateDomain state) {
-        this.state = ObjectHelper.getDefault(state, new StateDomain());
+    private void setStatus(final StatusDomain status) {
+        this.status = ObjectHelper.getDefault(status, new StatusDomain());
     }
 
     public RiskDomain getRisk() {

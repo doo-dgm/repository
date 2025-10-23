@@ -16,6 +16,12 @@ public final class QuadrilleDomain extends Domain {
         setQuadrilleName(TextHelper.getDefault());
         setManager(new ManagerDomain());
     }
+    
+    public QuadrilleDomain(UUID id) {
+        super(id);
+        setQuadrilleName(TextHelper.getDefault());
+        setManager(new ManagerDomain());
+    }
 
     public QuadrilleDomain(final UUID id, final String quadrilleName, final ManagerDomain manager) {
         super(id);
@@ -27,7 +33,7 @@ public final class QuadrilleDomain extends Domain {
         return new QuadrilleDomain(id, quadrilleName, manager);
     }
 
-    public String getQuadrilleName() {
+    public String getName() {
         return TextHelper.getDefaultWithTrim(quadrilleName);
     }
 

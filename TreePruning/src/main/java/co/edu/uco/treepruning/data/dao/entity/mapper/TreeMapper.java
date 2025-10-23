@@ -18,7 +18,7 @@ public final class TreeMapper {
             tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             tree.setLatitude(resultSet.getDouble("latitud"));
             tree.setLongitude(resultSet.getDouble("longitud"));
-            tree.setScientificName(FamilyMapper.map(resultSet));
+            tree.setFamily(FamilyMapper.map(resultSet));
             tree.setSector(SectorMapper.map(resultSet));
 
         } catch (final SQLException exception) {

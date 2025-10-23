@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -10,7 +11,7 @@ public class PQRDTO {
 
     private UUID id;
     private LocalDate date;
-    private StateDTO state;
+    private StatusDTO status;
     private RiskDTO risk;
     private SectorDTO sector;
     private PersonDTO person;
@@ -19,28 +20,28 @@ public class PQRDTO {
     public PQRDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setDate(LocalDate.now());
-        setState(null);
-        setRisk(null);
-        setSector(null);
-        setPerson(null);
+        setStatus(new StatusDTO());
+        setRisk(new RiskDTO());
+        setSector(new SectorDTO());
+        setPerson(new PersonDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
     }
 
     public PQRDTO(final UUID id) {
         setId(id);
         setDate(LocalDate.now());
-        setState(null);
-        setRisk(null);
-        setSector(null);
-        setPerson(null);
+        setStatus(new StatusDTO());
+        setRisk(new RiskDTO());
+        setSector(new SectorDTO());
+        setPerson(new PersonDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
     }
 
-    public PQRDTO(final UUID id, final LocalDate date, final StateDTO state, final RiskDTO risk,
+    public PQRDTO(final UUID id, final LocalDate date, final StatusDTO status, final RiskDTO risk,
                   final SectorDTO sector, final PersonDTO person, final String photographicRecordPath) {
         setId(id);
         setDate(date);
-        setState(state);
+        setStatus(status);
         setRisk(risk);
         setSector(sector);
         setPerson(person);
@@ -63,12 +64,12 @@ public class PQRDTO {
         this.date = date == null ? LocalDate.now() : date;
     }
 
-    public StateDTO getState() {
-        return state;
+    public StatusDTO getStatus() {
+        return status;
     }
 
-    public void setState(final StateDTO state) {
-        this.state = state == null ? new StateDTO() : state;
+    public void setStatus(final StatusDTO status) {
+        this.status = ObjectHelper.getDefault(status, new StatusDTO());
     }
 
     public RiskDTO getRisk() {
@@ -76,7 +77,7 @@ public class PQRDTO {
     }
 
     public void setRisk(final RiskDTO risk) {
-        this.risk = risk == null ? new RiskDTO() : risk;
+        this.risk = ObjectHelper.getDefault(risk, new RiskDTO());
     }
 
     public SectorDTO getSector() {
@@ -84,7 +85,7 @@ public class PQRDTO {
     }
 
     public void setSector(final SectorDTO sector) {
-        this.sector = sector == null ? new SectorDTO() : sector;
+        this.sector = ObjectHelper.getDefault(sector, new SectorDTO());
     }
 
     public PersonDTO getPerson() {
@@ -92,7 +93,7 @@ public class PQRDTO {
     }
 
     public void setPerson(final PersonDTO person) {
-        this.person = person == null ? new PersonDTO() : person;
+        this.person = ObjectHelper.getDefault(person, new PersonDTO());
     }
 
     public String getPhotographicRecordPath() {

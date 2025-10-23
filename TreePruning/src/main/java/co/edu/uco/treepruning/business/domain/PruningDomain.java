@@ -9,7 +9,7 @@ import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class PruningDomain extends Domain {
 
-    private StateDomain state;
+    private StatusDomain status;
     private LocalDate plannedDate;
     private LocalDate executedDate;
     private TreeDomain tree;
@@ -22,7 +22,21 @@ public final class PruningDomain extends Domain {
 
     public PruningDomain() {
         super(UUIDHelper.getUUIDHelper().getDefault());
-        setState(new StateDomain());
+        setStatus(new StatusDomain());
+        setPlannedDate(LocalDate.now());
+        setExecutedDate(LocalDate.now());
+        setTree(new TreeDomain());
+        setQuadrille(new QuadrilleDomain());
+        setType(new TypeDomain());
+        setPqr(new PQRDomain());
+        setProgramming(new ProgrammingDomain());
+        setPhotographicRecordPath(TextHelper.getDefault());
+        setObservations(TextHelper.getDefault());
+    }
+    
+    public PruningDomain(UUID id) {
+        super(id);
+        setStatus(new StatusDomain());
         setPlannedDate(LocalDate.now());
         setExecutedDate(LocalDate.now());
         setTree(new TreeDomain());
@@ -34,12 +48,12 @@ public final class PruningDomain extends Domain {
         setObservations(TextHelper.getDefault());
     }
 
-    public PruningDomain(final UUID id, final StateDomain state, final LocalDate plannedDate, final LocalDate executedDate,
+    public PruningDomain(final UUID id, final StatusDomain status, final LocalDate plannedDate, final LocalDate executedDate,
                          final TreeDomain tree, final QuadrilleDomain quadrille, final TypeDomain type,
                          final PQRDomain pqr, final ProgrammingDomain programming,
                          final String photographicRecordPath, final String observations) {
         super(id);
-        setState(state);
+        setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
@@ -51,20 +65,12 @@ public final class PruningDomain extends Domain {
         setObservations(observations);
     }
 
-    public static PruningDomain create(final UUID id, final StateDomain state, final LocalDate plannedDate,
-                                       final LocalDate executedDate, final TreeDomain tree, final QuadrilleDomain quadrille,
-                                       final TypeDomain type, final PQRDomain pqr, final ProgrammingDomain programming,
-                                       final String photographicRecordPath, final String observations) {
-        return new PruningDomain(id, state, plannedDate, executedDate, tree, quadrille, type, pqr, programming,
-                photographicRecordPath, observations);
+    public StatusDomain getStatus() {
+        return status;
     }
 
-    public StateDomain getState() {
-        return state;
-    }
-
-    private void setState(final StateDomain state) {
-        this.state = ObjectHelper.getDefault(state, new StateDomain());
+    private void setStatus(final StatusDomain status) {
+        this.status = ObjectHelper.getDefault(status, new StatusDomain());
     }
 
     public LocalDate getPlannedDate() {

@@ -18,6 +18,14 @@ public final class ProgrammingDomain extends Domain {
         setFrequencyMonths(0);
         setQuantity(0);
     }
+    
+    public ProgrammingDomain(UUID id) {
+    	super(id);
+        setInitialDate(LocalDate.now());
+        setFrequencyMonths(0);
+        setQuantity(0);
+    }
+
 
     public ProgrammingDomain(final UUID id, final LocalDate initialDate, final int frequencyMonths, final int quantity) {
         super(id);

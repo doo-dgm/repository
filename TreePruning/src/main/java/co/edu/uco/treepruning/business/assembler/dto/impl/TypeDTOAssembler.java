@@ -17,7 +17,7 @@ public class TypeDTOAssembler implements DTOAssembler<TypeDTO, TypeDomain> {
 		
 	}
 	
-	public static DTOAssembler<TypeDTO, TypeDomain> getInstance() {
+	public static DTOAssembler<TypeDTO, TypeDomain> getTypeDTOAssembler() {
 		return INSTANCE;
 	}
 
