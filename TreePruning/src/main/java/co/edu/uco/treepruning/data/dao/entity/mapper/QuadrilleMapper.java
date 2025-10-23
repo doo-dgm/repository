@@ -17,9 +17,10 @@ public final class QuadrilleMapper {
         try {
   
             var manager = ManagerMapper.map(resultSet);
+            quadrille.setManager(manager);
+            
             quadrille.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             quadrille.setQuadrilleName(resultSet.getString("quadrilleName"));
-            quadrille.setManager(manager);
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_MAPPER.getContent();

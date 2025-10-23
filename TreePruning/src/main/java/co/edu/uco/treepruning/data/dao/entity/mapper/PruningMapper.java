@@ -16,22 +16,26 @@ public final class PruningMapper {
 
         try {
             var status = StatusMapper.map(resultSet);
+            pruning.setStatus(status);
+            
             var tree = TreeMapper.map(resultSet);
+            pruning.setTree(tree);
+            
             var quadrille = QuadrilleMapper.map(resultSet);
+            pruning.setQuadrille(quadrille);
+            
             var type = TypeMapper.map(resultSet);
+            pruning.setType(type);
+            
             var pqr = PQRMapper.map(resultSet);
+            pruning.setPqr(pqr);
+            
             var programming = ProgrammingMapper.map(resultSet);
-
+            pruning.setProgramming(programming);
      
             pruning.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            pruning.setState(status);
             pruning.setPlannedDate(resultSet.getObject("plannedDate", LocalDate.class));
             pruning.setExecutedDate(resultSet.getObject("executedDate", LocalDate.class));
-            pruning.setTree(tree);
-            pruning.setQuadrille(quadrille);
-            pruning.setType(type);
-            pruning.setPqr(pqr);
-            pruning.setProgramming(programming);
             pruning.setPhotographicRecordPath(resultSet.getString("photoRecord"));
             pruning.setObservations(resultSet.getString("observations"));
 

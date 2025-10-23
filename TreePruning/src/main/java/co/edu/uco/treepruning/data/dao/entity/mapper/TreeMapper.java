@@ -15,11 +15,16 @@ public final class TreeMapper {
         var tree = new TreeEntity();
 
         try {
+        	var family = FamilyMapper.map(resultSet);
+        	tree.setFamily(family);
+        	
+        	var sector = SectorMapper.map(resultSet);
+        	tree.setSector(sector);
+        	
             tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             tree.setLatitude(resultSet.getDouble("latitud"));
             tree.setLongitude(resultSet.getDouble("longitud"));
-            tree.setFamily(FamilyMapper.map(resultSet));
-            tree.setSector(SectorMapper.map(resultSet));
+            
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER.getContent();

@@ -21,16 +21,19 @@ public final class PQRMapper {
 
         try {
             var status = StatusMapper.map(resultSet);
+            pqr.setStatus(status);
+            
             var risk = RiskMapper.map(resultSet);
+            pqr.setRisk(risk);
+            
             var sector = SectorMapper.map(resultSet);
+            pqr.setSector(sector);
+            
             var person = PersonMapper.map(resultSet);
+            pqr.setPerson(person);
             
             pqr.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             pqr.setDate(resultSet.getObject("fecha", LocalDate.class));
-            pqr.setStatus(status);
-            pqr.setRisk(risk);
-            pqr.setSector(sector);
-            pqr.setPerson(person);
             pqr.setPhotographicRecordPath(resultSet.getString("photoRecord"));
 
         } catch (final SQLException exception) {

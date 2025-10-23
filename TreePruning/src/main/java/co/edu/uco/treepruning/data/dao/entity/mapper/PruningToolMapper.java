@@ -16,11 +16,12 @@ public final class PruningToolMapper {
 
         try {
             var pruning = PruningMapper.map(resultSet);
+            pruningTool.setPruning(pruning);
+            
             var tool = ToolMapper.map(resultSet);
+            pruningTool.setTool(tool);
 
             pruningTool.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            pruningTool.setPruning(pruning);
-            pruningTool.setTool(tool);
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_PRUNING_TOOL_MAPPER.getContent();

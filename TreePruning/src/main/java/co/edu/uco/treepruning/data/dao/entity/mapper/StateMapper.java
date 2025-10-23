@@ -16,9 +16,10 @@ public final class StateMapper {
         try {
 
             var country = CountryMapper.map(resultSet);
+            state.setCountry(country);
+            
             state.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             state.setName(resultSet.getString("name"));
-            state.setCountry(country);
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_STATE_MAPPER.getContent();
