@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
-import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.data.dao.entity.AdministratorDAO;
 import co.edu.uco.treepruning.data.dao.entity.CountryDAO;
@@ -48,6 +47,7 @@ import co.edu.uco.treepruning.data.dao.entity.sqlserver.RiskSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.SectorSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.StateSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.StatusSqlServerDAO;
+import co.edu.uco.treepruning.data.dao.entity.sqlserver.ToolSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.TreeSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.TypeSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
@@ -76,13 +76,9 @@ public class SqlServerDAOFactory extends DAOFactory {
             String url = prop.getProperty("spring.datasource.url");
             String username = prop.getProperty("spring.datasource.username");
             String password = prop.getProperty("spring.datasource.password");
+            
+            this.connection = DriverManager.getConnection(url, username, password);
 
-		}catch (final SQLException exception) {
-			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
-	                .getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
-	                .getContent();
-			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
 	                .getContent();
@@ -129,7 +125,7 @@ public class SqlServerDAOFactory extends DAOFactory {
 
 	@Override
 	public PersonDAO getPersonDAO() {
-		return PersonSqlServerDAO(connection);
+		return new PersonSqlServerDAO(connection);
 	}
 
 	@Override

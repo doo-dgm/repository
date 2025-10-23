@@ -11,7 +11,7 @@ import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 public class PersonSqlServerDAO implements PersonDAO {
 	
 	public PersonSqlServerDAO(final Connection connection) {
-        super(connection);
+        // TODO Auto-generated constructor stub
     }
 
 
