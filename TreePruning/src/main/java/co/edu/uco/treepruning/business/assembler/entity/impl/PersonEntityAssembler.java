@@ -7,7 +7,10 @@ import co.edu.uco.treepruning.business.assembler.entity.EntityAssembler;
 import co.edu.uco.treepruning.business.domain.PersonDomain;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.dto.PersonDTO;
 import co.edu.uco.treepruning.entity.PersonEntity;
+
+import static co.edu.uco.treepruning.business.assembler.entity.impl.DocumentEntityAssembler.getDocumentEntityAssembler;
 
 public class PersonEntityAssembler implements EntityAssembler<PersonEntity, PersonDomain> {
 
@@ -23,50 +26,26 @@ public class PersonEntityAssembler implements EntityAssembler<PersonEntity, Pers
 
 	@Override
 	public PersonEntity toEntity(final PersonDomain domain) {
+		var domainTmp = ObjectHelper.getDefault(domain, new PersonDomain(UUIDHelper.getUUIDHelper().getDefault()));
+		var documentTypeEntityTmp= DocumentEntityAssembler().toEntity(domainTmp.getDocument());
 
-		var domainTmp = ObjectHelper.getDefault(domain,
-				new PersonDomain(UUIDHelper.getUUIDHelper().getDefault()));
-
-		return new PersonEntity(
-				domainTmp.getId(),
-				domainTmp.getFirstName(),
-				domainTmp.getSecondName(),
-				domainTmp.getLastName(),
-				domainTmp.getSecondLastName(),
-				domainTmp.getDocument(),
-				domainTmp.getDocumentNumber(),
-				domainTmp.getBirthDate(),
-				domainTmp.getAddress(),
-				domainTmp.getEmail(),
-				domainTmp.isEmailConfirmed(),
-				domainTmp.getMobilePhone(),
-				domainTmp.isMobilePhoneConfirmed(),
-				domainTmp.getAge()
-		);
+		return new PersonEntity(domainTmp.getId(), domainTmp.getFirstName(), domainTmp.getSecondName(),
+				domainTmp.getLastName(), domainTmp.getSecondLastName(), documentTypeEntityTmp, 
+				domainTmp.getDocumentNumber(), domainTmp.getBirthDate(), domainTmp.getAddress(), 
+				domainTmp.getEmail(), domainTmp.isEmailConfirmed(), domainTmp.getMobilePhone(), 
+				domainTmp.isMobilePhoneConfirmed(), domainTmp.getAge());
 	}
 
 	@Override
 	public PersonDomain toDomain(final PersonEntity entity) {
-
-		var entityTmp = ObjectHelper.getDefault(entity,
-				new PersonEntity(UUIDHelper.getUUIDHelper().getDefault()));
-
-		return new PersonDomain(
-				entityTmp.getId(),
-				entityTmp.getFirstName(),
-				entityTmp.getSecondName(),
-				entityTmp.getLastname(),
-				entityTmp.getSecondLastName(),
-				entityTmp.getDocument(),
-				entityTmp.getDocumentNumber(),
-				entityTmp.getBirthDate(),
-				entityTmp.getAddress(),
-				entityTmp.getEmail(),
-				entityTmp.isEmailConfirmed(),
-				entityTmp.getMobilePhone(),
-				entityTmp.isMobilePhoneConfirmed(),
-				entityTmp.getAge()
-		);
+		var entityTmp = ObjectHelper.getDefault(entity, new PersonDTO(UUIDHelper.getUUIDHelper().getDefault()));
+		var documentTypeDomainTmp = getDocumentEntityAssembler().toDomain(entityTmp.getDocument());
+		
+		return new PersonDomain(entityTmp.getId(), entityTmp.getFirstName(), entityTmp.getSecondName(),
+				entityTmp.getFirstLastName(), entityTmp.getSecondLastName(), documentTypeDomainTmp, 
+				entityTmp.getDocumentNumber(), entityTmp.getBirthDate(), entityTmp.getAddress(), 
+				entityTmp.getEmail(), entityTmp.isEmailConfirmed(), entityTmp.getPhone(), 
+				entityTmp.isPhoneConfirmed(), entityTmp.getAge());
 	}
 
 	@Override

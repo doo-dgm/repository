@@ -11,7 +11,7 @@ import co.edu.uco.treepruning.entity.PQREntity;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.PersonEntityAssembler.getPersonEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.RiskEntityAssembler.getRiskEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.SectorEntityAssembler.getSectorEntityAssembler;
-import static co.edu.uco.treepruning.business.assembler.entity.impl.StateEntityAssembler.getStateEntityAssembler;
+import static co.edu.uco.treepruning.business.assembler.entity.impl.StatusEntityAssembler.getStatusEntityAssembler;
 
 public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain> {
 
@@ -29,7 +29,7 @@ public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain>
     public PQREntity toEntity(final PQRDomain domain) {
         var domainTmp = ObjectHelper.getDefault(domain, new PQRDomain(UUIDHelper.getUUIDHelper().getDefault()));
 
-        var stateEntityTmp = getStateEntityAssembler().toEntity(domainTmp.getState());
+        var statusEntityTmp = getStatusEntityAssembler().toEntity(domainTmp.getStatus());
         var riskEntityTmp = getRiskEntityAssembler().toEntity(domainTmp.getRisk());
         var sectorEntityTmp = getSectorEntityAssembler().toEntity(domainTmp.getSector());
         var personEntityTmp = getPersonEntityAssembler().toEntity(domainTmp.getPerson());
@@ -37,7 +37,7 @@ public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain>
         return new PQREntity(
                 domainTmp.getId(),
                 domainTmp.getDate(),
-                stateEntityTmp,
+                statusEntityTmp,
                 riskEntityTmp,
                 sectorEntityTmp,
                 personEntityTmp,
@@ -49,7 +49,7 @@ public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain>
     public PQRDomain toDomain(final PQREntity entity) {
         var entityTmp = ObjectHelper.getDefault(entity, new PQREntity(UUIDHelper.getUUIDHelper().getDefault()));
 
-        var stateDomainTmp = getStateEntityAssembler().toDomain(entityTmp.getState());
+        var statusDomainTmp = getStatusEntityAssembler().toDomain(entityTmp.getStatus());
         var riskDomainTmp = getRiskEntityAssembler().toDomain(entityTmp.getRisk());
         var sectorDomainTmp = getSectorEntityAssembler().toDomain(entityTmp.getSector());
         var personDomainTmp = getPersonEntityAssembler().toDomain(entityTmp.getPerson());
@@ -57,7 +57,7 @@ public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain>
         return new PQRDomain(
                 entityTmp.getId(),
                 entityTmp.getDate(),
-                stateDomainTmp,
+                statusDomainTmp,
                 riskDomainTmp,
                 sectorDomainTmp,
                 personDomainTmp,

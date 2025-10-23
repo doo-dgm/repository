@@ -8,7 +8,7 @@ import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.PruningEntity;
-import static co.edu.uco.treepruning.business.assembler.entity.impl.StateEntityAssembler.getStateEntityAssembler;
+import static co.edu.uco.treepruning.business.assembler.entity.impl.StatusEntityAssembler.getStatusEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.TreeEntityAssembler.getTreeEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.QuadrilleEntityAssembler.getQuadrilleEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.TypeEntityAssembler.getTypeEntityAssembler;
@@ -32,7 +32,7 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
     public PruningEntity toEntity(final PruningDomain domain) {
         var domainTmp = ObjectHelper.getDefault(domain,new PruningDomain(UUIDHelper.getUUIDHelper().getDefault()));
 
-        var stateEntityTmp = getStateEntityAssembler().toEntity(domainTmp.getState());
+        var statusEntityTmp = getStatusEntityAssembler().toEntity(domainTmp.getStatus());
         var treeEntityTmp = getTreeEntityAssembler().toEntity(domainTmp.getTree());
         var quadrilleEntityTmp = getQuadrilleEntityAssembler().toEntity(domainTmp.getQuadrille());
         var typeEntityTmp = getTypeEntityAssembler().toEntity(domainTmp.getType());
@@ -41,7 +41,7 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
 
         return new PruningEntity(
                 domainTmp.getId(),
-                stateEntityTmp,
+                statusEntityTmp,
                 domainTmp.getPlannedDate(),
                 domainTmp.getExecutedDate(),
                 treeEntityTmp,
@@ -59,7 +59,7 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
         var entityTmp = ObjectHelper.getDefault(entity,
                 new PruningEntity(UUIDHelper.getUUIDHelper().getDefault()));
 
-        var stateDomainTmp = getStateEntityAssembler().toDomain(entityTmp.getState());
+        var statusDomainTmp = getStatusEntityAssembler().toDomain(entityTmp.getStatus());
         var treeDomainTmp = getTreeEntityAssembler().toDomain(entityTmp.getTree());
         var quadrilleDomainTmp = getQuadrilleEntityAssembler().toDomain(entityTmp.getQuadrille());
         var typeDomainTmp = getTypeEntityAssembler().toDomain(entityTmp.getType());
@@ -68,7 +68,7 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
 
         return new PruningDomain(
                 entityTmp.getId(),
-                stateDomainTmp,
+                statusDomainTmp,
                 entityTmp.getPlannedDate(),
                 entityTmp.getExecutedDate(),
                 treeDomainTmp,
