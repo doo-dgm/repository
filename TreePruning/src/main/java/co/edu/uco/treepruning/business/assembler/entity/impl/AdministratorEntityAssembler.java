@@ -1,9 +1,12 @@
 package co.edu.uco.treepruning.business.assembler.entity.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uco.treepruning.business.assembler.entity.EntityAssembler;
 import co.edu.uco.treepruning.business.domain.AdministratorDomain;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.AdministratorEntity;
 
 public class AdministratorEntityAssembler implements EntityAssembler<AdministratorEntity, AdministratorDomain> {
@@ -20,22 +23,26 @@ public class AdministratorEntityAssembler implements EntityAssembler<Administrat
 
 	@Override
 	public AdministratorEntity toEntity(AdministratorDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		var domainTmp = ObjectHelper.getDefault(domain, new AdministratorDomain(UUIDHelper.getUUIDHelper().getDefault()));
+		return new AdministratorEntity(domainTmp.getId(), domainTmp.getUsername(), domainTmp.getEmail(), domainTmp.isEmailConfirmed(), domainTmp.getMobilePhone(), domainTmp.isMobilePhoneConfirmed());
 	}
 
 	@Override
 	public AdministratorDomain toDomain(AdministratorEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		var entityTmp = ObjectHelper.getDefault(entity, new AdministratorEntity(UUIDHelper.getUUIDHelper().getDefault()));
+		return new AdministratorDomain(entityTmp.getId(), entityTmp.getUsername(), entityTmp.getEmail(), entityTmp.isEmailConfirmed(), entityTmp.getMobilePhone(), entityTmp.isMobilePhoneConfirmed());
 	}
 
 	@Override
 	public List<AdministratorEntity> toEntity(List<AdministratorDomain> domainList) {
-		// TODO Auto-generated method stub
-		return null;
+		List<AdministratorEntity> administratorEntityList = new ArrayList<AdministratorEntity>();
+		
+		for (var administrator : domainList) {
+			administratorEntityList.add(toEntity(administrator));
+		}
+		
+		return administratorEntityList;
+	
 	}
-	
-	
 
 }

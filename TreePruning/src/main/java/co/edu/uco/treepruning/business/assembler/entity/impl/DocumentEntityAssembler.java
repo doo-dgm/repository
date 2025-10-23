@@ -1,9 +1,12 @@
 package co.edu.uco.treepruning.business.assembler.entity.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uco.treepruning.business.assembler.entity.EntityAssembler;
 import co.edu.uco.treepruning.business.domain.DocumentDomain;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.DocumentEntity;
 
 public class DocumentEntityAssembler implements EntityAssembler<DocumentEntity, DocumentDomain> {
@@ -20,20 +23,25 @@ public class DocumentEntityAssembler implements EntityAssembler<DocumentEntity, 
 
 	@Override
 	public DocumentEntity toEntity(DocumentDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		var domainTmp = ObjectHelper.getDefault(domain, new DocumentDomain(UUIDHelper.getUUIDHelper().getDefault()));
+		return new DocumentEntity(domainTmp.getId(), domainTmp.getName(), domainTmp.getCode());
 	}
 
 	@Override
 	public DocumentDomain toDomain(DocumentEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		var entityTmp = ObjectHelper.getDefault(entity, new DocumentEntity(UUIDHelper.getUUIDHelper().getDefault()));
+		return new DocumentDomain(entityTmp.getId(), entityTmp.getName(), entityTmp.getCode());
 	}
 
 	@Override
 	public List<DocumentEntity> toEntity(List<DocumentDomain> domainList) {
-		// TODO Auto-generated method stub
-		return null;
+		var documentEntityList = new ArrayList<DocumentEntity>();
+		
+		for (var document : domainList) {
+			documentEntityList.add(toEntity(document));
+		}
+		
+		return documentEntityList;
 	}
 
 }
