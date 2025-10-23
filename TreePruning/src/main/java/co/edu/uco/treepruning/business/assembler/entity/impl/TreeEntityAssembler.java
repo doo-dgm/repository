@@ -28,18 +28,18 @@ public class TreeEntityAssembler implements EntityAssembler<TreeEntity, TreeDoma
     public TreeEntity toEntity(TreeDomain domain) {
         var domainTmp = ObjectHelper.getDefault(domain, new TreeDomain(UUIDHelper.getUUIDHelper().getDefault()));
         
-        var scientificNameEntityTmp = getFamilyEntityAssembler().toEntity(domainTmp.getScientificName());
+        var familyTmp = getFamilyEntityAssembler().toEntity(domainTmp.getFamily());
         var sectorEntityTmp = getSectorEntityAssembler().toEntity(domainTmp.getSector());
 
         return new TreeEntity(domainTmp.getId(), domainTmp.getLongitude(),
-                domainTmp.getLatitude(), scientificNameEntityTmp, sectorEntityTmp);
+                domainTmp.getLatitude(), familyTmp, sectorEntityTmp);
     }
 
     @Override
     public TreeDomain toDomain(TreeEntity entity) {
         var entityTmp = ObjectHelper.getDefault(entity, new TreeEntity(UUIDHelper.getUUIDHelper().getDefault()));
         
-        var scientificNameDomainTmp = getFamilyEntityAssembler().toDomain(entityTmp.getScientificName());
+        var scientificNameDomainTmp = getFamilyEntityAssembler().toDomain(entityTmp.getFamily());
         var sectorDomainTmp = getSectorEntityAssembler().toDomain(entityTmp.getSector());
 
         return new TreeDomain(entityTmp.getId(), entityTmp.getLongitude(),

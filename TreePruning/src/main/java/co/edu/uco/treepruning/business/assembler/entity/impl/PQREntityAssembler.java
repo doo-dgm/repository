@@ -21,7 +21,7 @@ public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain>
         super();
     }
 
-    public static EntityAssembler<PQREntity, PQRDomain> getPqREntityAssembler() {
+    public static EntityAssembler<PQREntity, PQRDomain> getPQREntityAssembler() {
         return INSTANCE;
     }
 

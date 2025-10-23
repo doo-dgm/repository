@@ -3,33 +3,34 @@ package co.edu.uco.treepruning.entity;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class TreeEntity {
 
     private UUID id;
-    private double longitude;
-    private double latitude;
+    private String longitude;
+    private String latitude;
     private FamilyEntity family;
     private SectorEntity sector;
 
     public TreeEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setLongitude(0.0);
-        setLatitude(0.0);
+        setLongitude(TextHelper.getDefault());
+        setLatitude(TextHelper.getDefault());
         setFamily(new FamilyEntity());
         setSector(null);
     }
 
     public TreeEntity(final UUID id) {
         setId(id);
-        setLongitude(0.0);
-        setLatitude(0.0);
+        setLongitude(TextHelper.getDefault());
+        setLatitude(TextHelper.getDefault());
         setFamily(new FamilyEntity());
         setSector(null);
     }
 
-    public TreeEntity(final UUID id, final double longitude, final double latitude, final FamilyEntity family, final SectorEntity sector) {
+    public TreeEntity(final UUID id, final String longitude, final String latitude, final FamilyEntity family, final SectorEntity sector) {
         setId(id);
         setLongitude(longitude);
         setLatitude(latitude);
@@ -45,19 +46,19 @@ public final class TreeEntity {
         this.id = UUIDHelper.getUUIDHelper().getDefault(id);
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(final double longitude) {
+    public void setLongitude(final String longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(final double latitude) {
+    public void setLatitude(final String latitude) {
         this.latitude = latitude;
     }
 

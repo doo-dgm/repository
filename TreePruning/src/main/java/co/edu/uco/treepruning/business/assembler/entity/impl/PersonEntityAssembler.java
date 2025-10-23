@@ -27,7 +27,7 @@ public class PersonEntityAssembler implements EntityAssembler<PersonEntity, Pers
 	@Override
 	public PersonEntity toEntity(final PersonDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new PersonDomain(UUIDHelper.getUUIDHelper().getDefault()));
-		var documentTypeEntityTmp= DocumentEntityAssembler().toEntity(domainTmp.getDocument());
+		var documentTypeEntityTmp= getDocumentEntityAssembler().toEntity(domainTmp.getDocument());
 
 		return new PersonEntity(domainTmp.getId(), domainTmp.getFirstName(), domainTmp.getSecondName(),
 				domainTmp.getLastName(), domainTmp.getSecondLastName(), documentTypeEntityTmp, 
@@ -38,7 +38,7 @@ public class PersonEntityAssembler implements EntityAssembler<PersonEntity, Pers
 
 	@Override
 	public PersonDomain toDomain(final PersonEntity entity) {
-		var entityTmp = ObjectHelper.getDefault(entity, new PersonDTO(UUIDHelper.getUUIDHelper().getDefault()));
+		var entityTmp = ObjectHelper.getDefault(entity, new PersonEntity(UUIDHelper.getUUIDHelper().getDefault()));
 		var documentTypeDomainTmp = getDocumentEntityAssembler().toDomain(entityTmp.getDocument());
 		
 		return new PersonDomain(entityTmp.getId(), entityTmp.getFirstName(), entityTmp.getSecondName(),
