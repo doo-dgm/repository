@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.dto;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 
 public class QuadrilleDTO {
@@ -50,7 +51,7 @@ public class QuadrilleDTO {
     }
 
     public void setManager(final ManagerDTO manager) {
-        this.manager = manager == null ? new ManagerDTO() : manager;
+        this.manager = ObjectHelper.getDefault(manager, new ManagerDTO());
     }
 }
 

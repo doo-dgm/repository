@@ -2,7 +2,7 @@ package co.edu.uco.treepruning.entity;
 
 import java.util.UUID;
 
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class TreeEntity {
@@ -10,14 +10,14 @@ public final class TreeEntity {
     private UUID id;
     private double longitude;
     private double latitude;
-    private String scientificName;
+    private FamilyEntity family;
     private SectorEntity sector;
 
     public TreeEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setLongitude(0.0);
         setLatitude(0.0);
-        setScientificName(TextHelper.getDefault());
+        setFamily(new FamilyEntity());
         setSector(null);
     }
 
@@ -25,15 +25,15 @@ public final class TreeEntity {
         setId(id);
         setLongitude(0.0);
         setLatitude(0.0);
-        setScientificName(TextHelper.getDefault());
+        setFamily(new FamilyEntity());
         setSector(null);
     }
 
-    public TreeEntity(final UUID id, final double longitude, final double latitude, final String scientificName, final SectorEntity sector) {
+    public TreeEntity(final UUID id, final double longitude, final double latitude, final FamilyEntity family, final SectorEntity sector) {
         setId(id);
         setLongitude(longitude);
         setLatitude(latitude);
-        setScientificName(scientificName);
+        setFamily(family);
         setSector(sector);
     }
 
@@ -61,12 +61,12 @@ public final class TreeEntity {
         this.latitude = latitude;
     }
 
-    public String getScientificName() {
-        return TextHelper.getDefaultWithTrim(scientificName);
+    public FamilyEntity getFamily() {
+        return family;
     }
 
-    public void setScientificName(final String scientificName) {
-        this.scientificName = TextHelper.getDefaultWithTrim(scientificName);
+    public void setFamily(final FamilyEntity family) {
+        this.family = ObjectHelper.getDefault(family, new FamilyEntity());
     }
 
     public SectorEntity getSector() {
@@ -74,7 +74,7 @@ public final class TreeEntity {
     }
 
     public void setSector(final SectorEntity sector) {
-        this.sector = sector == null ? new SectorEntity() : sector;
+        this.sector = ObjectHelper.getDefault(sector, new SectorEntity());
     }
 }
 

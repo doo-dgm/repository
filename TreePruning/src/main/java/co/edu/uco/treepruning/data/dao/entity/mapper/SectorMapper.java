@@ -16,9 +16,11 @@ public final class SectorMapper {
         try {
            
             var municipality = MunicipalityMapper.map(resultSet);
+            sector.setMunicipality(municipality);
+            
             sector.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             sector.setName(resultSet.getString("name"));
-            sector.setMunicipality(municipality);
+            
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_SECTOR_MAPPER.getContent();

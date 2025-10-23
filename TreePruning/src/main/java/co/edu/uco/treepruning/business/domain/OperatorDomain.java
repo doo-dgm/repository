@@ -1,5 +1,8 @@
 package co.edu.uco.treepruning.business.domain;
 
+import java.util.UUID;
+
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class OperatorDomain extends Domain {
@@ -12,14 +15,20 @@ public final class OperatorDomain extends Domain {
 		setPerson(new PersonDomain());
 		setQuadrille(new QuadrilleDomain());
 	}
+	
+	public OperatorDomain(UUID id) {
+		super(id);
+		setPerson(new PersonDomain());
+		setQuadrille(new QuadrilleDomain());
+	}
 
-	public OperatorDomain(final java.util.UUID id, final PersonDomain person, final QuadrilleDomain quadrille) {
+	public OperatorDomain(final UUID id, final PersonDomain person, final QuadrilleDomain quadrille) {
 		super(id);
 		setPerson(person);
 		setQuadrille(quadrille);
 	}
 
-	public static OperatorDomain create(final java.util.UUID id, final PersonDomain person, final QuadrilleDomain quadrille) {
+	public static OperatorDomain create(final UUID id, final PersonDomain person, final QuadrilleDomain quadrille) {
 		return new OperatorDomain(id, person, quadrille);
 	}
 
@@ -28,7 +37,7 @@ public final class OperatorDomain extends Domain {
 	}
 
 	private void setPerson(final PersonDomain person) {
-		this.person = (person != null) ? person : new PersonDomain();
+		this.person = ObjectHelper.getDefault(person, new PersonDomain());
 	}
 
 	public QuadrilleDomain getQuadrille() {
@@ -36,7 +45,7 @@ public final class OperatorDomain extends Domain {
 	}
 
 	private void setQuadrille(final QuadrilleDomain quadrille) {
-		this.quadrille = (quadrille != null) ? quadrille : new QuadrilleDomain();
+		this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDomain());
 	}
 }
 

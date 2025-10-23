@@ -17,9 +17,10 @@ public final class ManagerMapper {
         try {
         	
         	var person = new PersonEntity();
+        	manager.setPerson(person);
+        	
             manager.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             person.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("persona")));
-            manager.setPerson(person);
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_MANAGER_MAPPER.getContent();

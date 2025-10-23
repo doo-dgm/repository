@@ -15,6 +15,12 @@ public final class PruningToolDomain extends Domain {
         setPruning(new PruningDomain());
         setTool(new ToolDomain());
     }
+    
+    public PruningToolDomain(UUID id) {
+        super(id);
+        setPruning(new PruningDomain());
+        setTool(new ToolDomain());
+    }
 
     public PruningToolDomain(final UUID id, final PruningDomain pruning, final ToolDomain tool) {
         super(id);

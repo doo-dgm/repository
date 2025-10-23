@@ -10,14 +10,14 @@ public final class TreeDomain extends Domain {
 
     private String longitude;
     private String latitude;
-    private String scientificName;
+    private FamilyDomain family;
     private SectorDomain sector;
 
     public TreeDomain() {
         super(UUIDHelper.getUUIDHelper().getDefault());
         setLongitude(TextHelper.getDefault());
         setLatitude(TextHelper.getDefault());
-        setScientificName(TextHelper.getDefault());
+        setFamily(new FamilyDomain());
         setSector(new SectorDomain());
     }
 
@@ -25,15 +25,15 @@ public final class TreeDomain extends Domain {
         super(id);
         setLongitude(TextHelper.getDefault());
         setLatitude(TextHelper.getDefault());
-        setScientificName(TextHelper.getDefault());
+        setFamily(new FamilyDomain());
         setSector(new SectorDomain());
     }
 
-    public TreeDomain(final UUID id, final String longitude, final String latitude, final String scientificName, final SectorDomain sector) {
+    public TreeDomain(final UUID id, final String longitude, final String latitude, final FamilyDomain family, final SectorDomain sector) {
         super(id);
         setLongitude(longitude);
         setLatitude(latitude);
-        setScientificName(scientificName);
+        setFamily(family);
         setSector(sector);
     }
 
@@ -53,12 +53,12 @@ public final class TreeDomain extends Domain {
         this.latitude = TextHelper.getDefaultWithTrim(latitude);
     }
 
-    public String getScientificName() {
-        return TextHelper.getDefaultWithTrim(scientificName);
+    public FamilyDomain getFamily() {
+        return family;
     }
 
-    public void setScientificName(final String scientificName) {
-        this.scientificName = TextHelper.getDefaultWithTrim(scientificName);
+    public void setFamily(final FamilyDomain family) {
+        this.family = ObjectHelper.getDefault(family, new FamilyDomain());
     }
 
     public SectorDomain getSector() {

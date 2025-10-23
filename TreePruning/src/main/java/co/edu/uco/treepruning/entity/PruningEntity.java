@@ -10,7 +10,7 @@ import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 public final class PruningEntity {
 
     private UUID id;
-    private StateEntity state;
+    private StatusEntity status;
     private LocalDate plannedDate;
     private LocalDate executedDate;
     private TreeEntity tree;
@@ -23,38 +23,37 @@ public final class PruningEntity {
 
     public PruningEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setState(null);
+        setStatus(new StatusEntity());
         setPlannedDate(LocalDate.now());
         setExecutedDate(LocalDate.now());
-        setTree(null);
-        setQuadrille(null);
-        setType(null);
-        setPqr(null);
-        setProgramming(null);
+        setTree(new TreeEntity());
+        setQuadrille(new QuadrilleEntity());
+        setType(new TypeEntity());
+        setPqr(new PQREntity());
+        setProgramming(new ProgrammingEntity());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
     public PruningEntity(final UUID id) {
-        setId(id);
-        setState(null);
+        setStatus(new StatusEntity());
         setPlannedDate(LocalDate.now());
         setExecutedDate(LocalDate.now());
-        setTree(null);
-        setQuadrille(null);
-        setType(null);
-        setPqr(null);
-        setProgramming(null);
+        setTree(new TreeEntity());
+        setQuadrille(new QuadrilleEntity());
+        setType(new TypeEntity());
+        setPqr(new PQREntity());
+        setProgramming(new ProgrammingEntity());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
-    public PruningEntity(final UUID id, final StateEntity state, final LocalDate plannedDate, final LocalDate executedDate,
+    public PruningEntity(final UUID id, final StatusEntity status, final LocalDate plannedDate, final LocalDate executedDate,
                          final TreeEntity tree, final QuadrilleEntity quadrille, final TypeEntity type,
                          final PQREntity pqr, final ProgrammingEntity programming,
                          final String photographicRecordPath, final String observations) {
         setId(id);
-        setState(state);
+        setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
@@ -74,12 +73,12 @@ public final class PruningEntity {
         this.id = UUIDHelper.getUUIDHelper().getDefault(id);
     }
 
-    public StateEntity getState() {
-        return state;
+    public StatusEntity getStatus() {
+        return status;
     }
 
-    public void setState(final StateEntity state) {
-        this.state = state == null ? new StateEntity() : state;
+    public void setStatus(final StatusEntity status) {
+        this.status = ObjectHelper.getDefault(status, new StatusEntity());
     }
 
     public LocalDate getPlannedDate() {

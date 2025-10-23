@@ -14,12 +14,14 @@ public final class PersonMapper {
         var person = new PersonEntity();
 
         try {
+        	var documentType = DocumentMapper.map(resultSet);
+        	person.setDocument(documentType);
+        	
             person.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             person.setFirstName(resultSet.getString("firstName"));
             person.setSecondName(resultSet.getString("secondName"));
-            person.setLastName(resultSet.getString("lastName"));
+            person.setFirstLastName(resultSet.getString("lastName"));
             person.setSecondLastName(resultSet.getString("secondLastName"));
-            person.setDocument(resultSet.getString("document"));
             person.setDocumentNumber(resultSet.getString("documentNumber"));
             person.setBirthDate(resultSet.getDate("birthDate") != null ? resultSet.getDate("fechaNacimiento").toLocalDate() : null);
             person.setAddress(resultSet.getString("adress"));

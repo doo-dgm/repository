@@ -16,11 +16,12 @@ public final class MunicipalityMapper {
 
         try {
         	
-        	var state = new StateEntity();
-            municipality.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
+        	var state = StateMapper.map(resultSet);
+        	municipality.setState(state);
+        	
+        	municipality.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             municipality.setName(resultSet.getString("name"));
-            state.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("departamento")));
-            municipality.setState(state);
+                 
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_MUNICIPALITY_MAPPER.getContent();

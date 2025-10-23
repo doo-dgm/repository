@@ -19,7 +19,7 @@ public class MunicipalityDTOAssembler implements DTOAssembler<MunicipalityDTO, M
 		
 	}
 	
-	public static DTOAssembler<MunicipalityDTO, MunicipalityDomain> getInstance() {
+	public static DTOAssembler<MunicipalityDTO, MunicipalityDomain> getMunicipalityDTOAssembler() {
 		return INSTANCE;
 	}
 

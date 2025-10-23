@@ -25,7 +25,7 @@ public final class PersonDomain extends Domain {
     private int age;
 
     public PersonDomain() {
-        super(UUIDHelper.getUUIDHelper().getDefault());
+    	super(UUIDHelper.getUUIDHelper().getDefault());
         setFirstName(TextHelper.getDefault());
         setSecondName(TextHelper.getDefault());
         setLastName(TextHelper.getDefault());
@@ -42,7 +42,7 @@ public final class PersonDomain extends Domain {
     }
 
     public PersonDomain(final UUID id) {
-        super(id);
+    	super(id);
         setFirstName(TextHelper.getDefault());
         setSecondName(TextHelper.getDefault());
         setLastName(TextHelper.getDefault());
@@ -77,6 +77,7 @@ public final class PersonDomain extends Domain {
         setMobilePhoneConfirmed(mobilePhoneConfirmed);
         setAge(age);
     }
+    
 
     public String getFirstName() {
         return TextHelper.getDefaultWithTrim(firstName);

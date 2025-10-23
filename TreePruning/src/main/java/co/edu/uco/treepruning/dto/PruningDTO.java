@@ -3,13 +3,14 @@ package co.edu.uco.treepruning.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public class PruningDTO {
 
     private UUID id;
-    private StateDTO state;
+    private StatusDTO status;
     private LocalDate plannedDate;
     private LocalDate executedDate;
     private TreeDTO tree;
@@ -22,38 +23,38 @@ public class PruningDTO {
 
     public PruningDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setState(null);
+        setStatus(new StatusDTO());
         setPlannedDate(LocalDate.now());
         setExecutedDate(LocalDate.now());
-        setTree(null);
-        setQuadrille(null);
-        setType(null);
-        setPqr(null);
-        setProgramming(null);
+        setTree(new TreeDTO());
+        setQuadrille(new QuadrilleDTO());
+        setType(new TypeDTO());
+        setPqr(new PQRDTO());
+        setProgramming(new ProgrammingDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
     public PruningDTO(final UUID id) {
         setId(id);
-        setState(null);
+        setStatus(new StatusDTO());
         setPlannedDate(LocalDate.now());
         setExecutedDate(LocalDate.now());
-        setTree(null);
-        setQuadrille(null);
-        setType(null);
-        setPqr(null);
-        setProgramming(null);
+        setTree(new TreeDTO());
+        setQuadrille(new QuadrilleDTO());
+        setType(new TypeDTO());
+        setPqr(new PQRDTO());
+        setProgramming(new ProgrammingDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
-    public PruningDTO(final UUID id, final StateDTO state, final LocalDate plannedDate, final LocalDate executedDate,
+    public PruningDTO(final UUID id, final StatusDTO status, final LocalDate plannedDate, final LocalDate executedDate,
                       final TreeDTO tree, final QuadrilleDTO quadrille, final TypeDTO type,
                       final PQRDTO pqr, final ProgrammingDTO programming, final String photographicRecordPath,
                       final String observations) {
         setId(id);
-        setState(state);
+        setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
@@ -73,12 +74,12 @@ public class PruningDTO {
         this.id = UUIDHelper.getUUIDHelper().getDefault(id);
     }
 
-    public StateDTO getState() {
-        return state;
+    public StatusDTO getStatus() {
+        return status;
     }
 
-    public void setState(final StateDTO state) {
-        this.state = state == null ? new StateDTO() : state;
+    public void setStatus(final StatusDTO status) {
+        this.status = ObjectHelper.getDefault(status, new StatusDTO());
     }
 
     public LocalDate getPlannedDate() {
@@ -102,7 +103,7 @@ public class PruningDTO {
     }
 
     public void setTree(final TreeDTO tree) {
-        this.tree = tree == null ? new TreeDTO() : tree;
+        this.tree = ObjectHelper.getDefault(tree, new TreeDTO());
     }
 
     public QuadrilleDTO getQuadrille() {
@@ -110,7 +111,7 @@ public class PruningDTO {
     }
 
     public void setQuadrille(final QuadrilleDTO quadrille) {
-        this.quadrille = quadrille == null ? new QuadrilleDTO() : quadrille;
+        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDTO());
     }
 
     public TypeDTO getType() {
@@ -118,7 +119,7 @@ public class PruningDTO {
     }
 
     public void setType(final TypeDTO type) {
-        this.type = type == null ? new TypeDTO() : type;
+        this.type = ObjectHelper.getDefault(type, new TypeDTO());
     }
 
     public PQRDTO getPqr() {
@@ -126,7 +127,7 @@ public class PruningDTO {
     }
 
     public void setPqr(final PQRDTO pqr) {
-        this.pqr = pqr == null ? new PQRDTO() : pqr;
+        this.pqr = ObjectHelper.getDefault(pqr, new PQRDTO());
     }
 
     public ProgrammingDTO getProgramming() {
@@ -134,7 +135,7 @@ public class PruningDTO {
     }
 
     public void setProgramming(final ProgrammingDTO programming) {
-        this.programming = programming == null ? new ProgrammingDTO() : programming;
+        this.programming = ObjectHelper.getDefault(programming, new ProgrammingDTO());
     }
 
     public String getPhotographicRecordPath() {

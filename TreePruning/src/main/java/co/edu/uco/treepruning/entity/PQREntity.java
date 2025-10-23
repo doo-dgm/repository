@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -10,7 +11,7 @@ public final class PQREntity {
 
     private UUID id;
     private LocalDate date;
-    private StateEntity state;
+    private StatusEntity status;
     private RiskEntity risk;
     private SectorEntity sector;
     private PersonEntity person;
@@ -19,28 +20,28 @@ public final class PQREntity {
     public PQREntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setDate(LocalDate.now());
-        setState(null);
-        setRisk(null);
-        setSector(null);
-        setPerson(null);
+        setStatus(new StatusEntity());
+        setRisk(new RiskEntity());
+        setSector(new SectorEntity());
+        setPerson(new PersonEntity());
         setPhotographicRecordPath(TextHelper.getDefault());
     }
 
     public PQREntity(final UUID id) {
         setId(id);
         setDate(LocalDate.now());
-        setState(null);
-        setRisk(null);
-        setSector(null);
-        setPerson(null);
+        setStatus(new StatusEntity());
+        setRisk(new RiskEntity());
+        setSector(new SectorEntity());
+        setPerson(new PersonEntity());
         setPhotographicRecordPath(TextHelper.getDefault());
     }
 
-    public PQREntity(final UUID id, final LocalDate date, final StateEntity state, final RiskEntity risk,
+    public PQREntity(final UUID id, final LocalDate date, final StatusEntity status, final RiskEntity risk,
                      final SectorEntity sector, final PersonEntity person, final String photographicRecordPath) {
         setId(id);
         setDate(date);
-        setState(state);
+        setStatus(status);
         setRisk(risk);
         setSector(sector);
         setPerson(person);
@@ -63,12 +64,12 @@ public final class PQREntity {
         this.date = date == null ? LocalDate.now() : date;
     }
 
-    public StateEntity getState() {
-        return state;
+    public StatusEntity getStatus() {
+        return status;
     }
 
-    public void setState(final StateEntity state) {
-        this.state = state == null ? new StateEntity() : state;
+    public void setStatus(final StatusEntity status) {
+        this.status = ObjectHelper.getDefault(status, new StatusEntity());
     }
 
     public RiskEntity getRisk() {
@@ -76,7 +77,7 @@ public final class PQREntity {
     }
 
     public void setRisk(final RiskEntity risk) {
-        this.risk = risk == null ? new RiskEntity() : risk;
+        this.risk = ObjectHelper.getDefault(risk, new RiskEntity());
     }
 
     public SectorEntity getSector() {
@@ -84,7 +85,7 @@ public final class PQREntity {
     }
 
     public void setSector(final SectorEntity sector) {
-        this.sector = sector == null ? new SectorEntity() : sector;
+        this.sector = ObjectHelper.getDefault(sector, new SectorEntity());
     }
 
     public PersonEntity getPerson() {
@@ -92,7 +93,7 @@ public final class PQREntity {
     }
 
     public void setPerson(final PersonEntity person) {
-        this.person = person == null ? new PersonEntity() : person;
+        this.person = ObjectHelper.getDefault(person, new PersonEntity());
     }
 
     public String getPhotographicRecordPath() {
