@@ -1,39 +1,51 @@
 package co.edu.uco.treepruning.business.assembler.entity.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uco.treepruning.business.assembler.entity.EntityAssembler;
 import co.edu.uco.treepruning.business.domain.SectorDomain;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.SectorEntity;
 
+import static co.edu.uco.treepruning.business.assembler.entity.impl.MunicipalityEntityAssembler.getMunicipalityEntityAssembler;
+
 public class SectorEntityAssembler implements EntityAssembler<SectorEntity, SectorDomain> {
-	
-	private static final EntityAssembler<SectorEntity, SectorDomain> INSTANCE = new SectorEntityAssembler();
-	
-	private SectorEntityAssembler() {
-		
-	}
-	
-	public static EntityAssembler<SectorEntity, SectorDomain> getSectorEntityAssembler() {
-		return INSTANCE;
-	}
 
-	@Override
-	public SectorEntity toEntity(SectorDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private static final EntityAssembler<SectorEntity, SectorDomain> INSTANCE = new SectorEntityAssembler();
 
-	@Override
-	public SectorDomain toDomain(SectorEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private SectorEntityAssembler() {
+        super();
+    }
 
-	@Override
-	public List<SectorEntity> toEntity(List<SectorDomain> domainList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public static EntityAssembler<SectorEntity, SectorDomain> getSectorEntityAssembler() {
+        return INSTANCE;
+    }
 
+    @Override
+    public SectorEntity toEntity(SectorDomain domain) {
+        var domainTmp = ObjectHelper.getDefault(domain, new SectorDomain(UUIDHelper.getUUIDHelper().getDefault()));
+        var municipalityEntityTmp = getMunicipalityEntityAssembler().toEntity(domainTmp.getMunicipality());
+        return new SectorEntity(domainTmp.getId(), domainTmp.getName(), municipalityEntityTmp);
+    }
+
+    @Override
+    public SectorDomain toDomain(SectorEntity entity) {
+        var entityTmp = ObjectHelper.getDefault(entity, new SectorEntity(UUIDHelper.getUUIDHelper().getDefault()));
+        var municipalityDomainTmp = getMunicipalityEntityAssembler().toDomain(entityTmp.getMunicipality());
+        return new SectorDomain(entityTmp.getId(), entityTmp.getName(), municipalityDomainTmp);
+    }
+
+    @Override
+    public List<SectorEntity> toEntity(List<SectorDomain> domainList) {
+        var sectorEntityList = new ArrayList<SectorEntity>();
+
+        for (var sector : domainList) {
+            sectorEntityList.add(toEntity(sector));
+        }
+
+        return sectorEntityList;
+    }
 }
+

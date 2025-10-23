@@ -53,19 +53,19 @@ public class PersonEntityAssembler implements EntityAssembler<PersonEntity, Pers
 
 		return new PersonDomain(
 				entityTmp.getId(),
-				entityTmp.getNombreUno(),
-				entityTmp.getNombreDos(),
-				entityTmp.getApellidoUno(),
-				entityTmp.getApellidoDos(),
-				entityTmp.getDocumento(),
-				entityTmp.getNumeroDocumento(),
-				entityTmp.getFechaNacimiento(),
-				entityTmp.getDireccion(),
+				entityTmp.getFirstName(),
+				entityTmp.getSecondName(),
+				entityTmp.getLastname(),
+				entityTmp.getSecondLastName(),
+				entityTmp.getDocument(),
+				entityTmp.getDocumentNumber(),
+				entityTmp.getBirthDate(),
+				entityTmp.getAddress(),
 				entityTmp.getEmail(),
-				entityTmp.isCorreoConfirmado(),
-				entityTmp.getTelefono(),
-				entityTmp.isTelefonoConfirmado(),
-				entityTmp.getEdad()
+				entityTmp.isEmailConfirmed(),
+				entityTmp.getMobilePhone(),
+				entityTmp.isMobilePhoneConfirmed(),
+				entityTmp.getAge()
 		);
 	}
 
@@ -74,7 +74,7 @@ public class PersonEntityAssembler implements EntityAssembler<PersonEntity, Pers
 
 		var personEntityList = new ArrayList<PersonEntity>();
 
-		for (var person : ObjectHelper.getDefault(domainList, List.of())) {
+		for (var person :domainList) {
 			personEntityList.add(toEntity(person));
 		}
 

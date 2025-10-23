@@ -1,6 +1,5 @@
 package co.edu.uco.treepruning.business.assembler.entity.impl;
 
-import static co.edu.uco.treepruning.business.assembler.dto.impl.StateDTOAssembler.getStateDTOAssembler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,8 @@ import co.edu.uco.treepruning.business.domain.MunicipalityDomain;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.MunicipalityEntity;
+import static co.edu.uco.treepruning.business.assembler.entity.impl.StateEntityAssembler.getStateEntityAssembler;
+
 
 public class MunicipalityEntityAssembler implements EntityAssembler<MunicipalityEntity, MunicipalityDomain> {
 	
@@ -32,7 +33,7 @@ public class MunicipalityEntityAssembler implements EntityAssembler<Municipality
 
 	@Override
 	public MunicipalityDomain toDomain(MunicipalityEntity entity) {
-		var entityTmp = ObjectHelper.getDefault(entity, new Municipalityentity(UUIDHelper.getUUIDHelper().getDefault()));
+		var entityTmp = ObjectHelper.getDefault(entity, new MunicipalityEntity(UUIDHelper.getUUIDHelper().getDefault()));
 		var stateDomainTmp = getStateEntityAssembler().toDomain(entityTmp.getState());
 		return new MunicipalityDomain(entityTmp.getId(), entityTmp.getName(), stateDomainTmp);
 	}

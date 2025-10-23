@@ -41,7 +41,7 @@ public class ManagerEntityAssembler implements EntityAssembler<ManagerEntity, Ma
     public List<ManagerEntity> toEntity(final List<ManagerDomain> domainList) {
         var managerEntityList = new ArrayList<ManagerEntity>();
 
-        for (var manager : ObjectHelper.getDefault(domainList, List.of())) {
+        for (var manager : domainList) {
             managerEntityList.add(toEntity(manager));
         }
 

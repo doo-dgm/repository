@@ -1,39 +1,47 @@
 package co.edu.uco.treepruning.business.assembler.entity.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.uco.treepruning.business.assembler.entity.EntityAssembler;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.StatusEntity;
 
 public class StatusEntityAssembler implements EntityAssembler<StatusEntity, StatusDomain> {
-	
-	private static final EntityAssembler<StatusEntity, StatusDomain> INSTANCE = new StatusEntityAssembler();
-	
-	private StatusEntityAssembler() {
-		
-	}
-	
-	public static EntityAssembler<StatusEntity, StatusDomain> getStatusEntityAssembler() {
-		return INSTANCE;
-	}
 
-	@Override
-	public StatusEntity toEntity(StatusDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private static final EntityAssembler<StatusEntity, StatusDomain> INSTANCE = new StatusEntityAssembler();
 
-	@Override
-	public StatusDomain toDomain(StatusEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private StatusEntityAssembler() {
+        super();
+    }
 
-	@Override
-	public List<StatusEntity> toEntity(List<StatusDomain> domainList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public static EntityAssembler<StatusEntity, StatusDomain> getStatusEntityAssembler() {
+        return INSTANCE;
+    }
 
+    @Override
+    public StatusEntity toEntity(final StatusDomain domain) {
+        var domainTmp = ObjectHelper.getDefault(domain, new StatusDomain(UUIDHelper.getUUIDHelper().getDefault()));
+        return new StatusEntity(domainTmp.getId(), domainTmp.getName());
+    }
+
+    @Override
+    public StatusDomain toDomain(final StatusEntity entity) {
+        var entityTmp = ObjectHelper.getDefault(entity, new StatusEntity(UUIDHelper.getUUIDHelper().getDefault()));
+        return new StatusDomain(entityTmp.getId(), entityTmp.getName());
+    }
+
+    @Override
+    public List<StatusEntity> toEntity(final List<StatusDomain> domainList) {
+        var statusEntityList = new ArrayList<StatusEntity>();
+
+        for (var status : domainList) {
+            statusEntityList.add(toEntity(status));
+        }
+
+        return statusEntityList;
+    }
 }
+

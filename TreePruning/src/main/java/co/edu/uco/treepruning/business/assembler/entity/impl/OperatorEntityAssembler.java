@@ -8,6 +8,8 @@ import co.edu.uco.treepruning.business.domain.OperatorDomain;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.OperatorEntity;
+import static co.edu.uco.treepruning.business.assembler.entity.impl.PersonEntityAssembler.getPersonEntityAssembler;
+import static co.edu.uco.treepruning.business.assembler.entity.impl.QuadrilleEntityAssembler.getQuadrilleEntityAssembler;
 
 public class OperatorEntityAssembler implements EntityAssembler<OperatorEntity, OperatorDomain> {
 
@@ -43,7 +45,7 @@ public class OperatorEntityAssembler implements EntityAssembler<OperatorEntity, 
 	public List<OperatorEntity> toEntity(final List<OperatorDomain> domainList) {
 		var operatorEntityList = new ArrayList<OperatorEntity>();
 
-		for (var operator : ObjectHelper.getDefault(domainList, List.of())) {
+		for (var operator : domainList) {
 			operatorEntityList.add(toEntity(operator));
 		}
 
