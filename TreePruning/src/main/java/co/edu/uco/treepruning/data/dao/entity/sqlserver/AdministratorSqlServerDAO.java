@@ -208,7 +208,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 
-        return listAdministrator;
+        return list;
     }
 
 }

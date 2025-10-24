@@ -318,7 +318,25 @@ TECHNICAL_ERROR_USER_MAPPER("Se ha presentado un problema al tratar de ejecutar 
 USER_ERROR_USER_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado tratando de mapear la información del usuario. ",
 		   "Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
 TECHNICAL_ERROR_USER_MAPPER_UNEXPECTED("Se ha presentado un problema inesperado al tratar de ejecutar el proceso de mapeo de datos del usuario. ",
-		   "Por favor verifique que la información proveniente de la base de datos sea correcta."),
+		   "Por favor verifique que la información proveniente de la base de datos sea correcta."), 
+
+USER_ERROR_ADMINISTRATOR_UPDATE, 
+TECHNICAL_ERROR_ADMINISTRATOR_UPDATE,
+USER_ERROR_ADMINISTRATOR_UPDATE_UNEXPECTED,
+TECHNICAL_ERROR_ADMINISTRATOR_UPDATE_UNEXPECTED, 
+USER_ERROR_ADMINISTRATOR_DELETE, 
+TECHNICAL_ERROR_ADMINISTRATOR_DELETE, 
+USER_ERROR_ADMINISTRATOR_DELETE_UNEXPECTED,
+TECHNICAL_ERROR_ADMINISTRATOR_DELETE_UNEXPECTED,
+USER_ERROR_ADMINISTRATOR_FIND_BY_FILTER,
+TECHNICAL_ERROR_ADMINISTRATOR_FIND_BY_FILTER, 
+USER_ERROR_ADMINISTRATOR_FIND_BY_FILTER_UNEXPECTED,
+TECHNICAL_ERROR_ADMINISTRATOR_FIND_BY_FILTER_UNEXPECTED,
+USER_ERROR_ADMINISTRATOR_CREATE, 
+TECHNICAL_ERROR_ADMINISTRATOR_CREATE,
+USER_ERROR_ADMINISTRATOR_CREATE_UNEXPECTED,
+TECHNICAL_ERROR_ADMINISTRATOR_CREATE_UNEXPECTED,
+
 ;
 	
 	private String title;
