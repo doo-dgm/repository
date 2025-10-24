@@ -9,6 +9,6 @@ import co.edu.uco.treepruning.data.dao.UpdateDAO;
 import co.edu.uco.treepruning.entity.QuadrilleEntity;
 
 public interface QuadrilleDAO
-		extends CreateDAO<QuadrilleEntity>, RetrieveDAO<QuadrilleEntity, Integer>, UpdateDAO<QuadrilleEntity>, DeleteDAO<UUID> {
+		extends CreateDAO<QuadrilleEntity>, RetrieveDAO<QuadrilleEntity, UUID>, UpdateDAO<QuadrilleEntity>, DeleteDAO<UUID> {
 
 }

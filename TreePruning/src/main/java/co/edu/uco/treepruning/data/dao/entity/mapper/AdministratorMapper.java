@@ -14,7 +14,6 @@ public final class AdministratorMapper {
         var administrator = new AdministratorEntity();
         try {
         	
-        	
             administrator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             administrator.setUsername(resultSet.getString("nombreUsuario"));
             administrator.setEmail(resultSet.getString("correoElectronico"));

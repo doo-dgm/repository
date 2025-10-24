@@ -166,7 +166,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getMobilePhone()), "a.numeroCelular = ?",filterEntityValidated.getMobilePhone());
         addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmedIsDefaultValue(), "a.celularConfirmado = ?", filterEntityValidated.isMobilePhoneConfirmed());
         
-        }
+        
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");

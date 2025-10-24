@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.UUID;
 
 import co.edu.uco.treepruning.data.dao.entity.DocumentDAO;
 import co.edu.uco.treepruning.entity.DocumentEntity;
@@ -25,7 +26,7 @@ public class DocumentSqlServerDAO implements DocumentDAO {
 	}
 
 	@Override
-	public DocumentEntity findById(Integer id) {
+	public DocumentEntity findById(UUID id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
