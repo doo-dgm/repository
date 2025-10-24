@@ -14,6 +14,8 @@ import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
+import co.edu.uco.treepruning.data.dao.entity.mapper.AdministratorMapper;
+import co.edu.uco.treepruning.data.dao.entity.sql.AdministratorSql;
 import co.edu.uco.treepruning.data.dao.entity.AdministratorDAO;
 import co.edu.uco.treepruning.entity.AdministratorEntity;
 
@@ -27,12 +29,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
     public void create(final AdministratorEntity entity) {
         SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 
-        final var sql = new StringBuilder();
-        sql.append("INSERT INTO Administrator (");
-        sql.append(" id, nombreUsuario, correoElectronico, correoConfirmado, numeroCelular, celularConfirmado");
-        sql.append(" ) VALUES (?, ?, ?, ?, ?, ?)");
-
-        try (var preparedStatement = this.getConnection().prepareStatement(sql.toString())) {
+        try (var preparedStatement = getConnection().prepareStatement(AdministratorSql.CREATE)) {
             preparedStatement.setObject(1, entity.getId());
             preparedStatement.setString(2, entity.getUsername());
             preparedStatement.setString(3, entity.getEmail());
@@ -56,16 +53,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
     public void update(final AdministratorEntity entity) {
         SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 
-        final var sql = new StringBuilder();
-        sql.append("UPDATE Administrator ");
-        sql.append("SET nombreUsuario = ?, ");
-        sql.append("    correoElectronico = ?, ");
-        sql.append("    correoConfirmado = ?, ");
-        sql.append("    numeroCelular = ?, ");
-        sql.append("    celularConfirmado = ? ");
-        sql.append("WHERE id = ?");
-
-        try (var preparedStatement = this.getConnection().prepareStatement(sql.toString())) {
+        try (var preparedStatement = getConnection().prepareStatement(AdministratorSql.UPDATE)) {
             preparedStatement.setString(1, entity.getUsername());
             preparedStatement.setString(2, entity.getEmail());
             preparedStatement.setBoolean(3, entity.isEmailConfirmed());
@@ -89,11 +77,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
     public void delete(final UUID id) {
         SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 
-        final var sql = new StringBuilder();
-        sql.append("DELETE FROM Administrator ");
-        sql.append("WHERE id = ?");
-
-        try (var preparedStatement = this.getConnection().prepareStatement(sql.toString())) {
+        try (var preparedStatement = this.getConnection().prepareStatement(AdministratorSql.DELETE)) {
             preparedStatement.setObject(1, id);
             preparedStatement.executeUpdate();
         } catch (final SQLException exception) {
@@ -140,15 +124,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
     }
 
     private String createSentenceFindByFilter(final AdministratorEntity filterEntity, final List<Object> parametersList) {
-        final var sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(" a.id, ");
-        sql.append(" a.nombreUsuario, ");
-        sql.append(" a.correoElectronico, ");
-        sql.append(" a.correoConfirmado, ");
-        sql.append(" a.numeroCelular, ");
-        sql.append(" a.celularConfirmado ");
-        sql.append("FROM Administrator AS a ");
+        var sql = new StringBuilder(AdministratorSql.FIND_BY_FILTER);
 
         createWhereClauseFindByFilter(sql, parametersList, filterEntity);
 
@@ -162,9 +138,9 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
         addCondition(conditions, parametersList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "a.id = ?",filterEntityValidated.getId());
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getUsername()), "a.nombreUsuario = ?", filterEntityValidated.getUsername());
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getEmail()), "a.correoElectronico = ?",filterEntityValidated.getEmail());
-        addCondition(conditions, parametersList, !filterEntityValidated.isEmailConfirmedIsDefaultValue(), "a.correoConfirmado = ?", filterEntityValidated.isEmailConfirmed());
+        addCondition(conditions, parametersList, !filterEntityValidated.isEmailConfirmed(), "a.correoConfirmado = ?", filterEntityValidated.isEmailConfirmed());
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getMobilePhone()), "a.numeroCelular = ?",filterEntityValidated.getMobilePhone());
-        addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmedIsDefaultValue(), "a.celularConfirmado = ?", filterEntityValidated.isMobilePhoneConfirmed());
+        addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmed(), "a.celularConfirmado = ?", filterEntityValidated.isMobilePhoneConfirmed());
         
         
 
@@ -184,19 +160,11 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
     }
 
     private List<AdministratorEntity> executeSentenceFindByFilter(final PreparedStatement preparedStatement) {
-        var list = new ArrayList<AdministratorEntity>();
+        var listAdministrator = new ArrayList<AdministratorEntity>();
 
         try (var resultset = preparedStatement.executeQuery()) {
             while (resultset.next()) {
-                var admin = new AdministratorEntity();
-                admin.setId(UUIDHelper.getUUIDHelper().getFromString(resultset.getString("id")));
-                admin.setUsername(resultset.getString("nombreUsuario"));
-                admin.setEmail(resultset.getString("correoElectronico"));
-                admin.setEmailConfirmed(resultset.getBoolean("correoConfirmado"));
-                admin.setMobilePhone(resultset.getString("numeroCelular"));
-                admin.setMobilePhoneConfirmed(resultset.getBoolean("celularConfirmado"));
-
-                list.add(admin);
+                listAdministrator.add(AdministratorMapper.map(resulset));
             }
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_ADMINISTRATOR_FIND_BY_FILTER.getContent();
@@ -208,7 +176,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 
-        return list;
+        return listAdministrator;
     }
 
 }

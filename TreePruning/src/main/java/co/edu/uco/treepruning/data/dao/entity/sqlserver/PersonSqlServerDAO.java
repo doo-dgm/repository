@@ -145,65 +145,65 @@ public final class PersonSqlServerDAO extends SqlConnection implements PersonDAO
         }
     }
 
-    private String createSentenceFindByFilter(final PersonEntity filterEntity, final List<Object> parameterList) {
+    private String createSentenceFindByFilter(final PersonEntity filterEntity, final List<Object> parametersList) {
 
         var sql = new StringBuilder(PersonSql.FIND_BY_FILTER);
 
-        createWhereClauseFindByFilter(sql, parameterList, filterEntity);
+        createWhereClauseFindByFilter(sql, parametersList, filterEntity);
 
         return sql.toString();
     }
 
-    private void createWhereClauseFindByFilter(final StringBuilder sql, final List<Object> parameterList,
+    private void createWhereClauseFindByFilter(final StringBuilder sql, final List<Object> parametersList,
             final PersonEntity filterEntity) {
 
         var filterEntityValidated = ObjectHelper.getDefault(filterEntity, new PersonEntity());
 
         final var conditions = new ArrayList<String>();
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "p.id = ?",filterEntityValidated.getId());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getFirstName()), "p.nombreUno = ?",filterEntityValidated.getFirstName());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondName()), "p.nombreDos = ?",filterEntityValidated.getSecondName());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getFirstLastName()), "p.apellidoUno = ?",filterEntityValidated.getFirstLastName());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondLastName()), "p.apellidoDos = ?",filterEntityValidated.getSecondLastName());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
         		!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getDocument().getId()), "p.Documento = ?",filterEntityValidated.getDocument().getId());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getDocumentNumber()), "p.numeroDocumento = ?",filterEntityValidated.getDocumentNumber());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 filterEntityValidated.getBirthDate() != null, "p.fechaNacimiento = ?",filterEntityValidated.getBirthDate());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getAddress()), "p.direccion = ?",filterEntityValidated.getAddress());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getEmail()), "p.email = ?",filterEntityValidated.getEmail());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !filterEntityValidated.isEmailConfirmed(), "p.correoConfirmado = ?",filterEntityValidated.isEmailConfirmed());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhone()), "p.telefono = ?",
                 filterEntityValidated.getPhone());
 
-        addCondition(conditions, parameterList,
+        addCondition(conditions, parametersList,
                 !filterEntityValidated.isPhoneConfirmed(), "p.telefonoConfirmado = ?",
                 filterEntityValidated.isPhoneConfirmed());
 
-        addCondition(conditions, parameterList,
-                !NumericHelper.(filterEntityValidated.getAge() > 0, "p.edad = ?", filterEntityValidated.getAge());
+        addCondition(conditions, parametersList,
+                NumericHelper.getDefaultInt(filterEntityValidated.getAge()) > 0, "p.edad = ?", filterEntityValidated.getAge());
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");
@@ -211,11 +211,11 @@ public final class PersonSqlServerDAO extends SqlConnection implements PersonDAO
         }
     }
 
-    private void addCondition(final List<String> conditions, final List<Object> parameterList,
+    private void addCondition(final List<String> conditions, final List<Object> parametersList,
             final boolean condition, final String clause, final Object value) {
         if (condition) {
             conditions.add(clause);
-            parameterList.add(value);
+            parametersList.add(value);
         }
     }
 
