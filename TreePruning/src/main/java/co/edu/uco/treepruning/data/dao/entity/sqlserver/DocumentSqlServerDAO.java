@@ -37,10 +37,18 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
         return findByFilter(new DocumentEntity());
     }
 
+<<<<<<< HEAD
     @Override
     public List<DocumentEntity> findByFilter(final DocumentEntity filterEntity) {
         var parametersList = new ArrayList<Object>();
         var sql = createSentenceFindByFilter(filterEntity, parametersList);
+=======
+	@Override
+	public DocumentEntity findById(UUID id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+>>>>>>> 46d5ca4b51d131dff7004937acc2d80a938c46e1
 
         try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
             for (int index = 0; index < parametersList.size(); index++) {

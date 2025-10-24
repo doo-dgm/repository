@@ -20,12 +20,12 @@ import co.edu.uco.treepruning.entity.FamilyEntity;
 
 public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 
-	public FamilySqlServerDAO(Connection connection) {
+	public FamilySqlServerDAO(final Connection connection) {
 		super(connection);
 	}
 
 	@Override
-	public void create(FamilyEntity entity) {
+	public void create(final FamilyEntity entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 		
 		try (var preparedStatement = getConnection().prepareStatement(FamilySql.CREATE)) {
@@ -54,9 +54,9 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 	}
 
 	@Override
-	public List<FamilyEntity> findByFilter(FamilyEntity filterEntity) {
+	public List<FamilyEntity> findByFilter(final FamilyEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
-		var sql = createSentenceFindByFilter(new FamilyEntity(), parameterList);
+		var sql = createSentenceFindByFilter(filterEntity, parameterList);
 		
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {            		
 			
@@ -82,12 +82,12 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 	}
 
 	@Override
-	public FamilyEntity findById(UUID id) {
+	public FamilyEntity findById(final UUID id) {
 		return findByFilter(new FamilyEntity(id)).stream().findFirst().orElse(null);
 	}
 
 	@Override
-	public void update(FamilyEntity entity) {
+	public void update(final FamilyEntity entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 		
 		try (var preparedStatement = getConnection().prepareStatement(FamilySql.UPDATE)) {
@@ -110,7 +110,7 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 	}
 
 	@Override
-	public void delete(UUID entity) {
+	public void delete(final UUID entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 		
 		try (var preparedStatement = getConnection().prepareStatement(FamilySql.DELETE)) {
