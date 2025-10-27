@@ -34,7 +34,6 @@ public class CountrySqlServerDAO extends SqlConnection implements CountryDAO {
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
 		
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {            		
-			
 			for (var index = 0; index < parameterList.size(); index++) {
 				preparedStatement.setObject(index + 1, parameterList.get(index));
 			}
@@ -42,16 +41,14 @@ public class CountrySqlServerDAO extends SqlConnection implements CountryDAO {
 			return executeSentenceFindByFilter(preparedStatement);
 			
 		} catch (final TreePruningException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
-			throw TreePruningException.create(exception, userMessage, technicalMessage);
+			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_COUNTRY_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_COUNTRY_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_COUNTRY_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_COUNTRY_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -105,12 +102,12 @@ public class CountrySqlServerDAO extends SqlConnection implements CountryDAO {
 				listCountry.add(CountryMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_COUNTRY_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_COUNTRY_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_COUNTRY_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_COUNTRY_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

@@ -16,6 +16,7 @@ import co.edu.uco.treepruning.data.dao.entity.TypeDAO;
 import co.edu.uco.treepruning.data.dao.entity.mapper.TypeMapper;
 import co.edu.uco.treepruning.data.dao.entity.sql.TypeSql;
 import co.edu.uco.treepruning.entity.TypeEntity;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
 public class TypeSqlServerDAO extends SqlConnection implements TypeDAO {
 
@@ -43,12 +44,12 @@ public class TypeSqlServerDAO extends SqlConnection implements TypeDAO {
 			return executeSentenceFindByFilter(preparedStatement);
 			
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -101,12 +102,12 @@ private String createSentenceFindByFilter(final TypeEntity filterEntity, final L
 				listFamily.add(TypeMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

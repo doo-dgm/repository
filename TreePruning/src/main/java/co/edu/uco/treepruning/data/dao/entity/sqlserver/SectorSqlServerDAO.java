@@ -37,12 +37,12 @@ public class SectorSqlServerDAO extends SqlConnection implements SectorDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_CREATE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_CREATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_CREATE_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_CREATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -65,18 +65,16 @@ public class SectorSqlServerDAO extends SqlConnection implements SectorDAO {
 			}
 			
 			return executeSentenceFindByFilter(preparedStatement);
-			
+		
 		} catch (final TreePruningException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
-			throw TreePruningException.create(exception, userMessage, technicalMessage);
+			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -99,12 +97,12 @@ public class SectorSqlServerDAO extends SqlConnection implements SectorDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_UPDATE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_UPDATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_UPDATE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_UPDATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -121,12 +119,12 @@ public class SectorSqlServerDAO extends SqlConnection implements SectorDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_DELETE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_DELETE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_DELETE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_DELETE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -179,12 +177,12 @@ public class SectorSqlServerDAO extends SqlConnection implements SectorDAO {
 				listSector.add(SectorMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_SECTOR_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_SECTOR_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

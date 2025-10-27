@@ -64,8 +64,22 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public List<PruningDTO> findAllPrunings() {
-		// TODO Auto-generated method stub
-		return null;
+		var daoFactory = DAOFactory.getFactory();
+		var business = new PruningBusinessImpl(daoFactory);
+		
+		try {
+			var domainList = business.findAllPrunings();
+			var dtoList = PruningDTOAssembler.getPruningDTOAssembler().toDTO(domainList);
+			
+			return dtoList;
+			
+		} catch(final TreePruningException exception) {
+			throw exception;
+		} catch(final Exception exception) {
+			throw exception;
+		} finally {
+			daoFactory.closeConnection();
+		}
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.StatusDAO;
 import co.edu.uco.treepruning.data.dao.entity.mapper.StatusMapper;
@@ -42,16 +43,14 @@ public class StatusSqlServerDAO extends SqlConnection implements StatusDAO {
 			return executeSentenceFindByFilter(preparedStatement);
 			
 		} catch (final TreePruningException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
-			throw TreePruningException.create(exception, userMessage, technicalMessage);
+			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -105,12 +104,12 @@ public class StatusSqlServerDAO extends SqlConnection implements StatusDAO {
 				listStatus.add(StatusMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_STATUS_MAPPER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STATUS_MAPPER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_STATUS_MAPPER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STATUS_MAPPER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

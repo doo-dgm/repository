@@ -162,9 +162,9 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
         addCondition(conditions, parametersList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "a.id = ?",filterEntityValidated.getId());
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getUsername()), "a.nombreUsuario = ?", filterEntityValidated.getUsername());
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getEmail()), "a.correoElectronico = ?",filterEntityValidated.getEmail());
-        addCondition(conditions, parametersList, !filterEntityValidated.isEmailConfirmedIsDefaultValue(), "a.correoConfirmado = ?", filterEntityValidated.isEmailConfirmed());
+        addCondition(conditions, parametersList, !filterEntityValidated.isEmailConfirmed(), "a.correoConfirmado = ?", filterEntityValidated.isEmailConfirmed());
         addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getMobilePhone()), "a.numeroCelular = ?",filterEntityValidated.getMobilePhone());
-        addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmedIsDefaultValue(), "a.celularConfirmado = ?", filterEntityValidated.isMobilePhoneConfirmed());
+        addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmed(), "a.celularConfirmado = ?", filterEntityValidated.isMobilePhoneConfirmed());
         
         
 

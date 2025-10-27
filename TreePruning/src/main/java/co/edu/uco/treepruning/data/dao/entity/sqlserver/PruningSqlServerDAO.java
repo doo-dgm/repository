@@ -11,6 +11,7 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.data.dao.entity.PruningDAO;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.PruningMapper;
@@ -26,15 +27,13 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	@Override
 	public void create(final PruningEntity entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
-		
-		try()
-		
+		// TODO: implement create SQL operation
 	}
 
 	@Override
 	public List<PruningEntity> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO
+		return findByFilter(new PruningEntity());
 	}
 
 	@Override
@@ -45,13 +44,18 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 
 	@Override
 	public PruningEntity findById(final UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return findByFilter(new PruningEntity(id)).stream().findFirst().orElse(new PruningEntity());
 	}
 
 	@Override
 	public void update(final PruningEntity entity) {
-		// TODO Auto-generated method stub
+		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
+		
+		try {
+			var preparedStatement = this.getConnection().prepareStatement(PruningSql.UPDATE);
+
+			}
 		
 	}
 
@@ -82,8 +86,9 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()),
 				"p.status = ?", filterEntityValidated.getStatus().getId());
 		
-		addCondition(conditions, parameterList, !ObjectHelper.getDefault(filterEntityValidated.getPlannedDate()),
-				"p.status = ?", filterEntityValidated.getStatus().getId());
+		// plannedDate should be checked for null and filter by plannedDate column
+		addCondition(conditions, parameterList, filterEntityValidated.getPlannedDate() != null,
+				"p.plannedDate = ?", filterEntityValidated.getPlannedDate());
 		
 		
 		if (!conditions.isEmpty()) {
@@ -108,12 +113,12 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 				listPruning.add(PruningMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
