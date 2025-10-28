@@ -6,7 +6,7 @@ import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class RiskDomain extends Domain {
-
+	
     private String name;
 
     public RiskDomain() {

@@ -1,5 +1,6 @@
 package co.edu.uco.treepruning.business.business.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,8 +50,14 @@ public class PruningBusinessImpl implements PruningBusiness {
 
 	@Override
 	public List<PruningDomain> findAllPrunings() {
+		var pruningEntityList = daoFactory.getPruningDAO().findAll();
+		var pruningDomainList = new ArrayList<PruningDomain>();
+		
+		for (var pruningEntity : pruningEntityList) {
+			pruningDomainList.add(getPruningEntityAssembler().toDomain(pruningEntity));
+		}
 		// TODO Auto-generated method stub
-		return null;
+		return pruningDomainList;
 	}
 
 	@Override

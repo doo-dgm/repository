@@ -12,6 +12,7 @@ import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.FamilyDAO;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.FamilyMapper;
@@ -37,12 +38,12 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_FAMILY_CREATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_FAMILY_CREATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_FAMILY_CREATE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_FAMILY_CREATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -59,24 +60,21 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
 		
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {            		
-			
 			for (var index = 0; index < parameterList.size(); index++) {
 				preparedStatement.setObject(index + 1, parameterList.get(index));
 			}
 			
 			return executeSentenceFindByFilter(preparedStatement);
-			
+		
 		} catch (final TreePruningException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
-			throw TreePruningException.create(exception, userMessage, technicalMessage);
+			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -98,12 +96,12 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 			
 			preparedStatement.executeUpdate();
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_UPDATE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_UPDATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_UPDATE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_UPDATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -118,12 +116,12 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 			preparedStatement.setObject(1, entity);
 			preparedStatement.executeUpdate();
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_DELETE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_DELETE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_DELETE.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_DELETE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -176,12 +174,12 @@ public class FamilySqlServerDAO extends SqlConnection implements FamilyDAO {
 				listFamily.add(FamilyMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_FIND_BY_FILTER.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_FAMILY_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_FAMILY_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

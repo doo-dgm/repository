@@ -22,8 +22,8 @@ public final class TreeMapper {
         	tree.setSector(sector);
         	
             tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            tree.setLatitude(resultSet.getDouble("latitud"));
-            tree.setLongitude(resultSet.getDouble("longitud"));
+            tree.setLatitude(resultSet.getString("latitud"));
+            tree.setLongitude(resultSet.getString("longitud"));
             
 
         } catch (final SQLException exception) {
