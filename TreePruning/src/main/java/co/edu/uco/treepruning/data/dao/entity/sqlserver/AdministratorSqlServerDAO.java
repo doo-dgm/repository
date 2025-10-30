@@ -164,7 +164,7 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
 
         try (var resultset = preparedStatement.executeQuery()) {
             while (resultset.next()) {
-                listAdministrator.add(AdministratorMapper.map(resulset));
+                listAdministrator.add(AdministratorMapper.map(resultset));
             }
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_ADMINISTRATOR_FIND_BY_FILTER.getContent();
