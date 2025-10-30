@@ -12,6 +12,7 @@ import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.ManagerDAO;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.ManagerMapper;
@@ -36,12 +37,12 @@ public final class ManagerSqlServerDAO extends SqlConnection implements ManagerD
             preparedStatement.executeUpdate();
 
         } catch (final SQLException exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_CREATE.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_CREATE.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } catch (final Exception exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_CREATE_UNEXPECTED.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_CREATE_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
     }
@@ -65,16 +66,16 @@ public final class ManagerSqlServerDAO extends SqlConnection implements ManagerD
             return executeSentenceFindByFilter(preparedStatement);
 
         } catch (final TreePruningException exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_FIND_BY_FILTER.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_FIND_BY_FILTER.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } catch (final SQLException exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_FIND_BY_FILTER.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_FIND_BY_FILTER.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } catch (final Exception exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_FIND_BY_FILTER_UNEXPECTED.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_FIND_BY_FILTER_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
     }
@@ -95,12 +96,12 @@ public final class ManagerSqlServerDAO extends SqlConnection implements ManagerD
 
             preparedStatement.executeUpdate();
         } catch (final SQLException exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_UPDATE.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_UPDATE.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } catch (final Exception exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_UPDATE_UNEXPECTED.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_UPDATE_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
     }
@@ -114,12 +115,12 @@ public final class ManagerSqlServerDAO extends SqlConnection implements ManagerD
             preparedStatement.setObject(1, entity);
             preparedStatement.executeUpdate();
         } catch (final SQLException exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_DELETE.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_DELETE.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } catch (final Exception exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_DELETE_UNEXPECTED.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_DELETE_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 
@@ -166,16 +167,15 @@ public final class ManagerSqlServerDAO extends SqlConnection implements ManagerD
                 listManager.add(ManagerMapper.map(resultSet));
             }
         } catch (final SQLException exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_FIND_BY_FILTER.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_FIND_BY_FILTER.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } catch (final Exception exception) {
-            var userMessage = "";
-            var technicalMessage = "";
+            String userMessage = MessagesEnum.USER_ERROR_MANAGER_FIND_BY_FILTER_UNEXPECTED.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_FIND_BY_FILTER_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 
         return listManager;
     }
 }
-

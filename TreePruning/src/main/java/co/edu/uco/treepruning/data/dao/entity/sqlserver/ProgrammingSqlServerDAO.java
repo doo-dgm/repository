@@ -11,7 +11,6 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.ProgrammingDAO;
@@ -126,9 +125,9 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
             var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_DELETE_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 		
+        }
 	}
-	}
-private String createSentenceFindByFilter(final ProgrammingEntity filterEntity, final List<Object> parametersList) {
+	private String createSentenceFindByFilter(final ProgrammingEntity filterEntity, final List<Object> parametersList) {
 		
 		var sql = new StringBuilder(ProgrammingSql.FIND_BY_FILTER);
 
@@ -137,7 +136,7 @@ private String createSentenceFindByFilter(final ProgrammingEntity filterEntity, 
 		return sql.toString();
 	}
 	
-private void createWhereClauseFindByFilter(final StringBuilder sql, final List<Object> parameterList,
+	private void createWhereClauseFindByFilter(final StringBuilder sql, final List<Object> parameterList,
         final ProgrammingEntity filterEntity) {
 
     var filterEntityValidated = ObjectHelper.getDefault(filterEntity, new ProgrammingEntity());

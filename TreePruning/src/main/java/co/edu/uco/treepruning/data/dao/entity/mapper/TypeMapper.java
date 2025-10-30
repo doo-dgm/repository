@@ -18,13 +18,13 @@ public final class TypeMapper {
             type.setName(resultSet.getString("name"));
 
         } catch (final SQLException exception) {
-            var userMessage = MessagesEnum.USER_ERROR_TYPE_MAPPER.getContent();
-            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_MAPPER.getContent();
+            String userMessage = MessagesEnum.USER_ERROR_TYPE_MAPPER.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_MAPPER.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } catch (final Exception exception) {
-            var userMessage = MessagesEnum.USER_ERROR_TYPE_MAPPER_UNEXPECTED.getContent();
-            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_MAPPER_UNEXPECTED.getContent();
+            String userMessage = MessagesEnum.USER_ERROR_TYPE_MAPPER_UNEXPECTED.getContent();
+            String technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_MAPPER_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 
