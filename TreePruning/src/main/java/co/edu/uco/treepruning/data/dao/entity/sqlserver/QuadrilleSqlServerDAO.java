@@ -12,6 +12,7 @@ import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.QuadrilleDAO;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.QuadrilleMapper;
@@ -37,12 +38,12 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_CREATE.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_CREATE.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_CREATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_CREATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_CREATE_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_CREATE_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_CREATE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_CREATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -68,12 +69,12 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 		} catch (final TreePruningException exception) {
 			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -96,12 +97,12 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_UPDATE.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_UPDATE.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_UPDATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_UPDATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_UPDATE_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_UPDATE_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_UPDATE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_UPDATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -118,12 +119,12 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_DELETE.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_DELETE.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_DELETE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_DELETE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_DELETE_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_DELETE_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_DELETE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_DELETE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -176,12 +177,12 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 				listQuadrille.add(QuadrilleMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_QUADRILLE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

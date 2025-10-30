@@ -18,7 +18,6 @@ import co.edu.uco.treepruning.data.dao.entity.ProgrammingDAO;
 import co.edu.uco.treepruning.entity.ProgrammingEntity;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.ProgrammingMapper;
-import co.edu.uco.treepruning.data.dao.entity.sql.FamilySql;
 import co.edu.uco.treepruning.data.dao.entity.sql.ProgrammingSql;
 
 public class ProgrammingSqlServerDAO extends SqlConnection implements ProgrammingDAO {
@@ -29,17 +28,17 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
 
 	@Override
 	public void create(ProgrammingEntity entity) {
-		try (var preparedStatement = getConnection().prepareStatement(FamilySql.CREATE)) {
-			
+		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
+
+		try (var preparedStatement = getConnection().prepareStatement(ProgrammingSql.CREATE)) {
+
 			preparedStatement.setObject(1, entity.getId());
 			preparedStatement.setObject(2, entity.getInitialDate());
 			preparedStatement.setInt(3, entity.getFrequencyMonths());
-            preparedStatement.setInt(4, entity.getQuantity());
+			preparedStatement.setInt(4, entity.getQuantity());
 
-            preparedStatement.executeUpdate();
-			
 			preparedStatement.executeUpdate();
-			
+
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_CREATE.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_CREATE.getContent();
@@ -49,7 +48,7 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_CREATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
-		
+
 	}
 
 	@Override

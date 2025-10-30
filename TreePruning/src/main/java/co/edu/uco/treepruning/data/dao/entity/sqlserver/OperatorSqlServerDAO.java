@@ -110,7 +110,7 @@ public final class OperatorSqlServerDAO extends SqlConnection implements Operato
 
         try (var preparedStatement = getConnection().prepareStatement(OperatorSql.DELETE)) {
 
-            preparedStatement.setObject(1, id);
+            preparedStatement.setObject(1, entity.getId());
             preparedStatement.executeUpdate();
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_OPERATOR_DELETE.getContent();
@@ -184,4 +184,3 @@ public final class OperatorSqlServerDAO extends SqlConnection implements Operato
 
 
 }
-

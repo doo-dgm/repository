@@ -15,11 +15,9 @@ import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.DocumentMapper;
-import co.edu.uco.treepruning.data.dao.entity.mapper.FamilyMapper;
 import co.edu.uco.treepruning.data.dao.entity.sql.DocumentSql;
 import co.edu.uco.treepruning.data.dao.entity.DocumentDAO;
 import co.edu.uco.treepruning.entity.DocumentEntity;
-import co.edu.uco.treepruning.entity.FamilyEntity;
 
 public final class DocumentSqlServerDAO extends SqlConnection implements DocumentDAO {
 
@@ -28,8 +26,24 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
     }
 
     @Override
-    public DocumentEntity findById(UUID id) {
-        return findByFilter(new DocumentEntity(id)).stream().findFirst().orElse(null);
+    public void create(final DocumentEntity entity) {
+        SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
+
+        try (var preparedStatement = getConnection().prepareStatement(DocumentSql.CREATE)) {
+            preparedStatement.setObject(1, entity.getId());
+            preparedStatement.setString(2, TextHelper.getDefaultWithTrim(entity.getName()));
+            preparedStatement.setString(3, TextHelper.getDefaultWithTrim(entity.getCode()));
+
+            preparedStatement.executeUpdate();
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_CREATE.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DOCUMENT_CREATE.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_CREATE_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DOCUMENT_CREATE_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
     }
 
     @Override
@@ -37,22 +51,14 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
         return findByFilter(new DocumentEntity());
     }
 
-<<<<<<< HEAD
     @Override
     public List<DocumentEntity> findByFilter(final DocumentEntity filterEntity) {
-        var parametersList = new ArrayList<Object>();
-        var sql = createSentenceFindByFilter(filterEntity, parametersList);
-=======
-	@Override
-	public DocumentEntity findById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
->>>>>>> 46d5ca4b51d131dff7004937acc2d80a938c46e1
+        var parameterList = new ArrayList<Object>();
+        var sql = createSentenceFindByFilter(filterEntity, parameterList);
 
         try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
-            for (int index = 0; index < parametersList.size(); index++) {
-                preparedStatement.setObject(index + 1, parametersList.get(index));
+            for (var index = 0; index < parameterList.size(); index++) {
+                preparedStatement.setObject(index + 1, parameterList.get(index));
             }
 
             return executeSentenceFindByFilter(preparedStatement);
@@ -67,36 +73,73 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
         }
     }
 
-    private String createSentenceFindByFilter(final DocumentEntity filterEntity, final List<Object> parametersList) {
-        final var sql = new StringBuilder();
-        sql.append("SELECT ");
-        sql.append(" d.id, ");
-        sql.append(" d.nombre, ");
-        sql.append(" d.codigo ");
-        sql.append("FROM Document AS d ");
+    @Override
+    public DocumentEntity findById(final UUID id) {
+        return findByFilter(new DocumentEntity(id)).stream().findFirst().orElse(new DocumentEntity());
+    }
 
-        createWhereClauseFindByFilter(sql, parametersList, filterEntity);
+    @Override
+    public void update(final DocumentEntity entity) {
+        SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
+
+        try (var preparedStatement = getConnection().prepareStatement(DocumentSql.UPDATE)) {
+            preparedStatement.setString(1, TextHelper.getDefaultWithTrim(entity.getName()));
+            preparedStatement.setString(2, TextHelper.getDefaultWithTrim(entity.getCode()));
+            preparedStatement.setObject(3, entity.getId());
+
+            preparedStatement.executeUpdate();
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_UPDATE.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DOCUMENT_UPDATE.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_UPDATE_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DOCUMENT_UPDATE_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
+    }
+
+    @Override
+    public void delete(final DocumentEntity entity) {
+        SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
+
+        try (var preparedStatement = getConnection().prepareStatement(DocumentSql.DELETE)) {
+            preparedStatement.setObject(1, entity.getId());
+            preparedStatement.executeUpdate();
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_DELETE.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DOCUMENT_DELETE.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_DELETE_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DOCUMENT_DELETE_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
+    }
+
+    private String createSentenceFindByFilter(final DocumentEntity filterEntity, final List<Object> parameterList) {
+        var sql = new StringBuilder(DocumentSql.FIND_BY_FILTER);
+
+        createWhereClauseFindByFilter(sql, parameterList, filterEntity);
 
         return sql.toString();
     }
 
-    private String createWhereClauseFindByFilter(final DocumentEntity filterEntity, final List<Object> parametersList)
-    {
-        var sql = new StringBuilder(DocumentSql.FIND_BY_FILTER); 
-        createWhereClauseFindByFilter(sql, parametersList, filterEntity);
-		
-		return sql.toString();
-}
-	
-	private void createWhereClauseFindByFilter(final StringBuilder sql, final List<Object> parametersList, final DocumentEntity filterEntity) {
-		
-		var filterEntityValidated = ObjectHelper.getDefault(filterEntity, new DocumentEntity());
-		
+    private void createWhereClauseFindByFilter(final StringBuilder sql, final List<Object> parameterList,
+            final DocumentEntity filterEntity) {
+
+        var filterEntityValidated = ObjectHelper.getDefault(filterEntity, new DocumentEntity());
+
         final var conditions = new ArrayList<String>();
 
-        addCondition(conditions, parametersList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "d.id = ?",filterEntityValidated.getId());
-        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getName()), "d.nombre = ?)",filterEntityValidated.getName());
-        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getCode()), "d.codigo = ?)",filterEntityValidated.getCode());
+        addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()),
+                "d.id = ?", filterEntityValidated.getId());
+
+        addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getName()),
+                "d.nombre = ?", filterEntityValidated.getName());
+
+        addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getCode()),
+                "d.codigo = ?", filterEntityValidated.getCode());
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");
@@ -104,21 +147,20 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
         }
     }
 
-    private void addCondition(final List<String> conditions, final List<Object> parametersList,
+    private void addCondition(final List<String> conditions, final List<Object> parameterList,
             final boolean condition, final String clause, final Object value) {
         if (condition) {
             conditions.add(clause);
-            parametersList.add(value);
+            parameterList.add(value);
         }
     }
 
     private List<DocumentEntity> executeSentenceFindByFilter(final PreparedStatement preparedStatement) {
         var listDocument = new ArrayList<DocumentEntity>();
 
-        try (var resultset = preparedStatement.executeQuery()) {
-        	try (var resultSet = preparedStatement.executeQuery()) {
-    			while (resultSet.next()) {
-    				listDocument.add(DocumentMapper.map(resultSet));
+        try (var resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                listDocument.add(DocumentMapper.map(resultSet));
             }
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_FIND_BY_FILTER.getContent();
@@ -133,6 +175,4 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
         return listDocument;
     }
 
-   }
 }
-
