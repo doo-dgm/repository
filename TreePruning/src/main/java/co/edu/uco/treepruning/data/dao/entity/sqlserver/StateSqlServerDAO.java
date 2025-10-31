@@ -50,8 +50,8 @@ public class StateSqlServerDAO extends SqlConnection implements StateDAO {
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -108,12 +108,12 @@ public class StateSqlServerDAO extends SqlConnection implements StateDAO {
 				listState.add(StateMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_STATE_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_STATE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STATE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

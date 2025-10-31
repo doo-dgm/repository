@@ -28,7 +28,29 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	@Override
 	public void create(final PruningEntity entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
-		// TODO: implement create SQL operation
+		
+		try {
+			var preparedStatement = this.getConnection().prepareStatement(PruningSql.CREATE);
+
+			preparedStatement.setObject(1, entity.getId());
+			preparedStatement.setObject(2, entity.getStatus().getId());
+			preparedStatement.setObject(3, entity.getPlannedDate());
+			preparedStatement.setObject(4, entity.getExecutedDate());
+			preparedStatement.setObject(5, entity.getTree().getId());
+			preparedStatement.setObject(6, entity.getQuadrille().getId());
+			preparedStatement.setObject(7, entity.getType().getId());
+			preparedStatement.setObject(8, entity.getPqr().getId());
+			preparedStatement.setObject(9, entity.getProgramming().getId());
+			preparedStatement.setString(10, entity.getPhotographicRecordPath());
+			preparedStatement.setString(11, entity.getObservations());
+			
+			preparedStatement.executeUpdate();
+			
+		} catch (final SQLException exception) {
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_CREATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_CREATE.getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		}
 	}
 
 	@Override
@@ -39,8 +61,26 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 
 	@Override
 	public List<PruningEntity> findByFilter(final PruningEntity filterEntity) {
-		// TODO Auto-generated method stub
-		return null;
+		var parameterList = new ArrayList<Object>();
+		var sql = createSentenceFindByFilter(filterEntity, parameterList);
+
+		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
+
+			for (var index = 0; index < parameterList.size(); index++) {
+				preparedStatement.setObject(index + 1, parameterList.get(index));
+			}
+			
+			return executeSentenceFindByFilter(preparedStatement);
+			
+		} catch (final SQLException exception) {
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER.getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} catch (final Exception exception) {
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		}
 	}
 
 	@Override
@@ -89,9 +129,31 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()),
 				"p.status = ?", filterEntityValidated.getStatus().getId());
 		
-		// plannedDate should be checked for null and filter by plannedDate column
 		addCondition(conditions, parameterList, filterEntityValidated.getPlannedDate() != null,
 				"p.plannedDate = ?", filterEntityValidated.getPlannedDate());
+		
+		
+		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getTree().getId()),
+				"p.tree = ?", filterEntityValidated.getTree().getId());
+		
+		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getQuadrille().getId()),
+				"p.quadrille = ?", filterEntityValidated.getQuadrille().getId());
+		
+		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getType().getId()),
+				"p.type = ?", filterEntityValidated.getType().getId());
+		
+		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPqr().getId()),
+				"p.pqr = ?", filterEntityValidated.getPqr().getId());
+		
+		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getProgramming().getId()),
+				"p.programming = ?", filterEntityValidated.getProgramming().getId());
+		
+		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhotographicRecordPath()),
+				"p.photoRecord = ?", filterEntityValidated.getPhotographicRecordPath());
+		
+		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getObservations()),
+				"p.observations = ?", filterEntityValidated.getObservations());
+		
 		
 		
 		if (!conditions.isEmpty()) {

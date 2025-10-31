@@ -12,6 +12,7 @@ import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.TreeDAO;
 import co.edu.uco.treepruning.data.dao.entity.mapper.TreeMapper;
@@ -39,12 +40,12 @@ public class TreeSqlServerDAO extends SqlConnection implements TreeDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_CREATE.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_CREATE.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_CREATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_CREATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_CREATE_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_CREATE_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_CREATE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_CREATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -71,12 +72,12 @@ public class TreeSqlServerDAO extends SqlConnection implements TreeDAO {
 		} catch (final TreePruningException exception) {
 			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -101,12 +102,12 @@ public class TreeSqlServerDAO extends SqlConnection implements TreeDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_UPDATE.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_UPDATE.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_UPDATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_UPDATE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_UPDATE_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_UPDATE_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_UPDATE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_UPDATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -123,12 +124,12 @@ public class TreeSqlServerDAO extends SqlConnection implements TreeDAO {
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_DELETE.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_DELETE.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_DELETE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_DELETE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_DELETE_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_DELETE_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_DELETE_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_DELETE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -187,12 +188,12 @@ private String createSentenceFindByFilter(final TreeEntity filterEntity, final L
 				listTree.add(TreeMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

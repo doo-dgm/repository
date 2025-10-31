@@ -11,6 +11,7 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.entity.RiskDAO;
 import co.edu.uco.treepruning.data.dao.entity.SqlConnection;
 import co.edu.uco.treepruning.data.dao.entity.mapper.RiskMapper;
@@ -44,12 +45,12 @@ public class RiskSqlServerDAO extends SqlConnection implements RiskDAO {
 		} catch (final TreePruningException exception) {
 			throw exception;
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -102,12 +103,12 @@ public class RiskSqlServerDAO extends SqlConnection implements RiskDAO {
 				listRisk.add(RiskMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			var userMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
-			var technicalMessage = co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var userMessage = MessagesEnum.USER_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_RISK_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
