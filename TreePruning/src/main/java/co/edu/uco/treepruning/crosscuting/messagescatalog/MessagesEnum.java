@@ -846,6 +846,15 @@ public enum MessagesEnum {
 		"Se produjo una excepción inesperada al eliminar la poda. Revise la traza de errores para más detalles."),
 	TECHNICAL_ERROR_PRUNING_DELETE_UNEXPECTED("Error inesperado eliminando poda",
 		"Excepción inesperada al ejecutar la eliminación en PruningSqlServerDAO.delete. Revise la traza de errores para más detalles."),
+	
+	USER_ERROR_TYPE_MAPPER("Ocurrió un problema al mapear el tipo desde el ResultSet",
+			"Error al intentar extraer los campos del ResultSet para construir TypeEntity. Verifique esquema y nombres de columnas."), 
+	TECHNICAL_ERROR_TYPE_MAPPER("Error técnico mapeando TypeMapper",		
+	"Se presentó un error técnico al mapear el ResultSet a TypeEntity. Revise la traza de errores para más detalle."), 
+	USER_ERROR_TYPE_MAPPER_UNEXPECTED("Ocurrió un problema INESPERADO al mapear tipo",		
+			"Se presentó un error inesperado al mapear el ResultSet a TypeEntity. Por favor contacte al administrador del sistema."),
+	TECHNICAL_ERROR_TYPE_MAPPER_UNEXPECTED("Error inesperado mapeando TypeMapper",		
+			"Se presentó un error inesperado al mapear el ResultSet a TypeEntity. Revise la traza de errores para más detalle."),
 
 ;
 	
