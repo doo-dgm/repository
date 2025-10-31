@@ -885,24 +885,6 @@ public enum MessagesEnum {
 			"Excepción inesperada al ejecutar la actualización en PruningSqlServerDAO.update. Revise la traza de errores para más detalles."),
 
 
-	USER_ERROR_PRUNING_FIND_BY_FILTER("Se ha presentado un problema tratando de consultar podas. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se produjo un error al ejecutar la consulta de podas en la base de datos."),
-	TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER("Error técnico consultando podas",
-		"Error SQL ejecutando PruningSqlServerDAO.findByFilter. Revise la traza de errores para más detalles."),
-	USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema INESPERADO consultando podas",
-		"Se produjo una excepción inesperada al consultar podas. Revise la traza de errores para más detalles."),
-	TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED("Error inesperado consultando podas",
-		"Excepción inesperada al ejecutar PruningSqlServerDAO.findByFilter. Revise la traza de errores para más detalles."),
-
-	USER_ERROR_PRUNING_UPDATE("Se ha presentado un problema tratando de modificar la poda. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-		"Se produjo un error al ejecutar la operación de actualización de Pruning en la base de datos."),
-	TECHNICAL_ERROR_PRUNING_UPDATE("Error técnico modificando poda",
-		"Error SQL ejecutando la actualización en PruningSqlServerDAO.update. Revise la traza de errores para más detalles."),
-	USER_ERROR_PRUNING_UPDATE_UNEXPECTED("Se ha presentado un problema INESPERADO tratando de modificar la poda",
-		"Se produjo una excepción inesperada al intentar actualizar la poda. Revise la traza de errores para más detalles."),
-	TECHNICAL_ERROR_PRUNING_UPDATE_UNEXPECTED("Error inesperado modificando poda",
-		"Excepción inesperada al ejecutar la actualización en PruningSqlServerDAO.update. Revise la traza de errores para más detalles."),
-
 	USER_ERROR_PRUNING_DELETE("Se ha presentado un problema tratando de eliminar la poda. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
 		"Se produjo un error al ejecutar la operación de eliminación de Pruning en la base de datos."),
 	TECHNICAL_ERROR_PRUNING_DELETE("Error técnico eliminando poda",
@@ -912,26 +894,7 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_PRUNING_DELETE_UNEXPECTED("Error inesperado eliminando poda",
 		"Excepción inesperada al ejecutar la eliminación en PruningSqlServerDAO.delete. Revise la traza de errores para más detalles."),
 	
-	USER_ERROR_TYPE_MAPPER("Ocurrió un problema al mapear el tipo desde el ResultSet",
-			"Error al intentar extraer los campos del ResultSet para construir TypeEntity. Verifique esquema y nombres de columnas."), 
-	TECHNICAL_ERROR_TYPE_MAPPER("Error técnico mapeando TypeMapper",		
-	"Se presentó un error técnico al mapear el ResultSet a TypeEntity. Revise la traza de errores para más detalle."), 
-	USER_ERROR_TYPE_MAPPER_UNEXPECTED("Ocurrió un problema INESPERADO al mapear tipo",		
-			"Se presentó un error inesperado al mapear el ResultSet a TypeEntity. Por favor contacte al administrador del sistema."),
-	TECHNICAL_ERROR_TYPE_MAPPER_UNEXPECTED("Error inesperado mapeando TypeMapper",		
-			"Se presentó un error inesperado al mapear el ResultSet a TypeEntity. Revise la traza de errores para más detalle."),
 
-		USER_ERROR_PRUNING_DELETE("Se ha presentado un problema tratando de eliminar la poda. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
-			"Se produjo un error al ejecutar la operación de eliminación de Pruning en la base de datos."),
-		TECHNICAL_ERROR_PRUNING_DELETE("Error técnico eliminando poda",
-			"Error SQL ejecutando la eliminación en PruningSqlServerDAO.delete. Revise la traza de errores para más detalles."),
-		USER_ERROR_PRUNING_DELETE_UNEXPECTED("Se ha presentado un problema INESPERADO eliminando la poda",
-			"Se produjo una excepción inesperada al eliminar la poda. Revise la traza de errores para más detalles."),
-		TECHNICAL_ERROR_PRUNING_DELETE_UNEXPECTED("Error inesperado eliminando poda",
-			"Excepción inesperada al ejecutar la eliminación en PruningSqlServerDAO.delete. Revise la traza de errores para más detalles."),
-
-
-	;
 ;
 	
 	private String title;
