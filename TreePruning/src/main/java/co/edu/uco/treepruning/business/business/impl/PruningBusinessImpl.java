@@ -36,7 +36,7 @@ public class PruningBusinessImpl implements PruningBusiness {
 		while (!UUIDHelper.getUUIDHelper().isDefaultUUID(userEntity.getId())) {
 			id = UUIDHelper.getUUIDHelper().generateNewUUID();
 			userEntity = daoFactory.getPruningDAO().findById(id);
-		};
+		}
 		return id;
 	}
 

@@ -2,10 +2,8 @@ package co.edu.uco.treepruning.data.dao.factory.sqlserver;
 
 import java.util.Properties;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import java.io.InputStream;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
@@ -53,12 +51,9 @@ import co.edu.uco.treepruning.data.dao.entity.sqlserver.TypeSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class SqlServerDAOFactory extends DAOFactory {
-	
-	private JdbcTemplate jdbcTemplate;
-	
+		
 	public SqlServerDAOFactory() {
 		openConnection();
-		jdbcTemplate = new JdbcTemplate();
 	}
 	
 	private static final String PROPERTIES_FILE = "/application.properties";
@@ -67,10 +62,9 @@ public class SqlServerDAOFactory extends DAOFactory {
 	protected void openConnection() {
 		
 		try (InputStream input = SqlConnectionHelper.class.getResourceAsStream(PROPERTIES_FILE)){
-			//this.connection = SqlConnectionHelper.getConnection();
-			Properties prop = new Properties();
-			//Class.forName("com.mysql.cj.jdbc.Driver");
 			
+			Properties prop = new Properties();
+						
             prop.load(input);
 
             String url = prop.getProperty("spring.datasource.url");

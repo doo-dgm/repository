@@ -7,7 +7,6 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.MunicipalityEntity;
-import co.edu.uco.treepruning.entity.StateEntity;
 
 public final class MunicipalityMapper {
 

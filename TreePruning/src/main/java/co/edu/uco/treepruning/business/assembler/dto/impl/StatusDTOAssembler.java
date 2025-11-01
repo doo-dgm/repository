@@ -6,7 +6,6 @@ import java.util.List;
 import co.edu.uco.treepruning.business.assembler.dto.DTOAssembler;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.StatusDTO;
 

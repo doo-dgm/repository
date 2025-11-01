@@ -8,10 +8,6 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.PQREntity;
-import co.edu.uco.treepruning.entity.StatusEntity;
-import co.edu.uco.treepruning.entity.RiskEntity;
-import co.edu.uco.treepruning.entity.SectorEntity;
-import co.edu.uco.treepruning.entity.PersonEntity;
 
 public final class PQRMapper {
 

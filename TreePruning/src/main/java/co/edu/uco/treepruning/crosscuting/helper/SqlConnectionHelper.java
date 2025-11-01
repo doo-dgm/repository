@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
@@ -100,11 +99,11 @@ private SqlConnectionHelper() {
 				throw TreePruningException.create(userMessage, technicalMessage);
             }
             
-        } catch (SQLException exception) {
+        } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_TRANSACTION_IS_OPEN.getContent();
             var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_TRANSACTION_IS_OPEN.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
-        } catch (Exception exception) {
+        } catch (final Exception exception) {
             var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_TRANSACTION_IS_OPEN.getContent();
             var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_TRANSACTION_IS_OPEN.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
@@ -124,7 +123,7 @@ private SqlConnectionHelper() {
 				var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_IS_CLOSED.getContent();
 				throw TreePruningException.create(userMessage, technicalMessage);
 			}
-		} catch (Exception exception) {
+		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);

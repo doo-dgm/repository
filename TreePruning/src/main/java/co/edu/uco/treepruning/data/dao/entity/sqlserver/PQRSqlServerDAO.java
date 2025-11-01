@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
-import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;

@@ -7,7 +7,6 @@ import co.edu.uco.treepruning.business.assembler.entity.EntityAssembler;
 import co.edu.uco.treepruning.business.domain.PersonDomain;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
-import co.edu.uco.treepruning.dto.PersonDTO;
 import co.edu.uco.treepruning.entity.PersonEntity;
 
 import static co.edu.uco.treepruning.business.assembler.entity.impl.DocumentEntityAssembler.getDocumentEntityAssembler;

@@ -7,7 +7,6 @@ import java.util.UUID;
 import co.edu.uco.treepruning.business.business.StatusBusiness;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
-import co.edu.uco.treepruning.entity.StatusEntity;
 
 import static co.edu.uco.treepruning.business.assembler.entity.impl.StatusEntityAssembler.getStatusEntityAssembler;
 
