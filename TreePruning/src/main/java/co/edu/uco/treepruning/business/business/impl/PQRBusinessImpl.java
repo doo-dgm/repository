@@ -1,11 +1,14 @@
 package co.edu.uco.treepruning.business.business.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.business.business.PQRBusiness;
 import co.edu.uco.treepruning.business.domain.PQRDomain;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
+
+import static co.edu.uco.treepruning.business.assembler.entity.impl.PQREntityAssembler.getPQREntityAssembler;
 
 public class PQRBusinessImpl implements PQRBusiness{
 	
@@ -17,20 +20,33 @@ public class PQRBusinessImpl implements PQRBusiness{
 
 	@Override
 	public List<PQRDomain> findAllPQRs() {
-		// TODO Auto-generated method stub
-		return null;
+		var pqrEntityList = daoFactory.getPQRDAO().findAll();
+		var pqrDomainList = new ArrayList<PQRDomain>();
+		
+		for (var pqrEntity : pqrEntityList) {
+			pqrDomainList.add(getPQREntityAssembler().toDomain(pqrEntity));
+			
+		}
+		return pqrDomainList;
 	}
 
 	@Override
-	public List<PQRDomain> findPQRsByFilter(PQRDomain pqrFilters) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PQRDomain> findPQRsByFilter(final PQRDomain pqrFilters) {
+		var quadrilleEntity = getPQREntityAssembler().toEntity(pqrFilters);
+		var pqrEntityList = daoFactory.getPQRDAO().findByFilter(quadrilleEntity);
+		var pqrDomainList = new ArrayList<PQRDomain>();
+		
+		for (var pqr : pqrEntityList) {
+			pqrDomainList.add(getPQREntityAssembler().toDomain(pqr));
+		}
+		return pqrDomainList;
 	}
 
 	@Override
-	public PQRDomain findSpecificPQR(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public PQRDomain findSpecificPQR(final UUID id) {
+		var pqrEntity = daoFactory.getPQRDAO().findById(id);
+		
+		return getPQREntityAssembler().toDomain(pqrEntity);
 	}
 
 }
