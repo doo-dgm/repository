@@ -22,7 +22,7 @@ public class AdministratorBusinessImpl implements AdministratorBusiness {
 	}
 
 	@Override
-	public List<AdministratorDomain> findAdministratorsByFilter(AdministratorBusiness administratorFilters) {
+	public List<AdministratorDomain> findAdministratorsByFilter(AdministratorDomain administratorFilters) {
 		// TODO Auto-generated method stub
 		return null;
 	}

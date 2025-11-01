@@ -8,7 +8,7 @@ import co.edu.uco.treepruning.business.domain.AdministratorDomain;
 public interface AdministratorBusiness {
 	List<AdministratorDomain> findAllAdministrators();
 	
-	List<AdministratorDomain> findAdministratorsByFilter(AdministratorBusiness administratorFilters);
+	List<AdministratorDomain> findAdministratorsByFilter(AdministratorDomain administratorFilters);
 	
 	AdministratorDomain findSpecificAdministrator(UUID id);
 }
