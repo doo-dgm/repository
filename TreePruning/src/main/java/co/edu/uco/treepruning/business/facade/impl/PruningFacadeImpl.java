@@ -12,6 +12,7 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 import co.edu.uco.treepruning.dto.PruningDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
 public final class PruningFacadeImpl implements PruningFacade {
 	
@@ -39,7 +40,9 @@ public final class PruningFacadeImpl implements PruningFacade {
 			throw exception;
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
-			throw exception;
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
 		}
@@ -52,7 +55,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
-			
 			daoFactory.initTransaction();
 			
 			var statusDomain = getStatusDTOAssembler().toDomain(status);
@@ -61,21 +63,42 @@ public final class PruningFacadeImpl implements PruningFacade {
 			daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
 			daoFactory.rollbackTransaction();
-			// TODO
+			throw exception;
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
-			// TODO
 			
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
 		}
-		
 	}
 
 	@Override
 	public void reschedulePruning(final UUID id, final PruningDTO pruningDTO) {
-		// TODO Auto-generated method stub
-		
+		var daoFactory = DAOFactory.getFactory();
+		var business = new PruningBusinessImpl(daoFactory);
+
+		try {
+			daoFactory.initTransaction();
+
+			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
+			business.reschedulePruning(id, domain);
+
+			daoFactory.commitTransaction();
+		} catch (final TreePruningException exception) {
+			daoFactory.rollbackTransaction();
+			throw exception;
+		} catch (final Exception exception) {
+			daoFactory.rollbackTransaction();
+
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} finally {
+			daoFactory.closeConnection();
+		}
 	}
 
 	@Override
@@ -88,20 +111,21 @@ public final class PruningFacadeImpl implements PruningFacade {
 			daoFactory.initTransaction();
 			
 			var statusDomain = getStatusDTOAssembler().toDomain(status);
-			business.cancelPruning(id, statusDomain);
+			business.completePruning(id, statusDomain);
 			
 			daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
 			daoFactory.rollbackTransaction();
-			// TODO
+			throw exception;
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
-			// TODO
 			
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
 		}
-		
 	}
 
 	@Override
@@ -110,15 +134,21 @@ public final class PruningFacadeImpl implements PruningFacade {
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
+			daoFactory.initTransaction();
 			var domainList = business.findAllPrunings();
 			var dtoList = PruningDTOAssembler.getPruningDTOAssembler().toDTO(domainList);
 			
 			return dtoList;
 			
 		} catch(final TreePruningException exception) {
+			daoFactory.rollbackTransaction();
 			throw exception;
 		} catch(final Exception exception) {
-			throw exception;
+			daoFactory.rollbackTransaction();
+			
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
 		}
@@ -126,16 +156,49 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public List<PruningDTO> findPruningsByFilter(final PruningDTO pruningFilters) {
-		// TODO Auto-generated method stub
-		return null;
+		var daoFactory = DAOFactory.getFactory();
+		var business = new PruningBusinessImpl(daoFactory);
+
+		try {
+			daoFactory.initTransaction();
+			var filterDomain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningFilters);
+			var domainList = business.findPruningsByFilter(filterDomain);
+			return PruningDTOAssembler.getPruningDTOAssembler().toDTO(domainList);
+		} catch (final TreePruningException exception) {
+			daoFactory.rollbackTransaction();
+			throw exception;
+		} catch (final Exception exception) {
+			daoFactory.rollbackTransaction();
+
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} finally {
+			daoFactory.closeConnection();
+		}
 	}
 
 	@Override
 	public PruningDTO findSpecificPruning(final UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		var daoFactory = DAOFactory.getFactory();
+		var business = new PruningBusinessImpl(daoFactory);
+
+		try {
+			daoFactory.initTransaction();
+			var domain = business.findSpecificPruning(id);
+			return PruningDTOAssembler.getPruningDTOAssembler().toDTO(domain);
+		} catch (final TreePruningException exception) {
+			daoFactory.rollbackTransaction();
+			throw exception;
+		} catch (final Exception exception) {
+			daoFactory.rollbackTransaction();
+
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} finally {
+			daoFactory.closeConnection();
+		}
 	}
-
-
-
 }
+
