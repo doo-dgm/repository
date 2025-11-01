@@ -1,11 +1,14 @@
 package co.edu.uco.treepruning.business.business;
 
+import java.util.List;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.business.domain.AdministratorDomain;
+
 public interface AdministratorBusiness {
-	void findAllAdministrators();
+	List<AdministratorDomain> findAllAdministrators();
 	
-	void findAdministratorByFilter(AdministratorBusiness administratorFilters);
+	List<AdministratorDomain> findAdministratorByFilter(AdministratorBusiness administratorFilters);
 	
-	void findSpecificAdministrator(UUID id);
+	AdministratorDomain findSpecificAdministrator(UUID id);
 }
