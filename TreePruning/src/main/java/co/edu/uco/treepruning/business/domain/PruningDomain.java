@@ -69,7 +69,7 @@ public final class PruningDomain extends Domain {
         return status;
     }
 
-    private void setStatus(final StatusDomain status) {
+    public void setStatus(final StatusDomain status) {
         this.status = ObjectHelper.getDefault(status, new StatusDomain());
     }
 
@@ -77,7 +77,7 @@ public final class PruningDomain extends Domain {
         return plannedDate;
     }
 
-    private void setPlannedDate(final LocalDate plannedDate) {
+    public void setPlannedDate(final LocalDate plannedDate) {
         this.plannedDate = ObjectHelper.getDefault(plannedDate, LocalDate.now());
     }
 
@@ -85,7 +85,7 @@ public final class PruningDomain extends Domain {
         return executedDate;
     }
 
-    private void setExecutedDate(final LocalDate executedDate) {
+    public void setExecutedDate(final LocalDate executedDate) {
         this.executedDate = ObjectHelper.getDefault(executedDate, LocalDate.now());
     }
 
@@ -93,7 +93,7 @@ public final class PruningDomain extends Domain {
         return tree;
     }
 
-    private void setTree(final TreeDomain tree) {
+    public void setTree(final TreeDomain tree) {
         this.tree = ObjectHelper.getDefault(tree, new TreeDomain());
     }
 
@@ -101,7 +101,7 @@ public final class PruningDomain extends Domain {
         return quadrille;
     }
 
-    private void setQuadrille(final QuadrilleDomain quadrille) {
+    public void setQuadrille(final QuadrilleDomain quadrille) {
         this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDomain());
     }
 
@@ -109,7 +109,7 @@ public final class PruningDomain extends Domain {
         return type;
     }
 
-    private void setType(final TypeDomain type) {
+    public void setType(final TypeDomain type) {
         this.type = ObjectHelper.getDefault(type, new TypeDomain());
     }
 
@@ -117,7 +117,7 @@ public final class PruningDomain extends Domain {
         return pqr;
     }
 
-    private void setPqr(final PQRDomain pqr) {
+    public void setPqr(final PQRDomain pqr) {
         this.pqr = ObjectHelper.getDefault(pqr, new PQRDomain());
     }
 
@@ -125,7 +125,7 @@ public final class PruningDomain extends Domain {
         return programming;
     }
 
-    private void setProgramming(final ProgrammingDomain programming) {
+    public void setProgramming(final ProgrammingDomain programming) {
         this.programming = ObjectHelper.getDefault(programming, new ProgrammingDomain());
     }
 
@@ -133,7 +133,7 @@ public final class PruningDomain extends Domain {
         return TextHelper.getDefaultWithTrim(photographicRecordPath);
     }
 
-    private void setPhotographicRecordPath(final String photographicRecordPath) {
+    public void setPhotographicRecordPath(final String photographicRecordPath) {
         this.photographicRecordPath = TextHelper.getDefaultWithTrim(photographicRecordPath);
     }
 
@@ -141,7 +141,7 @@ public final class PruningDomain extends Domain {
         return TextHelper.getDefaultWithTrim(observations);
     }
 
-    private void setObservations(final String observations) {
+    public void setObservations(final String observations) {
         this.observations = TextHelper.getDefaultWithTrim(observations);
     }
 }
