@@ -82,7 +82,7 @@ public class AdministratorController {
         return new ResponseEntity<Response<AdministratorDTO>>(responseObjectData, responseStatusCode);
     }
 
-    /*@GetMapping("/filter")
+    @GetMapping("/filter")
     public ResponseEntity<Response<AdministratorDTO>> findAdministratorByFilter (
             @RequestParam(required = false) UUID id,
             @RequestParam(required = false) String username
@@ -113,7 +113,7 @@ public class AdministratorController {
             exception.printStackTrace();
         }
         return new ResponseEntity<Response<AdministratorDTO>>(responseObjectData, responseStatusCode);
-    }*/
+    }
 }
 
 
