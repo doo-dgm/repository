@@ -31,8 +31,8 @@ public final class AdministratorFacadeImpl implements AdministratorFacade {
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();
 
-            var userMessage = MessagesEnum.FIND_ALL_ADMINISTRATORS_UNEXPECTED_ERROR.getContent();
-            var technicalMessage = MessagesEnum.FIND_ALL_ADMINISTRATORS_UNEXPECTED_ERROR.getContent();
+            var userMessage = "";
+            var technicalMessage = "";
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } finally {
@@ -58,9 +58,8 @@ public final class AdministratorFacadeImpl implements AdministratorFacade {
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();
 
-            var userMessage = MessagesEnum.FIND_ADMINISTRATORS_BY_FILTER_UNEXPECTED_ERROR.getContent();
-            var technicalMessage = MessagesEnum.FIND_ADMINISTRATORS_BY_FILTER_UNEXPECTED_ERROR.getContent()
-                    + (exception.getMessage() == null ? "" : exception.getMessage());
+            var userMessage = "";
+            var technicalMessage = "";
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } finally {
             daoFactory.closeConnection();
@@ -84,9 +83,8 @@ public final class AdministratorFacadeImpl implements AdministratorFacade {
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();
 
-            var userMessage = MessagesEnum.FIND_SPECIFIC_ADMINISTRATOR_UNEXPECTED_ERROR.getContent();
-            var technicalMessage = MessagesEnum.FIND_SPECIFIC_ADMINISTRATOR_UNEXPECTED_ERROR.getContent()
-                    + (exception.getMessage() == null ? "" : exception.getMessage());
+            var userMessage = " ";
+            var technicalMessage = " ";
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } finally {
