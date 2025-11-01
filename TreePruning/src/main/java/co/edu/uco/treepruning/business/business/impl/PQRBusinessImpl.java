@@ -5,17 +5,24 @@ import java.util.UUID;
 
 import co.edu.uco.treepruning.business.business.PQRBusiness;
 import co.edu.uco.treepruning.business.domain.PQRDomain;
+import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class PQRBusinessImpl implements PQRBusiness{
+	
+	private DAOFactory daoFactory;
+	
+	public PQRBusinessImpl(final DAOFactory daoFactory) {
+		this.daoFactory = daoFactory;
+	}
 
 	@Override
-	public List<PQRDomain> findAllPQRS() {
+	public List<PQRDomain> findAllPQRs() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PQRDomain> findPQRSByFilter(PQRDomain pqrFilters) {
+	public List<PQRDomain> findPQRsByFilter(PQRDomain pqrFilters) {
 		// TODO Auto-generated method stub
 		return null;
 	}

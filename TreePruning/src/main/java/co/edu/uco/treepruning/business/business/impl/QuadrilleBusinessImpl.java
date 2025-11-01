@@ -5,8 +5,15 @@ import java.util.UUID;
 
 import co.edu.uco.treepruning.business.business.QuadrilleBusiness;
 import co.edu.uco.treepruning.business.domain.QuadrilleDomain;
+import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class QuadrilleBusinessImpl implements QuadrilleBusiness{
+	
+	private DAOFactory daoFactory;
+	
+	public QuadrilleBusinessImpl(final DAOFactory daoFactory) {
+		this.daoFactory = daoFactory;
+	}
 
 	@Override
 	public List<QuadrilleDomain> findAllQuadrilles() {

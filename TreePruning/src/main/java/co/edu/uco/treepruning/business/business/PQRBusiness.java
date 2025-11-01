@@ -6,9 +6,9 @@ import java.util.UUID;
 import co.edu.uco.treepruning.business.domain.PQRDomain;
 
 public interface PQRBusiness {
-	List<PQRDomain> findAllPQRS();
+	List<PQRDomain> findAllPQRs();
 	
-	List<PQRDomain> findPQRSByFilter(PQRDomain pqrFilters);
+	List<PQRDomain> findPQRsByFilter(PQRDomain pqrFilters);
 	
 	PQRDomain findSpecificPQR(UUID id);
 }

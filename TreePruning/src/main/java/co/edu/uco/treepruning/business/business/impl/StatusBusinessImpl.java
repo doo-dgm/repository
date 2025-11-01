@@ -5,8 +5,15 @@ import java.util.UUID;
 
 import co.edu.uco.treepruning.business.business.StatusBusiness;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
+import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class StatusBusinessImpl implements StatusBusiness{
+	
+	private DAOFactory daoFactory;
+	
+	public StatusBusinessImpl(final DAOFactory daoFactory) {
+		this.daoFactory = daoFactory;
+	}
 
 	@Override
 	public List<StatusDomain> listAllStatuses() {
