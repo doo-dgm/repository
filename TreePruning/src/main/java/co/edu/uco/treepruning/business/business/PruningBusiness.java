@@ -10,7 +10,7 @@ public interface PruningBusiness {
 	
 	void schedulePruning(PruningDomain pruningDomain);
 	
-	void cancelPruning(UUID id, final StatusDomain status);
+	void cancelPruning(UUID id, StatusDomain status);
 	
 	void reschedulePruning(UUID id, PruningDomain pruningDomain);
 	

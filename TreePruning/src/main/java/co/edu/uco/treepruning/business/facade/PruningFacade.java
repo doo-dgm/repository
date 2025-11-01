@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.dto.PruningDTO;
+import co.edu.uco.treepruning.dto.StatusDTO;
 
 public interface PruningFacade {
 void schedulePruning(PruningDTO pruningDTO);
 	
-	void cancelPruning(UUID id);
+	void cancelPruning(UUID id, StatusDTO status);
 	
 	void reschedulePruning(UUID id, PruningDTO pruningDTO);
 	
-	void completePruning(UUID id);
+	void completePruning(UUID id, StatusDTO status);
 	
 	List<PruningDTO> findAllPrunings();
 	
