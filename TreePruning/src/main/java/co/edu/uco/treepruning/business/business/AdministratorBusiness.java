@@ -3,7 +3,7 @@ package co.edu.uco.treepruning.business.business;
 import java.util.UUID;
 
 public interface AdministratorBusiness {
-	void findAllAdministrator();
+	void findAllAdministrators();
 	
 	void findAdministratorByFilter(AdministratorBusiness administratorFilters);
 	

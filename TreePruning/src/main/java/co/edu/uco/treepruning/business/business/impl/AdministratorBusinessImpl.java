@@ -13,7 +13,7 @@ public class AdministratorBusinessImpl implements AdministratorBusiness {
 		this.daoFactory = daoFactory;
 	}
 	@Override
-	public void findAllAdministrator() {
+	public void findAllAdministrators() {
 		// TODO Auto-generated method stub
 		
 	}
