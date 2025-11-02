@@ -24,17 +24,46 @@ import co.edu.uco.treepruning.dto.SectorDTO;
 public class TreeController {
 
     @GetMapping
-    public ResponseEntity<Response<TreeDTO>> findAllTrees() {
-
+    public ResponseEntity<Response<TreeDTO>> findTrees(
+            @RequestParam(required = false) UUID id,
+            @RequestParam(required = false) Double longitude,
+            @RequestParam(required = false) Double latitude,
+            @RequestParam(required = false) UUID familyId,
+            @RequestParam(required = false) UUID sectorId
+    ) {
         Response<TreeDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
-
             var facade = new TreeFacadeImpl();
 
-            responseObjectData.setData(facade.findAllTrees());
-            responseObjectData.addMessage(" ");
+            // Si no hay filtros → obtener todos
+            if (id == null && longitude == null && latitude == null && familyId == null && sectorId == null) {
+                responseObjectData.setData(facade.findAllTrees());
+            } 
+            // Si hay filtros → buscar por filtro
+            else {
+                TreeDTO filter = new TreeDTO();
+                filter.setId(id);
+                filter.setLongitude(longitude);
+                filter.setLatitude(latitude);
+
+                if (familyId != null) {
+                    FamilyDTO family = new FamilyDTO();
+                    family.setId(familyId);
+                    filter.setFamily(family);
+                }
+
+                if (sectorId != null) {
+                    SectorDTO sector = new SectorDTO();
+                    sector.setId(sectorId);
+                    filter.setSector(sector);
+                }
+
+                responseObjectData.setData(facade.findTreesByFilter(filter));
+            }
+
+            responseObjectData.addMessage("");
 
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
@@ -60,7 +89,6 @@ public class TreeController {
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
-
             var facade = new TreeFacadeImpl();
 
             responseObjectData.setData(List.of(facade.findSpecificTree(id)));
@@ -79,14 +107,21 @@ public class TreeController {
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
+
         return new ResponseEntity<Response<TreeDTO>>(responseObjectData, responseStatusCode);
     }
+}
 
-    @GetMapping("/filter")
-    public ResponseEntity<Response<TreeDTO>> findTreesByFilter(
+
+@RestController
+@RequestMapping("/api/v1/trees")
+public class TreeController {
+
+    @GetMapping
+    public ResponseEntity<Response<TreeDTO>> findTrees(
             @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String longitude,
-            @RequestParam(required = false) String latitude,
+            @RequestParam(required = false) Double longitude,
+            @RequestParam(required = false) Double latitude,
             @RequestParam(required = false) UUID familyId,
             @RequestParam(required = false) UUID sectorId
     ) {
@@ -96,24 +131,32 @@ public class TreeController {
         try {
             var facade = new TreeFacadeImpl();
 
-            TreeDTO filter = new TreeDTO();
-            filter.setId(id);
-            filter.setLongitude(longitude);
-            filter.setLatitude(latitude);
+            // Si no hay filtros → obtener todos
+            if (id == null && longitude == null && latitude == null && familyId == null && sectorId == null) {
+                responseObjectData.setData(facade.findAllTrees());
+            } 
+            // Si hay filtros → buscar por filtro
+            else {
+                TreeDTO filter = new TreeDTO();
+                filter.setId(id);
+                filter.setLongitude(longitude);
+                filter.setLatitude(latitude);
 
-            if (familyId != null) {
-                FamilyDTO family = new FamilyDTO();
-                family.setId(familyId);
-                filter.setFamily(family);
+                if (familyId != null) {
+                    FamilyDTO family = new FamilyDTO();
+                    family.setId(familyId);
+                    filter.setFamily(family);
+                }
+
+                if (sectorId != null) {
+                    SectorDTO sector = new SectorDTO();
+                    sector.setId(sectorId);
+                    filter.setSector(sector);
+                }
+
+                responseObjectData.setData(facade.findTreesByFilter(filter));
             }
 
-            if (sectorId != null) {
-                SectorDTO sector = new SectorDTO();
-                sector.setId(sectorId);
-                filter.setSector(sector);
-            }
-
-            responseObjectData.setData(facade.findTreesByFilter(filter));
             responseObjectData.addMessage("");
 
         } catch (final TreePruningException exception) {
@@ -129,6 +172,37 @@ public class TreeController {
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
+
+        return new ResponseEntity<Response<TreeDTO>>(responseObjectData, responseStatusCode);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<TreeDTO>> findSpecificTree(@PathVariable UUID id) {
+
+        Response<TreeDTO> responseObjectData = Response.createSuccededResponse();
+        HttpStatusCode responseStatusCode = HttpStatus.OK;
+
+        try {
+            var facade = new TreeFacadeImpl();
+
+            responseObjectData.setData(List.of(facade.findSpecificTree(id)));
+            responseObjectData.addMessage("");
+
+        } catch (final TreePruningException exception) {
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(exception.getUserMessage());
+            responseStatusCode = HttpStatus.NOT_FOUND;
+            exception.printStackTrace();
+
+        } catch (final Exception exception) {
+            var userMessage = "";
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(userMessage);
+            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            exception.printStackTrace();
+        }
+
         return new ResponseEntity<Response<TreeDTO>>(responseObjectData, responseStatusCode);
     }
 }
+
