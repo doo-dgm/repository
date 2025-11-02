@@ -20,36 +20,51 @@ import co.edu.uco.treepruning.dto.StatusDTO;
 @RestController
 @RequestMapping("/api/v1/statuses")
 public class StatusController {
+	
+	@GetMapping("/dummy")
+	public StatusDTO dummy() {
+		return new StatusDTO();
+	}
 
-    @GetMapping
-    public ResponseEntity<Response<StatusDTO>> findAllStatuses() {
+	    @GetMapping
+	    public ResponseEntity<Response<StatusDTO>> findStatuses(
+	            @RequestParam(required = false) UUID id,
+	            @RequestParam(required = false) String name) {
 
-        Response<StatusDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
+	        Response<StatusDTO> responseObjectData = Response.createSuccededResponse();
+	        HttpStatusCode responseStatusCode = HttpStatus.OK;
 
-        try {
+	        try {
+	            var facade = new StatusFacadeImpl();
 
-            var facade = new StatusFacadeImpl();
+	            
+	            if (id == null && (name == null || name.isBlank())) {
+	                responseObjectData.setData(facade.findAllStatuses());
+	            } else {
+	                StatusDTO filter = new StatusDTO();
+	                filter.setId(id);
+	                filter.setName(name);
 
-            responseObjectData.setData(facade.findAllStatuses());
-            responseObjectData.addMessage(" ");
+	                responseObjectData.setData(facade.findStatusesByFilter(filter));
+	            }
 
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
+	            responseObjectData.addMessage("");
 
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
+	        } catch (final TreePruningException exception) {
+	            responseObjectData = Response.createFailedResponse();
+	            responseObjectData.addMessage(exception.getUserMessage());
+	            responseStatusCode = HttpStatus.BAD_REQUEST;
+	            exception.printStackTrace();
 
-        return new ResponseEntity<Response<StatusDTO>>(responseObjectData, responseStatusCode);
-    }
+	        } catch (final Exception exception) {
+	            var userMessage = "";
+	            responseObjectData = Response.createFailedResponse();
+	            responseObjectData.addMessage(userMessage);
+	            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+	            exception.printStackTrace();
+	        }
+	        return new ResponseEntity<Response<StatusDTO>>(responseObjectData, responseStatusCode);
+	    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<StatusDTO>> findSpecificStatus(@PathVariable UUID id) {
@@ -68,39 +83,6 @@ public class StatusController {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.NOT_FOUND;
-            exception.printStackTrace();
-
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
-        return new ResponseEntity<Response<StatusDTO>>(responseObjectData, responseStatusCode);
-    }
-
-    @GetMapping("/filter")
-    public ResponseEntity<Response<StatusDTO>> findStatusesByFilter(
-            @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String name) {
-
-        Response<StatusDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
-
-        try {
-            var facade = new StatusFacadeImpl();
-
-            StatusDTO filter = new StatusDTO();
-            filter.setId(id);
-            filter.setName(name);
-
-            responseObjectData.setData(facade.findStatusesByFilter(filter));
-            responseObjectData.addMessage("");
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
             exception.printStackTrace();
 
         } catch (final Exception exception) {

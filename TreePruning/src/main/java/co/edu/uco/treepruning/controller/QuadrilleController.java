@@ -22,31 +22,50 @@ public class QuadrilleController {
 	public QuadrilleDTO dummy() {
 		return new QuadrilleDTO();
 	}
+	 @GetMapping
+	    public ResponseEntity<Response<QuadrilleDTO>> findQuadrilles(
+	            @RequestParam(required = false) final UUID id,
+	            @RequestParam(required = false) final String name,
+	            @RequestParam(required = false) final UUID managerId) {
 
-    @GetMapping
-    public ResponseEntity<Response<QuadrilleDTO>> findAllQuadrilles() {
-        Response<QuadrilleDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
+	        Response<QuadrilleDTO> responseObjectData = Response.createSuccededResponse();
+	        HttpStatusCode responseStatusCode = HttpStatus.OK;
 
-        try {
-            var facade = new QuadrilleFacadeImpl();
-            responseObjectData.setData(facade.findAllQuadrilles());
-            responseObjectData.addMessage(" ");
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
+	        try {
+	            var facade = new QuadrilleFacadeImpl();
 
-        return new ResponseEntity<Response<QuadrilleDTO>>(responseObjectData, responseStatusCode);
-    }
+	            if (id == null && (name == null || name.isBlank()) && managerId == null) {
+	                responseObjectData.setData(facade.findAllQuadrilles());
+	            } else {
+	                QuadrilleDTO filter = new QuadrilleDTO();
+	                filter.setId(id);
+	                filter.setName(name);
+
+	                if (managerId != null) {
+	                    var manager = new ManagerDTO();
+	                    manager.setId(managerId);
+	                    filter.setManager(manager);
+	                }
+
+	                responseObjectData.setData(facade.findQuadrillesByFilter(filter));
+	            }
+
+	            responseObjectData.addMessage("");
+	        } catch (final TreePruningException exception) {
+	            responseObjectData = Response.createFailedResponse();
+	            responseObjectData.addMessage(exception.getUserMessage());
+	            responseStatusCode = HttpStatus.BAD_REQUEST;
+	            exception.printStackTrace();
+	        } catch (final Exception exception) {
+	            var userMessage = "";
+	            responseObjectData = Response.createFailedResponse();
+	            responseObjectData.addMessage(userMessage);
+	            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+	            exception.printStackTrace();
+	        }
+
+	        return new ResponseEntity<Response<QuadrilleDTO>>(responseObjectData, responseStatusCode);
+	    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<QuadrilleDTO>> findSpecificQuadrille(@PathVariable final UUID id) {
@@ -61,46 +80,6 @@ public class QuadrilleController {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.NOT_FOUND;
-            exception.printStackTrace();
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
-
-        return new ResponseEntity<Response<QuadrilleDTO>>(responseObjectData, responseStatusCode);
-    }
-
-    @GetMapping("/filter")
-    public ResponseEntity<Response<QuadrilleDTO>> findQuadrillesByFilter(
-            @RequestParam(required = false) final UUID id,
-            @RequestParam(required = false) final String name,
-            @RequestParam(required = false) final UUID managerId) {
-
-        Response<QuadrilleDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
-
-        try {
-            var facade = new QuadrilleFacadeImpl();
-
-            QuadrilleDTO filter = new QuadrilleDTO();
-            filter.setId(id);
-            filter.setName(name);
-
-            if (managerId != null) {
-                var manager = new ManagerDTO();
-                manager.setId(managerId);
-                filter.setManager(manager);
-            }
-
-            responseObjectData.setData(facade.findQuadrillesByFilter(filter));
-            responseObjectData.addMessage("");
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
             exception.printStackTrace();
         } catch (final Exception exception) {
             var userMessage = "";

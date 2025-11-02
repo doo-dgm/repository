@@ -27,113 +27,87 @@ public class ProgrammingController {
 		return new ProgrammingDTO();
 	}
 
-    @GetMapping
-    public ResponseEntity<Response<ProgrammingDTO>> findAllProgrammings() {
+	 @GetMapping
+	    public ResponseEntity<Response<ProgrammingDTO>> findProgrammings(
+	            @RequestParam(required = false) UUID id,
+	            @RequestParam(required = false) String initialDate, 
+	            @RequestParam(required = false) Integer frequencyMonths,
+	            @RequestParam(required = false) Integer amount) {
 
-        Response<ProgrammingDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
+	        Response<ProgrammingDTO> responseObjectData = Response.createSuccededResponse();
+	        HttpStatusCode responseStatusCode = HttpStatus.OK;
 
-        try {
+	        try {
+	            var facade = new ProgrammingFacadeImpl();
+	            if (id == null && (initialDate == null || initialDate.isBlank()) && frequencyMonths == null && amount == null) {
+	                responseObjectData.setData(facade.findAllProgrammings());
+	            } else {
+	                ProgrammingDTO filter = new ProgrammingDTO();
+	                filter.setId(id);
 
-            var facade = new ProgrammingFacadeImpl();
+	                if (initialDate != null && !initialDate.isBlank()) {
+	                    try {
+	                        filter.setInitialDate(LocalDate.parse(initialDate));
+	                    } catch (final Exception exeption) {
+	                    System.out.println("Formato de fecha inválido: " + initialDate);
+	                }
+	            }
 
-            responseObjectData.setData(facade.findAllProgrammings());
-            responseObjectData.addMessage(" ");
+	            if (frequencyMonths != null) {
+	                filter.setFrequencyMonths(frequencyMonths);
+	            }
 
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
+	            if (amount != null) {
+	                filter.setAmount(amount);
+	            }
+	            
+	            responseObjectData.setData(facade.findProgrammingsByFilter(filter));
+	            }
+	            responseObjectData.addMessage("");
+	            } catch (final TreePruningException exception) {
+	                responseObjectData = Response.createFailedResponse();
+	                responseObjectData.addMessage(exception.getUserMessage());
+	                responseStatusCode = HttpStatus.NOT_FOUND;
+	                exception.printStackTrace();
 
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
-
-        return new ResponseEntity<Response<ProgrammingDTO>>(responseObjectData, responseStatusCode);
+	            } catch (final Exception exception) {
+	                var userMessage = "";
+	                responseObjectData = Response.createFailedResponse();
+	                responseObjectData.addMessage(userMessage);
+	                responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+	                exception.printStackTrace();
+	            }
+	            return new ResponseEntity<Response<ProgrammingDTO>>(responseObjectData, responseStatusCode);
     }
+	 @GetMapping("/{id}")
+	    public ResponseEntity<Response<ProgrammingDTO>> findSpecificProgramming(@PathVariable UUID id) {
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<ProgrammingDTO>> findSpecificProgramming(@PathVariable UUID id) {
+	        Response<ProgrammingDTO> responseObjectData = Response.createSuccededResponse();
+	        HttpStatusCode responseStatusCode = HttpStatus.OK;
 
-        Response<ProgrammingDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
+	        try {
 
-        try {
+	            var facade = new ProgrammingFacadeImpl();
 
-            var facade = new ProgrammingFacadeImpl();
+	            responseObjectData.setData(List.of(facade.findSpecificProgramming(id)));
+	            responseObjectData.addMessage("");
 
-            responseObjectData.setData(List.of(facade.findSpecificProgramming(id)));
-            responseObjectData.addMessage("");
+	        } catch (final TreePruningException exception) {
+	            responseObjectData = Response.createFailedResponse();
+	            responseObjectData.addMessage(exception.getUserMessage());
+	            responseStatusCode = HttpStatus.NOT_FOUND;
+	            exception.printStackTrace();
 
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.NOT_FOUND;
-            exception.printStackTrace();
+	        } catch (final Exception exception) {
+	            var userMessage = "";
+	            responseObjectData = Response.createFailedResponse();
+	            responseObjectData.addMessage(userMessage);
+	            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+	            exception.printStackTrace();
+	        }
+	        return new ResponseEntity<Response<ProgrammingDTO>>(responseObjectData, responseStatusCode);
+	    }
+	}
 
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
-        return new ResponseEntity<Response<ProgrammingDTO>>(responseObjectData, responseStatusCode);
-    }
 
-    @GetMapping("/filter")
-    public ResponseEntity<Response<ProgrammingDTO>> findProgrammingsByFilter(
-            @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String initial_date, // ISO yyyy-MM-dd expected
-            @RequestParam(required = false) Integer frequency_months,
-            @RequestParam(required = false) Integer amount) {
-
-        Response<ProgrammingDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
-
-        try {
-            var facade = new ProgrammingFacadeImpl();
-
-            ProgrammingDTO filter = new ProgrammingDTO();
-            filter.setId(id);
-
-            if (initial_date != null && !initial_date.isBlank()) {
-                try {
-                    filter.setInitialDate(LocalDate.parse(initial_date));
-                } catch (final Exception exeption) {
-                    System.out.println("Formato de fecha inválido: " + initial_date);
-                }
-            }
-
-            if (frequency_months != null) {
-                filter.setFrequencyMonths(frequency_months);
-            }
-
-            if (amount != null) {
-                filter.setAmount(amount);
-            }
-
-            responseObjectData.setData(facade.findProgrammingsByFilter(filter));
-            responseObjectData.addMessage("");
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
-
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
-        return new ResponseEntity<Response<ProgrammingDTO>>(responseObjectData, responseStatusCode);
-    }
-}
 

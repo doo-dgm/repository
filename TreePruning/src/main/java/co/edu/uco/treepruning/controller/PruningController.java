@@ -18,6 +18,12 @@ import co.edu.uco.treepruning.dto.StatusDTO;
 @RestController
 @RequestMapping("/api/v1/prunings")
 public class PruningController {
+	
+
+	@GetMapping("/dummy")
+	public PruningDTO getPruningDTODummy() {
+		return new PruningDTO();
+	}
 
     @PostMapping
     public ResponseEntity<Response<PruningDTO>> schedulePruning(@RequestBody PruningDTO pruningDTO) {
@@ -120,15 +126,67 @@ public class PruningController {
     }
 
     @GetMapping
-    public ResponseEntity<Response<PruningDTO>> findAllPrunings() {
+    public ResponseEntity<Response<PruningDTO>> findPrunings(
+            @RequestParam(required = false) UUID id,
+            @RequestParam(required = false) String plannedDate,
+            @RequestParam(required = false) String executedDate,
+            @RequestParam(required = false) UUID statusId,
+            @RequestParam(required = false) UUID treeId,
+            @RequestParam(required = false) UUID quadrilleId) {
 
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
             var facade = new PruningFacadeImpl();
-            responseObjectData.setData(facade.findAllPrunings());
-            responseObjectData.addMessage(" ");
+
+            if (id == null && plannedDate == null && executedDate == null &&
+                statusId == null && treeId == null && quadrilleId == null) {
+
+                responseObjectData.setData(facade.findAllPrunings());
+
+            } else {
+                PruningDTO filter = new PruningDTO();
+                filter.setId(id);
+
+                if (plannedDate != null && !plannedDate.isBlank()) {
+                    try {
+                        filter.setPlannedDate(LocalDate.parse(plannedDate));
+                    } catch (final Exception ex) {
+                        System.out.println("Formato de fecha inválido: " + plannedDate);
+                    }
+                }
+
+                if (executedDate != null && !executedDate.isBlank()) {
+                    try {
+                        filter.setExecutedDate(LocalDate.parse(executedDate));
+                    } catch (final Exception ex) {
+                        System.out.println("Formato de fecha inválido: " + executedDate);
+                    }
+                }
+
+                if (statusId != null) {
+                    var status = new StatusDTO();
+                    status.setId(statusId);
+                    filter.setStatus(status);
+                }
+
+                if (treeId != null) {
+                    var tree = new co.edu.uco.treepruning.dto.TreeDTO();
+                    tree.setId(treeId);
+                    filter.setTree(tree);
+                }
+
+                if (quadrilleId != null) {
+                    var quadrille = new co.edu.uco.treepruning.dto.QuadrilleDTO();
+                    quadrille.setId(quadrilleId);
+                    filter.setQuadrille(quadrille);
+                }
+
+                responseObjectData.setData(facade.findPruningsByFilter(filter));
+            }
+
+            responseObjectData.addMessage("");
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());

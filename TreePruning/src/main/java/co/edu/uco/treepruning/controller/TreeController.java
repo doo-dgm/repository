@@ -22,6 +22,11 @@ import co.edu.uco.treepruning.dto.SectorDTO;
 @RestController
 @RequestMapping("/api/v1/trees")
 public class TreeController {
+	
+	@GetMapping("/dummy")
+	public TreeDTO dummy() {
+		return new TreeDTO();
+	}
 
     @GetMapping
     public ResponseEntity<Response<TreeDTO>> findTrees(

@@ -10,3 +10,4 @@ public interface RetrieveDAO<E, ID> {
 	
 	E findById(ID id);
 }
+
