@@ -10,7 +10,6 @@ import co.edu.uco.treepruning.entity.QuadrilleEntity;
 
 public final class QuadrilleMapper {
 
-
     public static QuadrilleEntity map(final ResultSet resultSet) {
         var quadrille = new QuadrilleEntity();
 
@@ -19,7 +18,7 @@ public final class QuadrilleMapper {
             var manager = ManagerMapper.map(resultSet);
             quadrille.setManager(manager);
             
-            quadrille.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
+            quadrille.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("quadrilleId")));
             quadrille.setQuadrilleName(resultSet.getString("quadrilleName"));
 
         } catch (final SQLException exception) {

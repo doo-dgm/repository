@@ -177,7 +177,6 @@ public final class PersonSqlServerDAO extends SqlConnection implements PersonDAO
 
         addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondLastName()), "p.secondSurname = ?",filterEntityValidated.getSecondLastName());
-
         
         addCondition(conditions, parametersList,
         		!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getDocument().getId()), "d.documentId = ?",filterEntityValidated.getDocument().getId());

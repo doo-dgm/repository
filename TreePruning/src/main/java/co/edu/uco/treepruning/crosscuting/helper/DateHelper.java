@@ -1,5 +1,6 @@
 package co.edu.uco.treepruning.crosscuting.helper;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public final class DateHelper {
@@ -27,6 +28,11 @@ public final class DateHelper {
 	
 	public boolean isDefaultDate(final LocalDate date) {
 		return getDefault().equals(date);
+	}
+	
+	public LocalDate toLocalDate(final Date value) {
+		return value.toLocalDate();
+		
 	}
 
 }

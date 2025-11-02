@@ -15,9 +15,9 @@ public final class DocumentMapper {
         var document = new DocumentEntity();
 
         try {
-            document.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            document.setName(resultSet.getString("name"));
-            document.setCode(resultSet.getString("code"));
+            document.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("documentId")));
+            document.setName(resultSet.getString("documentName"));
+            document.setCode(resultSet.getString("documentCode"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_DOCUMENT_MAPPER.getContent();

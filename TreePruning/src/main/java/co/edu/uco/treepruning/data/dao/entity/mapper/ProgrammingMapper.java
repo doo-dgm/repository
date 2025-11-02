@@ -2,9 +2,9 @@ package co.edu.uco.treepruning.data.dao.entity.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.ProgrammingEntity;
@@ -20,7 +20,7 @@ public final class ProgrammingMapper {
 
         try {
             programming.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            programming.setInitialDate(resultSet.getObject("initial_date", LocalDate.class));
+            programming.setInitialDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("initial_date")));
             programming.setFrequencyMonths(resultSet.getInt("frequency_months"));
             programming.setAmount(resultSet.getInt("amount"));
 

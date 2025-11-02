@@ -7,7 +7,6 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.ManagerEntity;
-import co.edu.uco.treepruning.entity.PersonEntity;
 
 public final class ManagerMapper {
 
@@ -16,11 +15,10 @@ public final class ManagerMapper {
 
         try {
         	
-        	var person = new PersonEntity();
+        	var person = PersonMapper.map(resultSet);
         	manager.setPerson(person);
         	
-            manager.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            person.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("persona")));
+            manager.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("managerId")));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_MANAGER_MAPPER.getContent();
