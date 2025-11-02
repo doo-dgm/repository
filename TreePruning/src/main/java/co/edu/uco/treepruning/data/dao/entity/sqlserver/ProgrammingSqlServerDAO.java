@@ -3,11 +3,13 @@ package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
@@ -34,7 +36,7 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
 			preparedStatement.setObject(1, entity.getId());
 			preparedStatement.setObject(2, entity.getInitialDate());
 			preparedStatement.setInt(3, entity.getFrequencyMonths());
-			preparedStatement.setInt(4, entity.getQuantity());
+			preparedStatement.setInt(4, entity.getAmount());
 
 			preparedStatement.executeUpdate();
 
@@ -56,10 +58,10 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
 	}
 
 	@Override
-	public List<ProgrammingEntity> findByFilter(ProgrammingEntity filterEntity) {
+	public List<ProgrammingEntity> findByFilter(final ProgrammingEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
         var sql = createSentenceFindByFilter(filterEntity, parameterList);
-
+        
         try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
 
             for (var index = 0; index < parameterList.size(); index++) {
@@ -75,24 +77,25 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
         } catch (final Exception exception) {
             var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getContent();
             var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getContent();
+            
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 	}
 	}
 
 	@Override
-	public ProgrammingEntity findById(UUID id) {
+	public ProgrammingEntity findById(final UUID id) {
 		return findByFilter(new ProgrammingEntity(id)).stream().findFirst().orElse(new ProgrammingEntity());
 	}
 
 	@Override
-	public void update(ProgrammingEntity entity) {
+	public void update(final ProgrammingEntity entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 
         try (var preparedStatement = getConnection().prepareStatement(ProgrammingSql.UPDATE)) {
 
             preparedStatement.setObject(1, entity.getInitialDate());
             preparedStatement.setInt(2, entity.getFrequencyMonths());
-            preparedStatement.setInt(3, entity.getQuantity());
+            preparedStatement.setInt(3, entity.getAmount());
             preparedStatement.setObject(4, entity.getId());
 
             preparedStatement.executeUpdate();
@@ -109,7 +112,7 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
 	}
 
 	@Override
-	public void delete(UUID id) {
+	public void delete(final UUID id) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 
         try (var preparedStatement = getConnection().prepareStatement(ProgrammingSql.DELETE)) {
@@ -144,20 +147,20 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
     final var conditions = new ArrayList<String>();
 
     addCondition(conditions, parameterList,
-            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "pr.id = ?",
+            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "p.id = ?",
             filterEntityValidated.getId());
 
     addCondition(conditions, parameterList,
-            filterEntityValidated.getInitialDate() != null, "pr.fechaInicial = ?",
+    		!DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getInitialDate()), "p.initial_date = ?",
             filterEntityValidated.getInitialDate());
-
+    
     addCondition(conditions, parameterList,
-            NumericHelper.getDefaultInt(filterEntityValidated.getFrequencyMonths()) > 0, "pr.frecuenciaMeses = ?",
+            NumericHelper.getDefaultInt(filterEntityValidated.getFrequencyMonths()) > 0, "p.frequency_months = ?",
             filterEntityValidated.getFrequencyMonths());
 
     addCondition(conditions, parameterList,
-            NumericHelper.getDefaultInt(filterEntityValidated.getQuantity()) > 0, "pr.cantidad = ?",
-            filterEntityValidated.getQuantity());
+            NumericHelper.getDefaultInt(filterEntityValidated.getAmount()) > 0, "p.amount = ?",
+            filterEntityValidated.getAmount());
 		
 		
 		if (!conditions.isEmpty()) {
@@ -188,6 +191,7 @@ public class ProgrammingSqlServerDAO extends SqlConnection implements Programmin
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_MAPPER_UNEXPECTED.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_MAPPER_UNEXPECTED.getContent();
+			
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -139,7 +140,7 @@ public final class PersonEntity {
     }
 
     public void setBirthDate(final LocalDate birthDate) {
-        this.birthDate = birthDate == null ? LocalDate.now() : birthDate;
+        this.birthDate = DateHelper.getDateHelper().getDefault(birthDate);
     }
 
     public String getAddress() {

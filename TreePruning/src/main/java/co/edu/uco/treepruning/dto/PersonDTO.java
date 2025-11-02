@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -31,7 +32,7 @@ public class PersonDTO {
         setSecondLastName(TextHelper.getDefault());
         setDocument(null);
         setDocumentNumber(TextHelper.getDefault());
-        setBirthDate(LocalDate.now());
+        setBirthDate(DateHelper.getDateHelper().getDefault());
         setAddress(TextHelper.getDefault());
         setEmail(TextHelper.getDefault());
         setEmailConfirmed(false);
@@ -48,7 +49,7 @@ public class PersonDTO {
         setSecondLastName(TextHelper.getDefault());
         setDocument(null);
         setDocumentNumber(TextHelper.getDefault());
-        setBirthDate(LocalDate.now());
+        setBirthDate(DateHelper.getDateHelper().getDefault());
         setAddress(TextHelper.getDefault());
         setEmail(TextHelper.getDefault());
         setEmailConfirmed(false);
@@ -138,7 +139,7 @@ public class PersonDTO {
     }
 
     public void setBirthDate(final LocalDate birthDate) {
-        this.birthDate = birthDate == null ? LocalDate.now() : birthDate;
+        this.birthDate = DateHelper.getDateHelper().getDefault(birthDate);
     }
 
     public String getAddress() {

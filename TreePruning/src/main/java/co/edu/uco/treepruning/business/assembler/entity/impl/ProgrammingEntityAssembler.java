@@ -29,7 +29,7 @@ public class ProgrammingEntityAssembler implements EntityAssembler<ProgrammingEn
                 domainTmp.getId(),
                 domainTmp.getInitialDate(),
                 domainTmp.getFrequencyMonths(),
-                domainTmp.getQuantity()
+                domainTmp.getAmount()
         );
     }
 
@@ -42,7 +42,7 @@ public class ProgrammingEntityAssembler implements EntityAssembler<ProgrammingEn
                 entityTmp.getId(),
                 entityTmp.getInitialDate(),
                 entityTmp.getFrequencyMonths(),
-                entityTmp.getQuantity()
+                entityTmp.getAmount()
         );
     }
 

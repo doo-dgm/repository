@@ -1,41 +1,18 @@
 package co.edu.uco.treepruning.crosscuting.helper;
 
-import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
 public class SqlConnectionHelper {
-	private static final String PROPERTIES_FILE = "/application.properties";
 	
-private SqlConnectionHelper() {
+	private SqlConnectionHelper() {
 		
 	}
 
-    public static Connection setConnection() {
-        try (InputStream input = SqlConnectionHelper.class.getResourceAsStream(PROPERTIES_FILE)) {
-            Properties prop = new Properties();
-            prop.load(input);
-
-            String url = prop.getProperty("spring.datasource.url");
-            String username = prop.getProperty("spring.datasource.username");
-            String password = prop.getProperty("spring.datasource.password");
-            String driver = prop.getProperty("spring.datasource.driverClassName");
-
-            Class.forName(driver);
-            return DriverManager.getConnection(url, username, password);
-        } catch (Exception e) {
-        	var userMessage = "Error connecting to the database";
-            var technicalMessage = "Technical details: " + e.getMessage();
-            throw TreePruningException.create(e, userMessage, technicalMessage);
-    	}
-    }
-    
     public static void ensureConnectionIsNotNull(final Connection connection) {
  
 		if(ObjectHelper.isNull(connection)) {

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
@@ -166,45 +167,46 @@ public final class PersonSqlServerDAO extends SqlConnection implements PersonDAO
                 !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "p.id = ?",filterEntityValidated.getId());
 
         addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getFirstName()), "p.nombreUno = ?",filterEntityValidated.getFirstName());
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getFirstName()), "p.firstName = ?",filterEntityValidated.getFirstName());
 
         addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondName()), "p.nombreDos = ?",filterEntityValidated.getSecondName());
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondName()), "p.middleName = ?",filterEntityValidated.getSecondName());
 
         addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getFirstLastName()), "p.apellidoUno = ?",filterEntityValidated.getFirstLastName());
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getFirstLastName()), "p.surname = ?",filterEntityValidated.getFirstLastName());
 
         addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondLastName()), "p.apellidoDos = ?",filterEntityValidated.getSecondLastName());
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getSecondLastName()), "p.secondSurname = ?",filterEntityValidated.getSecondLastName());
+
+        
+        addCondition(conditions, parametersList,
+        		!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getDocument().getId()), "d.documentId = ?",filterEntityValidated.getDocument().getId());
 
         addCondition(conditions, parametersList,
-        		!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getDocument().getId()), "p.Documento = ?",filterEntityValidated.getDocument().getId());
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getDocumentNumber()), "p.documentNumber = ?",filterEntityValidated.getDocumentNumber());
 
         addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getDocumentNumber()), "p.numeroDocumento = ?",filterEntityValidated.getDocumentNumber());
+                 !DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getBirthDate()), "p.birthDate" ,filterEntityValidated.getBirthDate());
 
         addCondition(conditions, parametersList,
-                filterEntityValidated.getBirthDate() != null, "p.fechaNacimiento = ?",filterEntityValidated.getBirthDate());
-
-        addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getAddress()), "p.direccion = ?",filterEntityValidated.getAddress());
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getAddress()), "p.address = ?",filterEntityValidated.getAddress());
 
         addCondition(conditions, parametersList,
                 !TextHelper.isEmptyWithTrim(filterEntityValidated.getEmail()), "p.email = ?",filterEntityValidated.getEmail());
 
         addCondition(conditions, parametersList,
-                !filterEntityValidated.isEmailConfirmed(), "p.correoConfirmado = ?",filterEntityValidated.isEmailConfirmed());
+                !filterEntityValidated.isEmailConfirmed(), "p.emailConfirmed = ?",filterEntityValidated.isEmailConfirmed());
 
         addCondition(conditions, parametersList,
-                !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhone()), "p.telefono = ?",
+                !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhone()), "p.phone = ?",
                 filterEntityValidated.getPhone());
 
         addCondition(conditions, parametersList,
-                !filterEntityValidated.isPhoneConfirmed(), "p.telefonoConfirmado = ?",
+                !filterEntityValidated.isPhoneConfirmed(), "p.phoneConfirmed = ?",
                 filterEntityValidated.isPhoneConfirmed());
 
         addCondition(conditions, parametersList,
-                NumericHelper.getDefaultInt(filterEntityValidated.getAge()) > 0, "p.edad = ?", filterEntityValidated.getAge());
+                NumericHelper.getDefaultInt(filterEntityValidated.getAge()) > 0, "p.age = ?", filterEntityValidated.getAge());
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");

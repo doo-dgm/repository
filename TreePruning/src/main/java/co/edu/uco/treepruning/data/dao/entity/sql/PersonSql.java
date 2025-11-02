@@ -7,8 +7,8 @@ public final class PersonSql {
                 id,
                 firstName,
                 middleName,
-                lastName,
-                secondLastName,
+                surname,
+                secondSurname,
                 document,
                 documentNumber,
                 birthDate,
@@ -22,66 +22,23 @@ public final class PersonSql {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                id,
-                firstName,
-                middleName,
-                lastName,
-                secondLastName,
-                document,
-                documentNumber,
-                birthDate,
-                address,
-                email,
-                emailConfirmed,
-                phone,
-                phoneConfirmed,
-                age
-            FROM Person
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                id,
-                firstName,
-                middleName,
-                lastName,
-                secondLastName,
-                document,
-                documentNumber,
-                birthDate,
-                address,
-                email,
-                emailConfirmed,
-                phone,
-                phoneConfirmed,
-                age
-            FROM Person
-            WHERE (? IS NULL OR firstName LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR lastName LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR documentNumber LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR email LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                id,
-                firstName,
-                middleName,
-                lastName,
-                secondLastName,
-                document,
-                documentNumber,
-                birthDate,
-                address,
-                email,
-                emailConfirmed,
-                phone,
-                phoneConfirmed,
-                age
-            FROM Person
-            WHERE id = ?
+                p.id,
+                p.firstName,
+                p.middleName,
+                p.surname,
+                p.secondSurname,
+                d.id as documentId,
+                p.documentNumber,
+                p.birthDate,
+                p.address,
+                p.email,
+                p.emailConfirmed,
+                p.phone,
+                p.phoneConfirmed,
+                p.age
+            FROM Person as p
             """;
 
     public static final String UPDATE = """

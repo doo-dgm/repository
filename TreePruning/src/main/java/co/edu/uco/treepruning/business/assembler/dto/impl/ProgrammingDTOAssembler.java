@@ -25,14 +25,14 @@ public class ProgrammingDTOAssembler implements DTOAssembler<ProgrammingDTO, Pro
 	public ProgrammingDTO toDTO(ProgrammingDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new ProgrammingDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		
-		return new ProgrammingDTO(domainTmp.getId(), domainTmp.getInitialDate(), domainTmp.getFrequencyMonths(), domainTmp.getQuantity());
+		return new ProgrammingDTO(domainTmp.getId(), domainTmp.getInitialDate(), domainTmp.getFrequencyMonths(), domainTmp.getAmount());
 	}
 
 	@Override
 	public ProgrammingDomain toDomain(ProgrammingDTO dto) {
 		var dtoTmp = ObjectHelper.getDefault(dto, new ProgrammingDTO(UUIDHelper.getUUIDHelper().getDefault()));
 		
-		return new ProgrammingDomain(dtoTmp.getId(), dtoTmp.getInitialDate(), dtoTmp.getFrequencyMonths(), dtoTmp.getQuantity());
+		return new ProgrammingDomain(dtoTmp.getId(), dtoTmp.getInitialDate(), dtoTmp.getFrequencyMonths(), dtoTmp.getAmount());
 	}
 
 	@Override

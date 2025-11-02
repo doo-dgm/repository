@@ -2,6 +2,8 @@ package co.edu.uco.treepruning.data.dao.factory.sqlserver;
 
 import java.util.Properties;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import java.io.InputStream;
 import java.sql.DriverManager;
 
@@ -51,9 +53,12 @@ import co.edu.uco.treepruning.data.dao.entity.sqlserver.TypeSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class SqlServerDAOFactory extends DAOFactory {
+	
+	private JdbcTemplate jdbcTemplate;
 		
 	public SqlServerDAOFactory() {
 		openConnection();
+		jdbcTemplate = new JdbcTemplate();
 	}
 	
 	private static final String PROPERTIES_FILE = "/application.properties";
@@ -78,6 +83,7 @@ public class SqlServerDAOFactory extends DAOFactory {
 	                .getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SQL_CONNECTION_UNEXPECTED_ERROR_VALIDATING_CONNECTION_STATUS
 	                .getContent();
+			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 	}
 	}

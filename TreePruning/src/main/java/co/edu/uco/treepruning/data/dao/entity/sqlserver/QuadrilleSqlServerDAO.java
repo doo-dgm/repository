@@ -58,7 +58,7 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 	public List<QuadrilleEntity> findByFilter(final QuadrilleEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-		
+		System.out.println(sql);
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {	            
 			for (var index = 0; index < parameterList.size(); index++) {
 				preparedStatement.setObject(index + 1, parameterList.get(index));
@@ -149,10 +149,10 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 				"q.id = ?", filterEntityValidated.getId());		
 
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getQuadrilleName()),
-				"q.name= ?", filterEntityValidated.getQuadrilleName());
+				"q.quadrilleName= ?", filterEntityValidated.getQuadrilleName());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getManager().getId()),
-				"q.manager= ?", filterEntityValidated.getManager().getId());
+				"q.managerId = ?", filterEntityValidated.getManager().getId());
 		
 		
 		if (!conditions.isEmpty()) {

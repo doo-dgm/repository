@@ -17,6 +17,11 @@ import co.edu.uco.treepruning.dto.QuadrilleDTO;
 @RestController
 @RequestMapping("/api/v1/quadrilles")
 public class QuadrilleController {
+	
+	@GetMapping("/dummy")
+	public QuadrilleDTO dummy() {
+		return new QuadrilleDTO();
+	}
 
     @GetMapping
     public ResponseEntity<Response<QuadrilleDTO>> findAllQuadrilles() {

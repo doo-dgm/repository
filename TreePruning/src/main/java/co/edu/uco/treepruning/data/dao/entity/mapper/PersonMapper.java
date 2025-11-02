@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.PersonEntity;
@@ -19,11 +21,12 @@ public final class PersonMapper {
         	
             person.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
             person.setFirstName(resultSet.getString("firstName"));
-            person.setSecondName(resultSet.getString("secondName"));
-            person.setFirstLastName(resultSet.getString("lastName"));
-            person.setSecondLastName(resultSet.getString("secondLastName"));
+            person.setSecondName(resultSet.getString("middleName"));
+            person.setFirstLastName(resultSet.getString("surname"));
+            person.setSecondLastName(resultSet.getString("secondSurname"));
+            person.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("documentId")));
             person.setDocumentNumber(resultSet.getString("documentNumber"));
-            person.setBirthDate(resultSet.getDate("birthDate") != null ? resultSet.getDate("fechaNacimiento").toLocalDate() : null);
+            person.setBirthDate(ObjectHelper.getDefault(resultSet.getObject("birthDate"), Date));
             person.setAddress(resultSet.getString("adress"));
             person.setEmail(resultSet.getString("email"));
             person.setEmailConfirmed(resultSet.getBoolean("emailConfirmed"));

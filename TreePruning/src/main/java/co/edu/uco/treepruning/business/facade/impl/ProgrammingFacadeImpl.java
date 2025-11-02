@@ -33,6 +33,7 @@ public final class ProgrammingFacadeImpl implements ProgrammingFacade {
 
             var userMessage = "";
             var technicalMessage = "";
+            exception.printStackTrace();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } finally {

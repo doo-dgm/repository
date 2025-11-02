@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public class ProgrammingDTO {
@@ -10,27 +11,27 @@ public class ProgrammingDTO {
     private UUID id;
     private LocalDate initialDate;
     private int frequencyMonths;
-    private int quantity;
+    private int amount;
 
     public ProgrammingDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setInitialDate(LocalDate.now());
+        setInitialDate(DateHelper.getDateHelper().getDefault());
         setFrequencyMonths(0);
-        setQuantity(0);
+        setAmount(0);
     }
 
     public ProgrammingDTO(final UUID id) {
         setId(id);
-        setInitialDate(LocalDate.now());
+        setInitialDate(DateHelper.getDateHelper().getDefault());
         setFrequencyMonths(0);
-        setQuantity(0);
+        setAmount(0);
     }
 
-    public ProgrammingDTO(final UUID id, final LocalDate initialDate, final int frequencyMonths, final int quantity) {
+    public ProgrammingDTO(final UUID id, final LocalDate initialDate, final int frequencyMonths, final int amount) {
         setId(id);
         setInitialDate(initialDate);
         setFrequencyMonths(frequencyMonths);
-        setQuantity(quantity);
+        setAmount(amount);
     }
 
     public UUID getId() {
@@ -46,7 +47,7 @@ public class ProgrammingDTO {
     }
 
     public void setInitialDate(final LocalDate initialDate) {
-        this.initialDate = initialDate == null ? LocalDate.now() : initialDate;
+        this.initialDate = DateHelper.getDateHelper().getDefault(initialDate);
     }
 
     public int getFrequencyMonths() {
@@ -57,12 +58,12 @@ public class ProgrammingDTO {
         this.frequencyMonths = frequencyMonths;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setQuantity(final int quantity) {
-        this.quantity = quantity;
+    public void setAmount(final int amount) {
+        this.amount = amount;
     }
 }
 

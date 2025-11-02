@@ -3,35 +3,35 @@ package co.edu.uco.treepruning.business.domain;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class ProgrammingDomain extends Domain {
 
     private LocalDate initialDate;
     private int frequencyMonths;
-    private int quantity;
+    private int amount;
 
     public ProgrammingDomain() {
         super(UUIDHelper.getUUIDHelper().getDefault());
-        setInitialDate(LocalDate.now());
+        setInitialDate(DateHelper.getDateHelper().getDefault());
         setFrequencyMonths(0);
-        setQuantity(0);
+        setAmount(0);
     }
     
     public ProgrammingDomain(UUID id) {
     	super(id);
-        setInitialDate(LocalDate.now());
+        setInitialDate(DateHelper.getDateHelper().getDefault());
         setFrequencyMonths(0);
-        setQuantity(0);
+        setAmount(0);
     }
 
 
-    public ProgrammingDomain(final UUID id, final LocalDate initialDate, final int frequencyMonths, final int quantity) {
+    public ProgrammingDomain(final UUID id, final LocalDate initialDate, final int frequencyMonths, final int amount) {
         super(id);
         setInitialDate(initialDate);
         setFrequencyMonths(frequencyMonths);
-        setQuantity(quantity);
+        setAmount(amount);
     }
 
     public static ProgrammingDomain create(final UUID id, final LocalDate initialDate, final int frequencyMonths, final int quantity) {
@@ -43,7 +43,7 @@ public final class ProgrammingDomain extends Domain {
     }
 
     private void setInitialDate(final LocalDate initialDate) {
-        this.initialDate = ObjectHelper.getDefault(initialDate, LocalDate.now());
+        this.initialDate = DateHelper.getDateHelper().getDefault(initialDate);
     }
 
     public int getFrequencyMonths() {
@@ -54,12 +54,12 @@ public final class ProgrammingDomain extends Domain {
         this.frequencyMonths = frequencyMonths < 0 ? 0 : frequencyMonths;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getAmount() {
+        return amount;
     }
 
-    private void setQuantity(final int quantity) {
-        this.quantity = quantity < 0 ? 0 : quantity;
+    private void setAmount(final int amount) {
+        this.amount = amount < 0 ? 0 : amount;
     }
 }
 

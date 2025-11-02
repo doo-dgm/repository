@@ -21,6 +21,11 @@ import co.edu.uco.treepruning.dto.ProgrammingDTO;
 @RestController
 @RequestMapping("/api/v1/programmings")
 public class ProgrammingController {
+	
+	@GetMapping("/dummy")
+	public ProgrammingDTO getProgrammingDTODummy() {
+		return new ProgrammingDTO();
+	}
 
     @GetMapping
     public ResponseEntity<Response<ProgrammingDTO>> findAllProgrammings() {
@@ -84,9 +89,9 @@ public class ProgrammingController {
     @GetMapping("/filter")
     public ResponseEntity<Response<ProgrammingDTO>> findProgrammingsByFilter(
             @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String initialDate, // ISO yyyy-MM-dd expected
-            @RequestParam(required = false) Integer frequencyMonths,
-            @RequestParam(required = false) Integer quantity) {
+            @RequestParam(required = false) String initial_date, // ISO yyyy-MM-dd expected
+            @RequestParam(required = false) Integer frequency_months,
+            @RequestParam(required = false) Integer amount) {
 
         Response<ProgrammingDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
@@ -97,20 +102,20 @@ public class ProgrammingController {
             ProgrammingDTO filter = new ProgrammingDTO();
             filter.setId(id);
 
-            if (initialDate != null && !initialDate.isBlank()) {
+            if (initial_date != null && !initial_date.isBlank()) {
                 try {
-                    filter.setInitialDate(LocalDate.parse(initialDate));
+                    filter.setInitialDate(LocalDate.parse(initial_date));
                 } catch (final Exception exeption) {
-                    System.out.println("Formato de fecha inválido: " + initialDate);
+                    System.out.println("Formato de fecha inválido: " + initial_date);
                 }
             }
 
-            if (frequencyMonths != null) {
-                filter.setFrequencyMonths(frequencyMonths);
+            if (frequency_months != null) {
+                filter.setFrequencyMonths(frequency_months);
             }
 
-            if (quantity != null) {
-                filter.setQuantity(quantity);
+            if (amount != null) {
+                filter.setAmount(amount);
             }
 
             responseObjectData.setData(facade.findProgrammingsByFilter(filter));

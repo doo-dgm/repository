@@ -20,9 +20,9 @@ public final class ProgrammingMapper {
 
         try {
             programming.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            programming.setInitialDate(resultSet.getObject("initialDate", LocalDate.class));
-            programming.setFrequencyMonths(resultSet.getInt("frequencyMonths"));
-            programming.setQuantity(resultSet.getInt("quantity"));
+            programming.setInitialDate(resultSet.getObject("initial_date", LocalDate.class));
+            programming.setFrequencyMonths(resultSet.getInt("frequency_months"));
+            programming.setAmount(resultSet.getInt("amount"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_MAPPER.getContent();
