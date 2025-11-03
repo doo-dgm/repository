@@ -30,7 +30,7 @@ public final class PersonEntity {
         setSecondName(TextHelper.getDefault());
         setFirstLastName(TextHelper.getDefault());
         setSecondLastName(TextHelper.getDefault());
-        setDocument(null);
+        setDocument(new DocumentEntity());
         setDocumentNumber(TextHelper.getDefault());
         setBirthDate(LocalDate.now());
         setAddress(TextHelper.getDefault());
@@ -47,7 +47,7 @@ public final class PersonEntity {
         setSecondName(TextHelper.getDefault());
         setFirstLastName(TextHelper.getDefault());
         setSecondLastName(TextHelper.getDefault());
-        setDocument(null);
+        setDocument(new DocumentEntity());
         setDocumentNumber(TextHelper.getDefault());
         setBirthDate(LocalDate.now());
         setAddress(TextHelper.getDefault());

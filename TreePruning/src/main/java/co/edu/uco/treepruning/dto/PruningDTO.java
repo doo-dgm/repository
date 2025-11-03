@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -24,8 +25,8 @@ public class PruningDTO {
     public PruningDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setStatus(new StatusDTO());
-        setPlannedDate(LocalDate.now());
-        setExecutedDate(LocalDate.now());
+        setPlannedDate(DateHelper.getDateHelper().getDefault());
+        setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDTO());
         setQuadrille(new QuadrilleDTO());
         setType(new TypeDTO());
@@ -38,8 +39,8 @@ public class PruningDTO {
     public PruningDTO(final UUID id) {
         setId(id);
         setStatus(new StatusDTO());
-        setPlannedDate(LocalDate.now());
-        setExecutedDate(LocalDate.now());
+        setPlannedDate(DateHelper.getDateHelper().getDefault());
+        setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDTO());
         setQuadrille(new QuadrilleDTO());
         setType(new TypeDTO());
@@ -87,7 +88,7 @@ public class PruningDTO {
     }
 
     public void setPlannedDate(final LocalDate plannedDate) {
-        this.plannedDate = plannedDate == null ? LocalDate.now() : plannedDate;
+        this.plannedDate = DateHelper.getDateHelper().getDefault(plannedDate);
     }
 
     public LocalDate getExecutedDate() {
@@ -95,7 +96,7 @@ public class PruningDTO {
     }
 
     public void setExecutedDate(final LocalDate executedDate) {
-        this.executedDate = executedDate == null ? LocalDate.now() : executedDate;
+        this.executedDate = DateHelper.getDateHelper().getDefault(executedDate);
     }
 
     public TreeDTO getTree() {

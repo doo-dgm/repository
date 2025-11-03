@@ -101,7 +101,7 @@ public class StatusSqlServerDAO extends SqlConnection implements StatusDAO {
 		
 		try (var resultSet = preparedStatement.executeQuery()) {
 			while (resultSet.next()) {
-				listStatus.add(StatusMapper.pqrMap(resultSet));
+				listStatus.add(StatusMapper.map(resultSet));
 			}
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_STATUS_MAPPER.getContent();

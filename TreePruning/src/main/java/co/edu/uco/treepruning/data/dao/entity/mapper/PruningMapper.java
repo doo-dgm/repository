@@ -27,7 +27,7 @@ public final class PruningMapper {
             var type = TypeMapper.map(resultSet);
             pruning.setType(type);
             
-            var pqr = PQRMapper.map(resultSet);
+            var pqr = PQRMapper.pruningMap(resultSet);
             pruning.setPqr(pqr);
             
             var programming = ProgrammingMapper.map(resultSet);

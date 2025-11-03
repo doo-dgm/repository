@@ -22,19 +22,19 @@ public class AdministratorDTOAssembler implements DTOAssembler<AdministratorDTO,
 	}
 
 	@Override
-	public AdministratorDTO toDTO(AdministratorDomain domain) {
+	public AdministratorDTO toDTO(final AdministratorDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new AdministratorDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		return new AdministratorDTO(domainTmp.getId(), domainTmp.getUsername(), domainTmp.getEmail(), domainTmp.isEmailConfirmed(), domainTmp.getMobilePhone(), domainTmp.isMobilePhoneConfirmed());
 	}
 
 	@Override
-	public AdministratorDomain toDomain(AdministratorDTO dto) {
+	public AdministratorDomain toDomain(final AdministratorDTO dto) {
 		var dtoTmp = ObjectHelper.getDefault(dto, new AdministratorDTO(UUIDHelper.getUUIDHelper().getDefault()));
 		return new AdministratorDomain(dtoTmp.getId(), dtoTmp.getUsername(), dtoTmp.getEmail(), dtoTmp.isEmailConfirmed(), dtoTmp.getMobilePhone(), dtoTmp.isMobilePhoneConfirmed());
 	}
 
 	@Override
-	public List<AdministratorDTO> toDTO(List<AdministratorDomain> domainList) {
+	public List<AdministratorDTO> toDTO(final List<AdministratorDomain> domainList) {
 		var administratorDTOList = new ArrayList<AdministratorDTO>();
 		
 		for (var administrator : domainList) {

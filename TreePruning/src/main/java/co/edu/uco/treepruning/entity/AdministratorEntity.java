@@ -11,16 +11,20 @@ public final class AdministratorEntity {
     private String username;
     private String email;
     private boolean emailConfirmed;
+    private boolean emailConfirmedIsDefaultvalue;
     private String mobilePhone;
     private boolean mobilePhoneConfirmed;
+    private boolean mobilePhoneConfirmedIsDefaultvalue;
 
     public AdministratorEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setUsername(TextHelper.getDefault());
         setEmail(TextHelper.getDefault());
         setEmailConfirmed(false);
+        setEmailConfirmedIsDefaultvalue(true);
         setMobilePhone(TextHelper.getDefault());
         setMobilePhoneConfirmed(false);
+        setMobilePhoneConfirmedIsDefaultvalue(true);
     }
 
     public AdministratorEntity(final UUID id) {
@@ -28,8 +32,10 @@ public final class AdministratorEntity {
         setUsername(TextHelper.getDefault());
         setEmail(TextHelper.getDefault());
         setEmailConfirmed(false);
+        setEmailConfirmedIsDefaultvalue(true);
         setMobilePhone(TextHelper.getDefault());
         setMobilePhoneConfirmed(false);
+        setMobilePhoneConfirmedIsDefaultvalue(true);
     }
 
     public AdministratorEntity(final UUID id, final String username, final String email,
@@ -38,8 +44,10 @@ public final class AdministratorEntity {
         setUsername(username);
         setEmail(email);
         setEmailConfirmed(emailConfirmed);
+        setEmailConfirmedIsDefaultvalue(false);
         setMobilePhone(mobilePhone);
         setMobilePhoneConfirmed(mobilePhoneConfirmed);
+        setMobilePhoneConfirmedIsDefaultvalue(false);
     }
 
     public UUID getId() {
@@ -73,6 +81,14 @@ public final class AdministratorEntity {
     public void setEmailConfirmed(final boolean emailConfirmed) {
         this.emailConfirmed = emailConfirmed;
     }
+    
+    public boolean isEmailConfirmedIsDefaultvalue() {
+		return emailConfirmedIsDefaultvalue;
+	}
+    
+    private void setEmailConfirmedIsDefaultvalue(final boolean emailConfirmedIsDefaultvalue) {
+    	this.emailConfirmedIsDefaultvalue = emailConfirmedIsDefaultvalue;
+    }
 
     public String getMobilePhone() {
         return TextHelper.getDefaultWithTrim(mobilePhone);
@@ -89,5 +105,13 @@ public final class AdministratorEntity {
     public void setMobilePhoneConfirmed(final boolean mobilePhoneConfirmed) {
         this.mobilePhoneConfirmed = mobilePhoneConfirmed;
     }
+    
+    public boolean isMobilePhoneConfirmedIsDefaultvalue() {
+    	return mobilePhoneConfirmedIsDefaultvalue;
+    }
+    
+    private void setMobilePhoneConfirmedIsDefaultvalue(final boolean mobilePhoneConfirmedIsDefaultvalue) {
+		this.mobilePhoneConfirmedIsDefaultvalue = mobilePhoneConfirmedIsDefaultvalue;
+	}
 }
 

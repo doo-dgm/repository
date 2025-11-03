@@ -102,10 +102,10 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
     }
 
     @Override
-    public List<AdministratorEntity> findByFilter(AdministratorEntity filterEntity) {
+    public List<AdministratorEntity> findByFilter(final AdministratorEntity filterEntity) {
         var parametersList = new ArrayList<Object>();
         var sql = createSentenceFindByFilter(filterEntity, parametersList);
-
+        
         try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
             for (int index = 0; index < parametersList.size(); index++) {
                 preparedStatement.setObject(index + 1, parametersList.get(index));
@@ -136,11 +136,11 @@ public final class AdministratorSqlServerDAO extends SqlConnection implements Ad
         final var conditions = new ArrayList<String>();
         
         addCondition(conditions, parametersList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "a.id = ?",filterEntityValidated.getId());
-        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getUsername()), "a.nombreUsuario = ?", filterEntityValidated.getUsername());
-        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getEmail()), "a.correoElectronico = ?",filterEntityValidated.getEmail());
-        addCondition(conditions, parametersList, !filterEntityValidated.isEmailConfirmed(), "a.correoConfirmado = ?", filterEntityValidated.isEmailConfirmed());
-        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getMobilePhone()), "a.numeroCelular = ?",filterEntityValidated.getMobilePhone());
-        addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmed(), "a.celularConfirmado = ?", filterEntityValidated.isMobilePhoneConfirmed());
+        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getUsername()), "a.username = ?", filterEntityValidated.getUsername());
+        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getEmail()), "a.email = ?",filterEntityValidated.getEmail());
+        addCondition(conditions, parametersList, !filterEntityValidated.isEmailConfirmedIsDefaultvalue(), "a.emailConfirmed = ?", filterEntityValidated.isEmailConfirmed());
+        addCondition(conditions, parametersList,!TextHelper.isEmptyWithTrim(filterEntityValidated.getMobilePhone()), "a.phone = ?",filterEntityValidated.getMobilePhone());
+        addCondition(conditions, parametersList, !filterEntityValidated.isMobilePhoneConfirmedIsDefaultvalue(), "a.phoneConfirmed = ?", filterEntityValidated.isMobilePhoneConfirmed());
         
         
 

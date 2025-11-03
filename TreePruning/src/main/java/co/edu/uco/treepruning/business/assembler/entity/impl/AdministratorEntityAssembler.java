@@ -22,19 +22,19 @@ public class AdministratorEntityAssembler implements EntityAssembler<Administrat
 	}
 
 	@Override
-	public AdministratorEntity toEntity(AdministratorDomain domain) {
+	public AdministratorEntity toEntity(final AdministratorDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new AdministratorDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		return new AdministratorEntity(domainTmp.getId(), domainTmp.getUsername(), domainTmp.getEmail(), domainTmp.isEmailConfirmed(), domainTmp.getMobilePhone(), domainTmp.isMobilePhoneConfirmed());
 	}
 
 	@Override
-	public AdministratorDomain toDomain(AdministratorEntity entity) {
+	public AdministratorDomain toDomain(final AdministratorEntity entity) {
 		var entityTmp = ObjectHelper.getDefault(entity, new AdministratorEntity(UUIDHelper.getUUIDHelper().getDefault()));
 		return new AdministratorDomain(entityTmp.getId(), entityTmp.getUsername(), entityTmp.getEmail(), entityTmp.isEmailConfirmed(), entityTmp.getMobilePhone(), entityTmp.isMobilePhoneConfirmed());
 	}
 
 	@Override
-	public List<AdministratorEntity> toEntity(List<AdministratorDomain> domainList) {
+	public List<AdministratorEntity> toEntity(final List<AdministratorDomain> domainList) {
 		List<AdministratorEntity> administratorEntityList = new ArrayList<AdministratorEntity>();
 		
 		for (var administrator : domainList) {

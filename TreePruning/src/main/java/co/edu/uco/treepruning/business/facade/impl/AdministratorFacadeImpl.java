@@ -22,6 +22,7 @@ public final class AdministratorFacadeImpl implements AdministratorFacade {
         try {
             daoFactory.initTransaction();
             List<AdministratorDomain> domainList = business.findAllAdministrators();
+
             return AdministratorDTOAssembler.getAdministratorDTOAssembler().toDTO(domainList);
 
         } catch (final TreePruningException exception) {

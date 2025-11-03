@@ -149,7 +149,7 @@ public class QuadrilleSqlServerDAO extends SqlConnection implements QuadrilleDAO
 				"q.id = ?", filterEntityValidated.getId());		
 
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getQuadrilleName()),
-				"q.quadrilleName= ?", filterEntityValidated.getQuadrilleName());
+				"q.quadrillame= ?", filterEntityValidated.getQuadrilleName());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getManager().getId()),
 				"q.managerId = ?", filterEntityValidated.getManager().getId());

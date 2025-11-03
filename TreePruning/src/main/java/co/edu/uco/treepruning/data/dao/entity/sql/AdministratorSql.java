@@ -15,15 +15,15 @@ public final class AdministratorSql {
             """;
 
     public static final String FIND_BY_FILTER = """
-            SELECT
-                a.id AS administratorId,
-                a.username AS administratorUsername,
-                a.email AS administratorEmail,
-                a.emailConfirmed AS administratorEmailConfirmed,
-                a.mobilePhone AS administratorMobilePhone,
-                a.mobilePhoneConfirmed AS administratorMobilePhoneConfirmed
-            FROM Administrator AS a
-            """;
+		SELECT
+		    a.id AS administratorId,
+		    a.username AS administratorUsername,
+		    a.email AS administratorEmail,
+		    a.emailConfirmed AS administratorEmailConfirmed,
+		    a.phone AS administratorMobilePhone,
+		    a.phoneConfirmed AS administratorMobilePhoneConfirmed
+		FROM Administrator AS a
+    		""";
 
     public static final String UPDATE = """
             UPDATE Administrator

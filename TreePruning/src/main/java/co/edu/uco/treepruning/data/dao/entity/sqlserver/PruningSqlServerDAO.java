@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -55,7 +56,6 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 
 	@Override
 	public List<PruningEntity> findAll() {
-		// TODO
 		return findByFilter(new PruningEntity());
 	}
 
@@ -63,7 +63,7 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	public List<PruningEntity> findByFilter(final PruningEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-
+		
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
 
 			for (var index = 0; index < parameterList.size(); index++) {
@@ -128,26 +128,28 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 				"p.id = ?", filterEntityValidated.getId());
 
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()),
-				"p.status = ?", filterEntityValidated.getStatus().getId());
+				"p.statusId = ?", filterEntityValidated.getStatus().getId());
 		
-		addCondition(conditions, parameterList, filterEntityValidated.getPlannedDate() != null,
+		addCondition(conditions, parameterList, !DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getPlannedDate()),
 				"p.plannedDate = ?", filterEntityValidated.getPlannedDate());
 		
+		addCondition(conditions, parameterList, !DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getExecutedDate()),
+				"p.executedDate = ?", filterEntityValidated.getExecutedDate());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getTree().getId()),
-				"p.tree = ?", filterEntityValidated.getTree().getId());
+				"p.treeId = ?", filterEntityValidated.getTree().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getQuadrille().getId()),
-				"p.quadrille = ?", filterEntityValidated.getQuadrille().getId());
+				"p.quadrilleId = ?", filterEntityValidated.getQuadrille().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getType().getId()),
-				"p.type = ?", filterEntityValidated.getType().getId());
+				"p.typeId = ?", filterEntityValidated.getType().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPqr().getId()),
-				"p.pqr = ?", filterEntityValidated.getPqr().getId());
+				"p.pqrId = ?", filterEntityValidated.getPqr().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getProgramming().getId()),
-				"p.programming = ?", filterEntityValidated.getProgramming().getId());
+				"p.programmingId = ?", filterEntityValidated.getProgramming().getId());
 		
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhotographicRecordPath()),
 				"p.photoRecord = ?", filterEntityValidated.getPhotographicRecordPath());

@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.business.domain;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -23,8 +24,8 @@ public final class PruningDomain extends Domain {
     public PruningDomain() {
         super(UUIDHelper.getUUIDHelper().getDefault());
         setStatus(new StatusDomain());
-        setPlannedDate(LocalDate.now());
-        setExecutedDate(LocalDate.now());
+        setPlannedDate(DateHelper.getDateHelper().getDefault());
+        setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDomain());
         setQuadrille(new QuadrilleDomain());
         setType(new TypeDomain());
@@ -37,8 +38,8 @@ public final class PruningDomain extends Domain {
     public PruningDomain(UUID id) {
         super(id);
         setStatus(new StatusDomain());
-        setPlannedDate(LocalDate.now());
-        setExecutedDate(LocalDate.now());
+        setPlannedDate(DateHelper.getDateHelper().getDefault());
+        setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDomain());
         setQuadrille(new QuadrilleDomain());
         setType(new TypeDomain());
@@ -78,7 +79,7 @@ public final class PruningDomain extends Domain {
     }
 
     public void setPlannedDate(final LocalDate plannedDate) {
-        this.plannedDate = ObjectHelper.getDefault(plannedDate, LocalDate.now());
+        this.plannedDate = DateHelper.getDateHelper().getDefault(plannedDate);
     }
 
     public LocalDate getExecutedDate() {
@@ -86,7 +87,7 @@ public final class PruningDomain extends Domain {
     }
 
     public void setExecutedDate(final LocalDate executedDate) {
-        this.executedDate = ObjectHelper.getDefault(executedDate, LocalDate.now());
+        this.executedDate = DateHelper.getDateHelper().getDefault(executedDate);
     }
 
     public TreeDomain getTree() {

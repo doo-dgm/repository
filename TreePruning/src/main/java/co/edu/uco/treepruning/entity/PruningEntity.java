@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 
 public final class PruningEntity {
@@ -24,8 +25,8 @@ public final class PruningEntity {
     public PruningEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setStatus(new StatusEntity());
-        setPlannedDate(LocalDate.now());
-        setExecutedDate(LocalDate.now());
+        setPlannedDate(DateHelper.getDateHelper().getDefault());
+        setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeEntity());
         setQuadrille(new QuadrilleEntity());
         setType(new TypeEntity());
@@ -37,8 +38,8 @@ public final class PruningEntity {
 
     public PruningEntity(final UUID id) {
         setStatus(new StatusEntity());
-        setPlannedDate(LocalDate.now());
-        setExecutedDate(LocalDate.now());
+        setPlannedDate(DateHelper.getDateHelper().getDefault());
+        setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeEntity());
         setQuadrille(new QuadrilleEntity());
         setType(new TypeEntity());
@@ -86,7 +87,7 @@ public final class PruningEntity {
     }
 
     public void setPlannedDate(final LocalDate plannedDate) {
-        this.plannedDate = ObjectHelper.getDefault(plannedDate, LocalDate.now());
+        this.plannedDate = DateHelper.getDateHelper().getDefault(plannedDate);
     }
 
     public LocalDate getExecutedDate() {
@@ -94,7 +95,7 @@ public final class PruningEntity {
     }
 
     public void setExecutedDate(final LocalDate executedDate) {
-        this.executedDate = ObjectHelper.getDefault(executedDate, LocalDate.now());
+        this.executedDate = DateHelper.getDateHelper().getDefault(executedDate);
     }
 
     public TreeEntity getTree() {

@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.business.domain;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -18,7 +19,7 @@ public final class PQRDomain extends Domain {
 
     public PQRDomain() {
         super(UUIDHelper.getUUIDHelper().getDefault());
-        setDate(LocalDate.now());
+        setDate(DateHelper.getDateHelper().getDefault());
         setStatus(new StatusDomain());
         setRisk(new RiskDomain());
         setSector(new SectorDomain());
@@ -28,7 +29,7 @@ public final class PQRDomain extends Domain {
     
     public PQRDomain(UUID id) {
         super(id);
-        setDate(LocalDate.now());
+        setDate(DateHelper.getDateHelper().getDefault());
         setStatus(new StatusDomain());
         setRisk(new RiskDomain());
         setSector(new SectorDomain());
@@ -52,7 +53,7 @@ public final class PQRDomain extends Domain {
     }
 
     private void setDate(final LocalDate date) {
-        this.date = ObjectHelper.getDefault(date, LocalDate.now());
+        this.date = DateHelper.getDateHelper().getDefault(date);
     }
 
     public StatusDomain getStatus() {

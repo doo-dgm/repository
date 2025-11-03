@@ -31,7 +31,7 @@ public final class AdministratorDomain extends Domain {
         setMobilePhoneConfirmed(false);
     }
 
-    public AdministratorDomain(final UUID id, final String usernam, final String email,
+    public AdministratorDomain(final UUID id, final String username, final String email,
                                final boolean emailConfirmed, final String mobilePhone, final boolean mobilePhoneConfirmed) {
         super(id);
         setUsername(username);
@@ -69,7 +69,7 @@ public final class AdministratorDomain extends Domain {
         return TextHelper.getDefaultWithTrim(mobilePhone);
     }
 
-    public void setMobilePhone(final String MobilePhone) {
+    public void setMobilePhone(final String mobilePhone) {
         this.mobilePhone = TextHelper.getDefaultWithTrim(mobilePhone);
     }
 

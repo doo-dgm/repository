@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.SqlConnectionHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
@@ -154,31 +155,31 @@ private String createSentenceFindByFilter(final PQREntity filterEntity, final Li
     final var conditions = new ArrayList<String>();
 
     addCondition(conditions, parameterList,
-            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "pr.id = ?",
+            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()), "pq.id = ?",
             filterEntityValidated.getId());
 
     addCondition(conditions, parameterList,
-            filterEntityValidated.getDate() != null, "p.date = ?",
+            !DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getDate()), "pq.date = ?",
             filterEntityValidated.getDate());
 
     addCondition(conditions, parameterList,
-            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()), "p.status = ?",
+            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()), "pq.statusId = ?",
             filterEntityValidated.getStatus().getId());
     
     addCondition(conditions, parameterList,
-            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getRisk().getId()), "p.risk = ?",
+            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getRisk().getId()), "pq.riskId = ?",
             filterEntityValidated.getRisk().getId());
     
     addCondition(conditions, parameterList,
-            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getSector().getId()), "p.sector = ?",
+            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getSector().getId()), "pq.sectorId = ?",
             filterEntityValidated.getSector().getId());
     
     addCondition(conditions, parameterList,
-            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPerson().getId()), "p.person = ?",
+            !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPerson().getId()), "pq.personId = ?",
             filterEntityValidated.getPerson().getId());
 
     addCondition(conditions, parameterList,
-            !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhotographicRecordPath()), "p.photoRecord = ?",
+            !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhotographicRecordPath()), "pq.photographicRecordPath = ?",
             filterEntityValidated.getPhotographicRecordPath());
 		
 		

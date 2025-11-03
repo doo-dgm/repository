@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -19,7 +20,7 @@ public class PQRDTO {
 
     public PQRDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setDate(LocalDate.now());
+        setDate(DateHelper.getDateHelper().getDefault());
         setStatus(new StatusDTO());
         setRisk(new RiskDTO());
         setSector(new SectorDTO());
@@ -29,7 +30,7 @@ public class PQRDTO {
 
     public PQRDTO(final UUID id) {
         setId(id);
-        setDate(LocalDate.now());
+        setDate(DateHelper.getDateHelper().getDefault());
         setStatus(new StatusDTO());
         setRisk(new RiskDTO());
         setSector(new SectorDTO());
@@ -61,7 +62,7 @@ public class PQRDTO {
     }
 
     public void setDate(final LocalDate date) {
-        this.date = date == null ? LocalDate.now() : date;
+        this.date = DateHelper.getDateHelper().getDefault(date);
     }
 
     public StatusDTO getStatus() {

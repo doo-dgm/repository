@@ -14,10 +14,10 @@ public final class AdministratorMapper {
         var administrator = new AdministratorEntity();
         try {
         	
-            administrator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("AdministratorId")));
+            administrator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("administratorId")));
             administrator.setUsername(resultSet.getString("administratorUsername"));
             administrator.setEmail(resultSet.getString("administratorEmail"));
-            administrator.setEmailConfirmed(resultSet.getBoolean("administratorEmail"));
+            administrator.setEmailConfirmed(resultSet.getBoolean("administratorEmailConfirmed"));
             administrator.setMobilePhone(resultSet.getString("administratorMobilePhone"));
             administrator.setMobilePhoneConfirmed(resultSet.getBoolean("administratorMobilePhoneConfirmed"));
             

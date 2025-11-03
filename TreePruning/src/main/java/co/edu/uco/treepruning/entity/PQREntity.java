@@ -3,6 +3,7 @@ package co.edu.uco.treepruning.entity;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -19,7 +20,7 @@ public final class PQREntity {
 
     public PQREntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setDate(LocalDate.now());
+        setDate(DateHelper.getDateHelper().getDefault());
         setStatus(new StatusEntity());
         setRisk(new RiskEntity());
         setSector(new SectorEntity());
@@ -29,7 +30,7 @@ public final class PQREntity {
 
     public PQREntity(final UUID id) {
         setId(id);
-        setDate(LocalDate.now());
+        setDate(DateHelper.getDateHelper().getDefault());
         setStatus(new StatusEntity());
         setRisk(new RiskEntity());
         setSector(new SectorEntity());
@@ -61,7 +62,7 @@ public final class PQREntity {
     }
 
     public void setDate(final LocalDate date) {
-        this.date = date == null ? LocalDate.now() : date;
+        this.date = DateHelper.getDateHelper().getDefault(date);
     }
 
     public StatusEntity getStatus() {
