@@ -79,6 +79,7 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
+			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -180,6 +181,7 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER.getContent();
+			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();

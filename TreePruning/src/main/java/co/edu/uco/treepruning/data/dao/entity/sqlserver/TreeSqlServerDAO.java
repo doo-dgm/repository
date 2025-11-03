@@ -154,16 +154,16 @@ private String createSentenceFindByFilter(final TreeEntity filterEntity, final L
 				"t.id = ?", filterEntityValidated.getId());		
 
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getLatitude()),
-				"t.latitude= ?", filterEntityValidated.getLatitude());
+				"t.latitude = ?", filterEntityValidated.getLatitude());
 		
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getLongitude()),
-				"t.longitude= ?", filterEntityValidated.getLongitude());
+				"t.longitude = ?", filterEntityValidated.getLongitude());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getFamily().getId()),
-				"t.family= ?", filterEntityValidated.getFamily().getId());
+				"t.familyId = ?", filterEntityValidated.getFamily().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getSector().getId()),
-				"f.sector= ?", filterEntityValidated.getSector().getId());
+				"t.sectorId = ?", filterEntityValidated.getSector().getId());
 		
 		
 		if (!conditions.isEmpty()) {

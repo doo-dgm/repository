@@ -5,8 +5,8 @@ public final class ProgrammingSql {
     public static final String CREATE = """
             INSERT INTO Programming (
                 id,
-                initial_date,
-                frequency_months,
+                initialDate,
+                frequencyMonths,
                 amount
             )
             VALUES (?, ?, ?, ?)
@@ -14,10 +14,10 @@ public final class ProgrammingSql {
 
     public static final String FIND_BY_FILTER = """
             SELECT 
-                p.id,
-                p.initial_date,
-                p.frequency_months,
-                p.amount
+                p.id AS programmingId,
+                p.initialDate AS programmingInitialDate,
+                p.frequencyMonths AS programmingFrequencyMonths,
+                p.amount AS programmingAmount
             FROM Programming AS p
             """;
 

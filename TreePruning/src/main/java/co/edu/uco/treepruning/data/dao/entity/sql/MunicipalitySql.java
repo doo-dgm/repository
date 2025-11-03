@@ -6,52 +6,22 @@ public final class MunicipalitySql {
             INSERT INTO Municipality (
                 id,
                 name,
-                state
+                stateId
             )
             VALUES (?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                m.id,
-                m.name,
-                s.id AS stateId,
-                s.name AS stateName,
-                c.id AS countryId,
-                c.name AS countryName
-            FROM Municipality AS m
-            INNER JOIN State AS s ON m.state = s.id
-            INNER JOIN Country AS c ON s.country = c.id
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                m.id,
-                m.name,
+                m.id AS municipalityId,
+                m.name AS municipalityName,
                 s.id AS stateId,
                 s.name AS stateName,
                 c.id AS countryId,
                 c.name AS countryName
             FROM Municipality AS m
-            INNER JOIN State AS s ON m.state = s.id
-            INNER JOIN Country AS c ON s.country = c.id
-            WHERE (? IS NULL OR m.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR s.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR c.name LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                m.id,
-                m.name,
-                s.id AS stateId,
-                s.name AS stateName,
-                c.id AS countryId,
-                c.name AS countryName
-            FROM Municipality AS m
-            INNER JOIN State AS s ON m.state = s.id
-            INNER JOIN Country AS c ON s.country = c.id
-            WHERE m.id = ?
+            INNER JOIN State AS s ON m.stateId = s.id
+            INNER JOIN Country AS c ON s.countryId = c.id
             """;
 
     public static final String UPDATE = """

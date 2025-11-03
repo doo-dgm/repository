@@ -6,48 +6,26 @@ public final class StateSql {
             INSERT INTO State (
                 id,
                 name,
-                country
+                countryId
             )
             VALUES (?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                st.id,
-                st.name,
-                c.id AS countryId,
-                c.name AS countryName
-            FROM State AS st
-            INNER JOIN Country AS c ON st.country = c.id
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                st.id,
-                st.name,
+                st.id AS stateId,
+                st.name AS stateName,
                 c.id AS countryId,
                 c.name AS countryName
             FROM State AS st
-            INNER JOIN Country AS c ON st.country = c.id
-            WHERE (? IS NULL OR st.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR c.name LIKE CONCAT('%', ?, '%'))
+            INNER JOIN Country AS c ON st.countryId = c.id
             """;
 
-    public static final String FIND_BY_ID = """
-            SELECT 
-                st.id,
-                st.name,
-                c.id AS countryId,
-                c.name AS countryName
-            FROM State AS st
-            INNER JOIN Country AS c ON st.country = c.id
-            WHERE st.id = ?
-            """;
 
     public static final String UPDATE = """
             UPDATE State
             SET name = ?,
-                country = ?
+                countryId = ?
             WHERE id = ?
             """;
 

@@ -16,13 +16,13 @@ public final class OperatorMapper {
 
         try {
         	
-        	var person = PersonMapper.map(resultSet);
+        	var person = PersonMapper.operatorMap(resultSet);
             operator.setPerson(person);
             
-            var quadrille = QuadrilleMapper.map(resultSet);
+            var quadrille = QuadrilleMapper.operatorMap(resultSet);
             operator.setQuadrille(quadrille);
         	
-            operator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
+            operator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("operatorId")));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_OPERATOR_MAPPER.getContent();

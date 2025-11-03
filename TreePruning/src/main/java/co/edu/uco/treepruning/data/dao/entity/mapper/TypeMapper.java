@@ -14,8 +14,8 @@ public final class TypeMapper {
         var type = new TypeEntity();
 
         try {
-            type.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            type.setName(resultSet.getString("name"));
+            type.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("typeId")));
+            type.setName(resultSet.getString("typeName"));
 
         } catch (final SQLException exception) {
             String userMessage = MessagesEnum.USER_ERROR_TYPE_MAPPER.getContent();

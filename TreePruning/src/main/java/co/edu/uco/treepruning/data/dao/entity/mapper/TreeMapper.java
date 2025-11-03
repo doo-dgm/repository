@@ -18,13 +18,12 @@ public final class TreeMapper {
         	var family = FamilyMapper.map(resultSet);
         	tree.setFamily(family);
         	
-        	var sector = SectorMapper.map(resultSet);
+        	var sector = SectorMapper.treeMap(resultSet);
         	tree.setSector(sector);
         	
-            tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            tree.setLatitude(resultSet.getString("latitud"));
-            tree.setLongitude(resultSet.getString("longitud"));
-            
+            tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("treeId")));
+            tree.setLongitude(resultSet.getString("treeLongitude"));
+            tree.setLatitude(resultSet.getString("treeLatitude"));            
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER.getContent();

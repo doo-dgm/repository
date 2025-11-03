@@ -21,7 +21,7 @@ public final class PruningToolMapper {
             var tool = ToolMapper.map(resultSet);
             pruningTool.setTool(tool);
 
-            pruningTool.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
+            pruningTool.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("pruningToolId")));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_PRUNING_TOOL_MAPPER.getContent();

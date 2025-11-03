@@ -11,20 +11,6 @@ public final class PruningToolSql {
             VALUES (?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                pt.id,
-                p.id AS pruningId,
-                p.plannedDate AS pruningPlannedDate,
-                p.executedDate AS pruningExecutedDate,
-                t.id AS toolId,
-                t.name AS toolName,
-                t.description AS toolDescription
-            FROM PruningTool AS pt
-            INNER JOIN Pruning AS p ON pt.pruning = p.id
-            INNER JOIN Tool AS t ON pt.tool = t.id
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
                 pt.id,
@@ -37,24 +23,8 @@ public final class PruningToolSql {
             FROM PruningTool AS pt
             INNER JOIN Pruning AS p ON pt.pruning = p.id
             INNER JOIN Tool AS t ON pt.tool = t.id
-            WHERE (? IS NULL OR p.id = ?)
-              AND (? IS NULL OR t.name LIKE CONCAT('%', ?, '%'))
             """;
 
-    public static final String FIND_BY_ID = """
-            SELECT 
-                pt.id,
-                p.id AS pruningId,
-                p.plannedDate AS pruningPlannedDate,
-                p.executedDate AS pruningExecutedDate,
-                t.id AS toolId,
-                t.name AS toolName,
-                t.description AS toolDescription
-            FROM PruningTool AS pt
-            INNER JOIN Pruning AS p ON pt.pruning = p.id
-            INNER JOIN Tool AS t ON pt.tool = t.id
-            WHERE pt.id = ?
-            """;
 
     public static final String UPDATE = """
             UPDATE PruningTool

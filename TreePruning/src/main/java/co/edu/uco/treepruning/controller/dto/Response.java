@@ -7,6 +7,7 @@ import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 
 public final class Response<T> {
+	
 	private List<String> messages;
 	private List<T> data;
 	private boolean responseSucceded;

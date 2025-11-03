@@ -83,7 +83,7 @@ public class StateSqlServerDAO extends SqlConnection implements StateDAO {
 				"s.name= ?", filterEntityValidated.getName());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getCountry().getId()),
-				"s.country= ?", filterEntityValidated.getCountry().getId());
+				"s.countryId = ?", filterEntityValidated.getCountry().getId());
 		
 		
 		if (!conditions.isEmpty()) {

@@ -8,9 +8,8 @@ import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.SectorEntity;
 
-public final class SectorMapper {
-
-    public static SectorEntity map(final ResultSet resultSet) {
+public class SectorMapper {
+	public static SectorEntity map(final ResultSet resultSet) {
         var sector = new SectorEntity();
 
         try {
@@ -18,8 +17,61 @@ public final class SectorMapper {
             var municipality = MunicipalityMapper.map(resultSet);
             sector.setMunicipality(municipality);
             
-            sector.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            sector.setName(resultSet.getString("name"));
+            sector.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("sectorId")));
+            sector.setName(resultSet.getString("sectorName"));
+            
+
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_SECTOR_MAPPER.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SECTOR_MAPPER.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_SECTOR_MAPPER_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SECTOR_MAPPER_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
+
+        return sector;
+    }
+		
+	public static SectorEntity pqrMap(final ResultSet resultSet) {
+        var sector = new SectorEntity();
+
+        try {
+           
+            var municipality = MunicipalityMapper.pqrMap(resultSet);
+            sector.setMunicipality(municipality);
+            
+            sector.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("sectorPQRId")));
+            sector.setName(resultSet.getString("sectorPQRName"));
+            
+
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_SECTOR_MAPPER.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SECTOR_MAPPER.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_SECTOR_MAPPER_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_SECTOR_MAPPER_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
+
+        return sector;
+    }
+	
+
+	public static SectorEntity treeMap(final ResultSet resultSet) {
+        var sector = new SectorEntity();
+
+        try {
+           
+            var municipality = MunicipalityMapper.treeMap(resultSet);
+            sector.setMunicipality(municipality);
+            
+            sector.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("sectorTreeId")));
+            sector.setName(resultSet.getString("sectorTreeName"));
             
 
         } catch (final SQLException exception) {
@@ -36,4 +88,3 @@ public final class SectorMapper {
         return sector;
     }
 }
-

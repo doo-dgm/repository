@@ -11,48 +11,51 @@ public final class OperatorSql {
             VALUES (?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                o.id,
-                p.id AS personId,
-                p.name AS personName,
-                p.lastName AS personLastName,
-                q.id AS cuadrilleId,
-                q.name AS cuadrilleName
-            FROM Operator AS o
-            INNER JOIN Person AS p ON o.person = p.id
-            INNER JOIN Cuadrille AS q ON o.cuadrille = q.id
-            """;
-
     public static final String FIND_BY_FILTER = """
-            SELECT 
-                o.id,
-                p.id AS personId,
-                p.name AS personName,
-                p.lastName AS personLastName,
-                q.id AS cuadrilleId,
-                q.name AS cuadrilleName
-            FROM Operator AS o
-            INNER JOIN Person AS p ON o.person = p.id
-            INNER JOIN Cuadrille AS q ON o.cuadrille = q.id
-            WHERE (? IS NULL OR p.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR p.lastName LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR q.name LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                o.id,
-                p.id AS personId,
-                p.name AS personName,
-                p.lastName AS personLastName,
-                q.id AS cuadrilleId,
-                q.name AS cuadrilleName
-            FROM Operator AS o
-            INNER JOIN Person AS p ON o.person = p.id
-            INNER JOIN Cuadrille AS q ON o.cuadrille = q.id
-            WHERE o.id = ?
-            """;
+    		SELECT 
+    				o.id AS operatorId,
+    				p.id AS personOperatorId,
+    				p.firstName AS personOperatorFirstName, 
+    				p.middleName AS personOperatorMiddleName,
+    				p.surname AS personOperatorSurname,
+    				p.secondSurname AS personOperatorSecondSurname,
+    				d.id as documentOperatorId,
+    				d.name AS documentPersonOperatorName,
+    				d.code AS documentPersonOperatorCode,
+    				p.documentNumber AS personOperatorDocumentNumber,
+    				p.birthDate AS personOperatorBirthDate,
+    				p.address AS personOperatorAddress,
+    				p.email AS personOperatorEmail,
+    				p.emailConfirmed AS personOperatorEmailConfirmed,
+    				p.phone AS personOperatorPhone,
+    				p.phoneConfirmed AS personOperatorPhoneConfirmed,
+    				p.age AS personOperatorAge,
+    				q.id AS quadrilleId,
+    				q.quadrilleName AS quadrilleName,
+    				m.id AS managerId,
+    				pm.id AS personManagerId,
+    				pm.firstName AS personManagerFirstName,
+    				pm.middleName AS personManagerMiddleName,
+    				pm.surname AS personManagerSurname,
+    				pm.secondSurname AS personManagerSecondSurname,
+    				dm.id AS documentId AS personManagerId,
+    				dm.name AS documentName AS documentPersonManagerName,
+    				dm.code AS documentCode AS documentPersonManagerCode,
+    				pm.documentNumber AS personManagerDocumentNumber,
+    				pm.birthDate AS personManagerBirthDate,
+    				pm.address AS personManagerAddress,
+    				pm.email AS personManagerEmail,
+    				pm.emailConfirmed AS personManagerEmailConfirmed,
+    				pm.phone AS personManagerPhone,
+    				pm.phoneConfirmed AS personManagerPhoneConfirmed,
+    				pm.age AS personManagerAge
+		FROM Operator AS o
+		INNER JOIN Person AS p ON o.personId = p.id
+		INNER JOIN Cuadrille AS q ON o.cuadrilleId = q.id
+		INNER JOIN manager AS m ON q.managerId = m.id
+		INNER JOIN person AS pm ON m.personId = pm.id
+		INNER JOIN document AS d ON p.documentId = d.id
+""";
 
     public static final String UPDATE = """
             UPDATE Operator

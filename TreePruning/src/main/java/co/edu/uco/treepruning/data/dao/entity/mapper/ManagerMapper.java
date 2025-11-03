@@ -33,5 +33,53 @@ public final class ManagerMapper {
 
         return manager;
     }
+    
+    public static ManagerEntity pruningMap(final ResultSet resultSet) {
+        var manager = new ManagerEntity();
+
+        try {
+        	
+        	var person = PersonMapper.managerMap(resultSet);
+        	manager.setPerson(person);
+        	
+            manager.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("managerPruningId")));
+
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_MANAGER_MAPPER.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_MAPPER.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_MANAGER_MAPPER_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_MAPPER_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
+
+        return manager;
+    }
+    
+    public static ManagerEntity operatorMap(final ResultSet resultSet) {
+        var manager = new ManagerEntity();
+
+        try {
+        	
+        	var person = PersonMapper.managerMap(resultSet);
+        	manager.setPerson(person);
+        	
+            manager.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("managerId")));
+
+        } catch (final SQLException exception) {
+            var userMessage = MessagesEnum.USER_ERROR_MANAGER_MAPPER.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_MAPPER.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+
+        } catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_MANAGER_MAPPER_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_MANAGER_MAPPER_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
+
+        return manager;
+    }
 }
 

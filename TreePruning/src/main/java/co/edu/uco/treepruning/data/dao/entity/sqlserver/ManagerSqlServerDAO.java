@@ -142,7 +142,7 @@ public final class ManagerSqlServerDAO extends SqlConnection implements ManagerD
         final var conditions = new ArrayList<String>();
 
         addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()),"m.id = ?", filterEntityValidated.getId());
-        addCondition(conditions, parameterList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPerson().getId()),"m.persona = ?", filterEntityValidated.getPerson().getId());
+        addCondition(conditions, parameterList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPerson().getId()),"m.personId = ?", filterEntityValidated.getPerson().getId());
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");

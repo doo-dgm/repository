@@ -11,31 +11,12 @@ public final class ToolSql {
             VALUES (?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                t.id,
-                t.name,
-                t.description
-            FROM Tool AS t
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                t.id,
-                t.name,
-                t.description
+                t.id AS toolId,
+                t.name AS toolName,
+                t.description AS toolDescription
             FROM Tool AS t
-            WHERE (? IS NULL OR t.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR t.description LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                t.id,
-                t.name,
-                t.description
-            FROM Tool AS t
-            WHERE t.id = ?
             """;
 
     public static final String UPDATE = """

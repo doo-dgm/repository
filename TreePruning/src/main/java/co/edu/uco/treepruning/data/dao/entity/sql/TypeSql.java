@@ -10,27 +10,11 @@ public final class TypeSql {
             VALUES (?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                id,
-                name
-            FROM Type
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                id,
-                name
+                id AS typeId,
+                name AS typeName
             FROM Type
-            WHERE (? IS NULL OR name LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                id,
-                name
-            FROM Type
-            WHERE id = ?
             """;
 
     public static final String UPDATE = """

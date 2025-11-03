@@ -14,12 +14,12 @@ public final class AdministratorMapper {
         var administrator = new AdministratorEntity();
         try {
         	
-            administrator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            administrator.setUsername(resultSet.getString("nombreUsuario"));
-            administrator.setEmail(resultSet.getString("correoElectronico"));
-            administrator.setEmailConfirmed(resultSet.getBoolean("correoConfirmado"));
-            administrator.setMobilePhone(resultSet.getString("numeroCelular"));
-            administrator.setMobilePhoneConfirmed(resultSet.getBoolean("celularConfirmado"));
+            administrator.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("AdministratorId")));
+            administrator.setUsername(resultSet.getString("administratorUsername"));
+            administrator.setEmail(resultSet.getString("administratorEmail"));
+            administrator.setEmailConfirmed(resultSet.getBoolean("administratorEmail"));
+            administrator.setMobilePhone(resultSet.getString("administratorMobilePhone"));
+            administrator.setMobilePhoneConfirmed(resultSet.getBoolean("administratorMobilePhoneConfirmed"));
             
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_ADMINISTRATOR_MAPPER.getContent();

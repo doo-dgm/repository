@@ -14,43 +14,15 @@ public final class AdministratorSql {
             VALUES (?, ?, ?, ?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT
-                a.id,
-                a.username,
-                a.email,
-                a.emailConfirmed,
-                a.mobilePhone,
-                a.mobilePhoneConfirmed
-            FROM Administrator AS a
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT
-                a.id,
-                a.username,
-                a.email,
-                a.emailConfirmed,
-                a.mobilePhone,
-                a.mobilePhoneConfirmed
+                a.id AS administratorId,
+                a.username AS administratorUsername,
+                a.email AS administratorEmail,
+                a.emailConfirmed AS administratorEmailConfirmed,
+                a.mobilePhone AS administratorMobilePhone,
+                a.mobilePhoneConfirmed AS administratorMobilePhoneConfirmed
             FROM Administrator AS a
-            WHERE (? IS NULL OR a.username LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR a.email LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR a.email_confirmed = ?)
-              AND (? IS NULL OR a.mobile_phone LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR a.mobile_phone_confirmed = ?)
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT
-                a.id,
-                a.username,
-                a.email,
-                a.emailConfirmed,
-                a.mobilePhone,
-                a.mobilePhoneConfirmed
-            FROM Administrator AS a
-            WHERE a.id = ?
             """;
 
     public static final String UPDATE = """

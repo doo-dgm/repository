@@ -6,69 +6,57 @@ public final class PQRSql {
             INSERT INTO PQR (
                 id,
                 date,
-                status,
-                risk,
-                sector,
-                person,
+                statusId,
+                personId,
+                sectorId,
+                riskId,
                 photoRecord
             )
             VALUES (?, ?, ?, ?, ?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                p.id,
-                p.date,
-                p.status,
-                p.risk,
-                s.id AS sectorId,
-                s.name AS sectorName,
-                per.id AS personId,
-                per.firstName AS personFirstName,
-                per.lastName AS personLastName,
-                p.photoRecord
-            FROM PQR AS p
-            INNER JOIN Sector AS s ON p.sector = s.id
-            INNER JOIN Person AS per ON p.person = per.id
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                p.id,
-                p.date,
-                p.status,
-                p.risk,
-                s.id AS sectorId,
-                s.name AS sectorName,
-                per.id AS personId,
-                per.firstName AS personFirstName,
-                per.lastName AS personLastName,
-                p.photoRecord
-            FROM PQR AS p
-            INNER JOIN Sector AS s ON p.sector = s.id
-            INNER JOIN Person AS per ON p.person = per.id
-            WHERE (? IS NULL OR p.status LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR p.risk LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR s.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR per.firstName LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                p.id,
-                p.date,
-                p.status,
-                p.risk,
-                s.id AS sectorId,
-                s.name AS sectorName,
-                per.id AS personId,
-                per.firstName AS personFirstName,
-                per.lastName AS personLastName,
-                p.photoRecord
-            FROM PQR AS p
-            INNER JOIN Sector AS s ON p.sector = s.id
-            INNER JOIN Person AS per ON p.person = per.id
-            WHERE p.id = ?
+                pq.id as pqrId,
+                pq.date AS pqrDate,
+                sts.id AS statusId,
+                sts.name AS statusName,
+                pe.id as personPQRId,
+                pe.firstName AS personPQRFirstName, 
+                pe.middleName AS personPQRMiddleName,
+                pe.surname AS personPQRSurname,
+                pe.secondSurname AS personPQRSecondSurname,
+                do.documentId as documentPersonPQRId,
+                do.name AS documentPersonPQRName,
+                do.code AS documentPersonPQRCode,
+                pe.documentNumber AS personPQRDocumentNumber,
+                pe.birthDate AS personPQRBirthDate,
+                pe.address AS personPQRAddress,
+                pe.email AS personPQREmail,
+                pe.emailConfirmed AS personPQREmailConfirmed,
+                pe.phone AS personPQRPhone,
+                pe.phoneConfirmed AS personPQRPhoneConfirmed,
+                pe.age AS personPQRAge,
+                se.id AS sectorId,
+                se.name AS sectorName,
+                mu.id AS municipalityId,
+                mu.name AS municipalityName,
+                sta.id AS stateId,
+                sta.name AS stateName,
+                co.id AS countryId,
+                co.name AS countryName,
+                ri.id AS riskId,
+                ri.name AS riskName,
+                pq.photoRecord AS pqrPhotographicRecordPath
+            FROM PQR AS pq
+            INNER JOIN sector AS se ON pq.sectorId = se.id
+            INNER JOIN status AS sts ON pq.statusId = sts.id
+            INNER JOIN person AS pe ON pq.personId = pe.id
+            INNER JOIN risk AS ri ON pq.riskId = ri.id
+            INNER JOIN document AS do ON pe.documentId = do.id
+            INNER JOIN Municipality AS mu ON se.municipalityId = mu.id
+            INNER JOIN State AS st ON mu.stateId = st.id
+            INNER JOIN Country AS c ON st.countryId = co.id
             """;
 
     public static final String UPDATE = """

@@ -24,21 +24,24 @@ public final class PersonSql {
 
     public static final String FIND_BY_FILTER = """
             SELECT 
-                p.id,
-                p.firstName,
-                p.middleName,
-                p.surname,
-                p.secondSurname,
-                d.id as documentId,
-                p.documentNumber,
-                p.birthDate,
-                p.address,
-                p.email,
-                p.emailConfirmed,
-                p.phone,
-                p.phoneConfirmed,
-                p.age
+                p.id as personId,
+                p.firstName AS personFirstName, 
+                p.middleName AS personMiddleName,
+                p.surname AS personSurname,
+                p.secondSurname AS personSecondSurname,
+                d.documentId as documentId,
+                d.name AS documentName,
+                d.code AS documentCode,
+                p.documentNumber AS personDocumentNumber,
+                p.birthDate AS personBirthDate,
+                p.address AS personAddress,
+                p.email AS personEmail,
+                p.emailConfirmed AS personEmailConfirmed,
+                p.phone AS personPhone,
+                p.phoneConfirmed AS personPhoneConfirmed,
+                p.age AS personAge
             FROM Person as p
+            INNER JOIN Document AS d ON p.documentId = d.id
             """;
 
     public static final String UPDATE = """

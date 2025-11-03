@@ -136,10 +136,10 @@ public final class DocumentSqlServerDAO extends SqlConnection implements Documen
                 "d.id = ?", filterEntityValidated.getId());
 
         addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getName()),
-                "d.nombre = ?", filterEntityValidated.getName());
+                "d.name = ?", filterEntityValidated.getName());
 
         addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getCode()),
-                "d.codigo = ?", filterEntityValidated.getCode());
+                "d.code = ?", filterEntityValidated.getCode());
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");

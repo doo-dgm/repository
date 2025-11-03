@@ -11,31 +11,12 @@ public final class FamilySql {
             VALUES (?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT
-                f.id,
-                f.scientificName,
-                f.commonName
-            FROM Family AS f
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT
-                f.id,
-                f.scientificName,
-                f.commonName
+                f.id AS familyId,
+                f.scientificName AS familyScientificName,
+                f.commonName AS familyCommonName
             FROM Family AS f
-            WHERE (? IS NULL OR f.scientificName LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR f.commonName LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT
-                f.id,
-                f.scientificName,
-                f.commonName
-            FROM Family AS f
-            WHERE f.id = ?
             """;
 
     public static final String UPDATE = """

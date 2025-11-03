@@ -7,103 +7,47 @@ public final class TreeSql {
                 id,
                 longitude,
                 latitude,
-                species,
-                sector
+                familyId,
+                sectorId
             )
             VALUES (?, ?, ?, ?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                t.id,
-                t.longitude,
-                t.latitude,
-                f.id AS speciesId,
-                f.scientificName AS speciesScientificName,
-                f.commonName AS speciesCommonName,
-                s.id AS sectorId,
-                s.name AS sectorName,
-                m.id AS municipalityId,
-                m.name AS municipalityName,
-                st.id AS stateId,
-                st.name AS stateName,
-                c.id AS countryId,
-                c.name AS countryName
-            FROM Tree AS t
-            INNER JOIN Family AS f ON t.species = f.id
-            INNER JOIN Sector AS s ON t.sector = s.id
-            INNER JOIN Municipality AS m ON s.municipality = m.id
-            INNER JOIN State AS st ON m.state = st.id
-            INNER JOIN Country AS c ON st.country = c.id
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                t.id,
-                t.longitude,
-                t.latitude,
-                f.id AS speciesId,
-                f.scientificName AS speciesScientificName,
-                f.commonName AS speciesCommonName,
-                s.id AS sectorId,
-                s.name AS sectorName,
-                m.id AS municipalityId,
-                m.name AS municipalityName,
-                st.id AS stateId,
-                st.name AS stateName,
-                c.id AS countryId,
-                c.name AS countryName
+                t.id AS treeId,
+                t.longitude AS treeLongitude,
+                t.latitude AS treeLatitude,
+                f.id AS familyId,
+                f.scientificName AS familyScientificName,
+                f.commonName AS familyCommonName,
+                s.id AS sectorTreeId,
+                s.name AS sectorTreeName,
+                m.id AS municipalityTreeId,
+                m.name AS municipalityTreeName,
+                st.id AS stateTreeId,
+                st.name AS stateTreeName,
+                c.id AS countryTreeId,
+                c.name AS countryTreeName
             FROM Tree AS t
-            INNER JOIN Family AS f ON t.species = f.id
-            INNER JOIN Sector AS s ON t.sector = s.id
-            INNER JOIN Municipality AS m ON s.municipality = m.id
-            INNER JOIN State AS st ON m.state = st.id
-            INNER JOIN Country AS c ON st.country = c.id
-            WHERE (? IS NULL OR f.scientificName LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR f.commonName LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR s.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR m.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR st.name LIKE CONCAT('%', ?, '%'))
-              AND (? IS NULL OR c.name LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                t.id,
-                t.longitude,
-                t.latitude,
-                f.id AS speciesId,
-                f.scientificName AS speciesScientificName,
-                f.commonName AS speciesCommonName,
-                s.id AS sectorId,
-                s.name AS sectorName,
-                m.id AS municipalityId,
-                m.name AS municipalityName,
-                st.id AS stateId,
-                st.name AS stateName,
-                c.id AS countryId,
-                c.name AS countryName
-            FROM Tree AS t
-            INNER JOIN Family AS f ON t.species = f.id
-            INNER JOIN Sector AS s ON t.sector = s.id
-            INNER JOIN Municipality AS m ON s.municipality = m.id
-            INNER JOIN State AS st ON m.state = st.id
-            INNER JOIN Country AS c ON st.country = c.id
-            WHERE t.id = ?
+            INNER JOIN Family AS f ON t.familyId = f.id
+            INNER JOIN Sector AS s ON t.sectorId = s.id
+            INNER JOIN Municipality AS m ON s.municipalityId = m.id
+            INNER JOIN State AS st ON m.stateId = st.id
+            INNER JOIN Country AS c ON st.countryId = c.id
             """;
 
     public static final String UPDATE = """
-            UPDATE Tree
+            UPDATE tree
             SET longitude = ?,
                 latitude = ?,
-                species = ?,
-                sector = ?
+                familyId = ?
             WHERE id = ?
             """;
 
     public static final String DELETE = """
             DELETE
-            FROM Tree
+            FROM tree
             WHERE id = ?
             """;
 }

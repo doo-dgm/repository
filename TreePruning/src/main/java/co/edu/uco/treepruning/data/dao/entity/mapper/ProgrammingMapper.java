@@ -19,10 +19,10 @@ public final class ProgrammingMapper {
         var programming = new ProgrammingEntity();
 
         try {
-            programming.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            programming.setInitialDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("initial_date")));
-            programming.setFrequencyMonths(resultSet.getInt("frequency_months"));
-            programming.setAmount(resultSet.getInt("amount"));
+            programming.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("programmingId")));
+            programming.setInitialDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("programmingInitialDate")));
+            programming.setFrequencyMonths(resultSet.getInt("programmingFrequencyMonths"));
+            programming.setAmount(resultSet.getInt("programmingAmount"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_MAPPER.getContent();

@@ -15,9 +15,9 @@ public final class FamilyMapper {
         var family = new FamilyEntity();
 
         try {
-            family.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            family.setScientificName(resultSet.getString("scientific_name"));
-            family.setCommonName(resultSet.getString("common_name"));
+            family.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("familyId")));
+            family.setScientificName(resultSet.getString("familyScientificName"));
+            family.setCommonName(resultSet.getString("familyCommonName"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_FAMILY_MAPPER.getContent();

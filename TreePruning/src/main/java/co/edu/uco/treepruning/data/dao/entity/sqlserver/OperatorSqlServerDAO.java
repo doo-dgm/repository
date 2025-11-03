@@ -142,10 +142,10 @@ public final class OperatorSqlServerDAO extends SqlConnection implements Operato
                 "o.id = ?", filterEntityValidated.getId());
 
         addCondition(conditions, parameterList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPerson().getId()),
-                "o.persona = ?",filterEntityValidated.getPerson().getId());
+                "o.personId = ?",filterEntityValidated.getPerson().getId());
 
         addCondition(conditions, parameterList,!UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getQuadrille().getId()),
-                "o.cuadrilla = ?",filterEntityValidated.getQuadrille().getId());
+                "o.quadrilleId = ?",filterEntityValidated.getQuadrille().getId());
 
         if (!conditions.isEmpty()) {
             sql.append(" WHERE ");

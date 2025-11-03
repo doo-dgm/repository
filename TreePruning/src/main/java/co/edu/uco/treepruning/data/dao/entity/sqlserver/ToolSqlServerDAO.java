@@ -39,11 +39,11 @@ public class ToolSqlServerDAO extends SqlConnection implements ToolDAO {
 			
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent() + " - ToolSqlServerDAO.create";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent() + " - ToolSqlServerDAO.create";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -71,11 +71,11 @@ public class ToolSqlServerDAO extends SqlConnection implements ToolDAO {
 			throw exception;
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent() + " - ToolSqlServerDAO.findByFilter";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent() + " - ToolSqlServerDAO.findByFilter";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -99,11 +99,11 @@ public class ToolSqlServerDAO extends SqlConnection implements ToolDAO {
 			
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent() + " - ToolSqlServerDAO.update";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent() + " - ToolSqlServerDAO.update";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -120,11 +120,11 @@ public class ToolSqlServerDAO extends SqlConnection implements ToolDAO {
 			
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent() + " - ToolSqlServerDAO.delete";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent() + " - ToolSqlServerDAO.delete";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		
@@ -149,10 +149,10 @@ private String createSentenceFindByFilter(final ToolEntity filterEntity, final L
 				"t.id = ?", filterEntityValidated.getId());		
 
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getName()),
-				"t.name= ?", filterEntityValidated.getName());
+				"t.name = ?", filterEntityValidated.getName());
 		
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getDescription()),
-				"t.name= ?", filterEntityValidated.getDescription());
+				"t.description = ?", filterEntityValidated.getDescription());
 		
 		
 		if (!conditions.isEmpty()) {
@@ -178,11 +178,11 @@ private String createSentenceFindByFilter(final ToolEntity filterEntity, final L
 			}
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent() + " - ToolSqlServerDAO.executeSentenceFindByFilter";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent() + " - ToolSqlServerDAO.executeSentenceFindByFilter";
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DAO_EXECUTE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 		

@@ -10,37 +10,28 @@ public final class ManagerSql {
             VALUES (?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT
-                m.id,
-                p.id AS personId,
-                p.firstName,
-                p.lastName
-            FROM Manager AS m
-            INNER JOIN Person AS p ON m.person = p.id
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT
-                m.id,
+                m.id as managerId,
                 p.id AS personId,
-                p.firstName,
-                p.lastName
+                p.firstName AS personFirstName, 
+                p.middleName AS personMiddleName,
+                p.surname AS personSurname,
+                p.secondSurname AS personSecondSurname,
+                d.id as documentId,
+                d.name AS documentName,
+                d.code AS documentCode,
+                p.documentNumber AS personDocumentNumber,
+                p.birthDate AS personBirthDate,
+                p.address AS personAddress,
+                p.email AS personEmail,
+                p.emailConfirmed AS personEmailConfirmed,
+                p.phone AS personPhone,
+                p.phoneConfirmed AS personPhoneConfirmed,
+                p.age AS personAge
             FROM Manager AS m
-            INNER JOIN Person AS p ON m.person = p.id
-            WHERE (? IS NULL OR p.firstName LIKE CONCAT('%', ?, '%'))
-              OR (? IS NULL OR p.lastName LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT
-                m.id,
-                p.id AS personId,
-                p.firstName,
-                p.lastName
-            FROM Manager AS m
-            INNER JOIN Person AS p ON m.person = p.id
-            WHERE m.id = ?
+            INNER JOIN Person AS p ON m.personId = p.id
+            INNER JOIN Document AS d ON p.documentId = d.id
             """;
 
     public static final String UPDATE = """

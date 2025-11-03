@@ -15,8 +15,8 @@ public final class RiskMapper {
         var risk = new RiskEntity();
 
         try {
-            risk.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            risk.setName(resultSet.getString("name"));
+            risk.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("riskId")));
+            risk.setName(resultSet.getString("riskName"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_RISK_MAPPER.getContent();

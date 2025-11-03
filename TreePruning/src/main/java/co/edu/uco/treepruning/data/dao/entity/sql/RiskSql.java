@@ -10,27 +10,11 @@ public final class RiskSql {
             VALUES (?, ?)
             """;
 
-    public static final String FIND_ALL = """
-            SELECT 
-                r.id,
-                r.name
-            FROM Risk AS r
-            """;
-
     public static final String FIND_BY_FILTER = """
             SELECT 
-                r.id,
-                r.name
-            FROM Risk AS r
-            WHERE (? IS NULL OR r.name LIKE CONCAT('%', ?, '%'))
-            """;
-
-    public static final String FIND_BY_ID = """
-            SELECT 
-                r.id,
-                r.name
-            FROM Risk AS r
-            WHERE r.id = ?
+                r.id AS riskId,
+                r.name AS riskName
+            FROM risk AS r
             """;
 
     public static final String UPDATE = """

@@ -15,9 +15,9 @@ public final class ToolMapper {
         var tool = new ToolEntity();
 
         try {
-            tool.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            tool.setName(resultSet.getString("name"));
-            tool.setDescription(resultSet.getString("description"));
+            tool.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("toolId")));
+            tool.setName(resultSet.getString("toolName"));
+            tool.setDescription(resultSet.getString("toolDescription"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_TOOL_MAPPER.getContent();

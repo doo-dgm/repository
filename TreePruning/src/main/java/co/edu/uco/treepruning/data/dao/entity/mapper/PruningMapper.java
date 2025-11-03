@@ -2,9 +2,9 @@ package co.edu.uco.treepruning.data.dao.entity.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.entity.PruningEntity;
@@ -15,13 +15,13 @@ public final class PruningMapper {
         var pruning = new PruningEntity();
 
         try {
-            var status = StatusMapper.map(resultSet);
+            var status = StatusMapper.pruningMap(resultSet);
             pruning.setStatus(status);
             
             var tree = TreeMapper.map(resultSet);
             pruning.setTree(tree);
             
-            var quadrille = QuadrilleMapper.map(resultSet);
+            var quadrille = QuadrilleMapper.pruningMap(resultSet);
             pruning.setQuadrille(quadrille);
             
             var type = TypeMapper.map(resultSet);
@@ -33,11 +33,11 @@ public final class PruningMapper {
             var programming = ProgrammingMapper.map(resultSet);
             pruning.setProgramming(programming);
      
-            pruning.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("id")));
-            pruning.setPlannedDate(resultSet.getObject("plannedDate", LocalDate.class));
-            pruning.setExecutedDate(resultSet.getObject("executedDate", LocalDate.class));
-            pruning.setPhotographicRecordPath(resultSet.getString("photoRecord"));
-            pruning.setObservations(resultSet.getString("observations"));
+            pruning.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("pruningId")));
+            pruning.setPlannedDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("pruningPlannedDate")));
+            pruning.setExecutedDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("pruningExecutedDate")));
+            pruning.setPhotographicRecordPath(resultSet.getString("pruningPhotographicReportPath"));
+            pruning.setObservations(resultSet.getString("pruningObservations"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_PRUNING_MAPPER.getContent();

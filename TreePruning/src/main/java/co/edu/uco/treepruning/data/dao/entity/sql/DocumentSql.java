@@ -5,38 +5,26 @@ public final class DocumentSql {
     public static final String CREATE = """
             INSERT INTO Document (
                 id,
-                name
+                name,
+                code
             )
-            VALUES (?, ?)
-            """;
-
-    public static final String FIND_ALL = """
-            SELECT
-                d.id,
-                d.name
-            FROM Document AS d
+            VALUES (?, ?, ?)
             """;
 
     public static final String FIND_BY_FILTER = """
             SELECT
-                d.id,
-                d.name
+                d.id AS documentId,
+                d.name AS documentName,
+                d.code AS documentCode
             FROM Document AS d
-            WHERE (? IS NULL OR d.name LIKE CONCAT('%', ?, '%'))
             """;
 
-    public static final String FIND_BY_ID = """
-            SELECT
-                d.id,
-                d.name
-            FROM Document AS d
-            WHERE d.id = ?
-            """;
 
     public static final String UPDATE = """
             UPDATE Document
             SET
                 name = ?
+                code = ?
             WHERE id = ?
             """;
 
