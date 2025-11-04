@@ -43,4 +43,16 @@ public class RiskEntityAssembler implements EntityAssembler<RiskEntity, RiskDoma
 
         return riskEntityList;
     }
+    
+    @Override
+    public List<RiskDomain> toDomain(final List<RiskEntity> entityList) {
+		var riskDomainList = new ArrayList<RiskDomain>();
+
+		for (var risk : entityList) {
+			riskDomainList.add(toDomain(risk));
+		}
+
+		return riskDomainList;
+	}
+    
 }

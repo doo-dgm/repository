@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.StatusFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.dto.StatusDTO;
 
 @RestController
@@ -26,45 +28,45 @@ public class StatusController {
 		return new StatusDTO();
 	}
 
-	    @GetMapping
-	    public ResponseEntity<Response<StatusDTO>> findStatuses(
-	            @RequestParam(required = false) UUID id,
-	            @RequestParam(required = false) String name) {
+    @GetMapping
+    public ResponseEntity<Response<StatusDTO>> findStatuses(
+            @RequestParam(required = false) UUID id,
+            @RequestParam(required = false) String name) {
 
-	        Response<StatusDTO> responseObjectData = Response.createSuccededResponse();
-	        HttpStatusCode responseStatusCode = HttpStatus.OK;
+        Response<StatusDTO> responseObjectData = Response.createSuccededResponse();
+        HttpStatusCode responseStatusCode = HttpStatus.OK;
 
-	        try {
-	            var facade = new StatusFacadeImpl();
+        try {
+            var facade = new StatusFacadeImpl();
 
-	            
-	            if (id == null && (name == null || name.isBlank())) {
-	                responseObjectData.setData(facade.findAllStatuses());
-	            } else {
-	                StatusDTO filter = new StatusDTO();
-	                filter.setId(id);
-	                filter.setName(name);
+            
+            if (ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
+                responseObjectData.setData(facade.findAllStatuses());
+            } else {
+                StatusDTO filter = new StatusDTO();
+                filter.setId(id);
+                filter.setName(name);
 
-	                responseObjectData.setData(facade.findStatusesByFilter(filter));
-	            }
+                responseObjectData.setData(facade.findStatusesByFilter(filter));
+            }
 
-	            responseObjectData.addMessage("");
+            responseObjectData.addMessage("");
 
-	        } catch (final TreePruningException exception) {
-	            responseObjectData = Response.createFailedResponse();
-	            responseObjectData.addMessage(exception.getUserMessage());
-	            responseStatusCode = HttpStatus.BAD_REQUEST;
-	            exception.printStackTrace();
+        } catch (final TreePruningException exception) {
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(exception.getUserMessage());
+            responseStatusCode = HttpStatus.BAD_REQUEST;
+            exception.printStackTrace();
 
-	        } catch (final Exception exception) {
-	            var userMessage = "";
-	            responseObjectData = Response.createFailedResponse();
-	            responseObjectData.addMessage(userMessage);
-	            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-	            exception.printStackTrace();
-	        }
-	        return new ResponseEntity<Response<StatusDTO>>(responseObjectData, responseStatusCode);
-	    }
+        } catch (final Exception exception) {
+            var userMessage = "";
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(userMessage);
+            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            exception.printStackTrace();
+        }
+        return new ResponseEntity<Response<StatusDTO>>(responseObjectData, responseStatusCode);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<StatusDTO>> findSpecificStatus(@PathVariable UUID id) {

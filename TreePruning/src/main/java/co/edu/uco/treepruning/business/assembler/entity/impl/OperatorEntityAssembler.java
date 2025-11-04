@@ -51,4 +51,15 @@ public class OperatorEntityAssembler implements EntityAssembler<OperatorEntity, 
 
 		return operatorEntityList;
 	}
+	
+	@Override
+	public List<OperatorDomain> toDomain(final List<OperatorEntity> entityList) {
+		var operatorDomainList = new ArrayList<OperatorDomain>();
+
+		for (var operator : entityList) {
+			operatorDomainList.add(toDomain(operator));
+		}
+
+		return operatorDomainList;
+	}
 }

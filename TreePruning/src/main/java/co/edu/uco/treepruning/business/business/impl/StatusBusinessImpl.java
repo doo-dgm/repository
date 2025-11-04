@@ -1,6 +1,5 @@
 package co.edu.uco.treepruning.business.business.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,27 +19,13 @@ public class StatusBusinessImpl implements StatusBusiness{
 
 	@Override
 	public List<StatusDomain> listAllStatuses() {
-		var statusEntityList = daoFactory.getStatusDAO().findAll();
-		var statusDomainList = new ArrayList<StatusDomain>();
-		
-		for (var statusEntity : statusEntityList) {
-			statusDomainList.add(getStatusEntityAssembler().toDomain(statusEntity));
-		}
-		return statusDomainList;
+		return getStatusEntityAssembler().toDomain(daoFactory.getStatusDAO().findAll());
 	}
 
 	@Override
 	public List<StatusDomain> listStatusesByCriteria(final StatusDomain statusCriteria) {
-		
 		var statusEntity = getStatusEntityAssembler().toEntity(statusCriteria);
-		var statusEntityList = daoFactory.getStatusDAO().findByFilter(statusEntity);
-		var statusDomainList = new ArrayList<StatusDomain>();
-		
-		for (var status : statusEntityList) {
-			statusDomainList.add(getStatusEntityAssembler().toDomain(status));
-		}
-		
-		return statusDomainList;
+		return getStatusEntityAssembler().toDomain(daoFactory.getStatusDAO().findByFilter(statusEntity));
 	}
 
 	@Override

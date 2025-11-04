@@ -1,5 +1,6 @@
 package co.edu.uco.treepruning.business.business.validator.tree;
 
+import co.edu.uco.treepruning.business.business.rule.tree.TreeExistsByIdRule;
 import co.edu.uco.treepruning.business.business.validator.Validator;
 
 public class ValidateTreeExistsById implements Validator {
@@ -15,7 +16,7 @@ public class ValidateTreeExistsById implements Validator {
 
 	@Override
 	public void validate(Object... data) {
-		// TODO Auto-generated method stub
+		TreeExistsByIdRule.executeRule(data);
 		
 	}
 

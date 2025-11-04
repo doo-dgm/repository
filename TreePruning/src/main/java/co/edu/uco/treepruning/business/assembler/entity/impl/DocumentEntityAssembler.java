@@ -43,5 +43,15 @@ public class DocumentEntityAssembler implements EntityAssembler<DocumentEntity, 
 		
 		return documentEntityList;
 	}
-
+	
+	@Override
+	public List<DocumentDomain> toDomain(List<DocumentEntity> entityList) {
+		var documentDomainList = new ArrayList<DocumentDomain>();
+		
+		for (var document : entityList) {
+			documentDomainList.add(toDomain(document));
+		}
+		
+		return documentDomainList;
+	}
 }

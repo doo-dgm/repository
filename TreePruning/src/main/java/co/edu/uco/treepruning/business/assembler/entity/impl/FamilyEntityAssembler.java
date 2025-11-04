@@ -44,6 +44,15 @@ public class FamilyEntityAssembler implements EntityAssembler<FamilyEntity, Fami
 		return familyEntityList;
 	}
 
-
+	@Override
+	public List<FamilyDomain> toDomain(List<FamilyEntity> entityList) {
+		var familyDomainList = new ArrayList<FamilyDomain>();
+		
+		for (var family : entityList) {
+			familyDomainList.add(toDomain(family));
+		}
+		
+		return familyDomainList;
+	}
 
 }

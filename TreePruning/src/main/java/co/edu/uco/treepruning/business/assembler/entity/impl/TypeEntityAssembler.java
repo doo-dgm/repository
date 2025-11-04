@@ -43,4 +43,15 @@ public class TypeEntityAssembler implements EntityAssembler<TypeEntity, TypeDoma
 
         return typeEntityList;
     }
+    
+    @Override
+    public List<TypeDomain> toDomain(final List<TypeEntity> entityList) {
+        var typeDomainList = new ArrayList<TypeDomain>();
+
+        for (var type : entityList) {
+        	typeDomainList.add(toDomain(type));
+        }
+
+        return typeDomainList;
+    }
 }

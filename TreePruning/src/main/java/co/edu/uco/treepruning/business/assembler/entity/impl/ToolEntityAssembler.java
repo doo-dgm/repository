@@ -43,5 +43,16 @@ public class ToolEntityAssembler implements EntityAssembler<ToolEntity, ToolDoma
         
         return toolEntityList;
     }
+    
+    @Override
+    public List<ToolDomain> toDomain(List<ToolEntity> entityList) {
+		var toolDomainList = new ArrayList<ToolDomain>();
+		
+		for (var tool : entityList) {
+			toolDomainList.add(toDomain(tool));
+		}
+		
+		return toolDomainList;
+	}
 }
 

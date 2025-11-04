@@ -47,5 +47,16 @@ public class ManagerEntityAssembler implements EntityAssembler<ManagerEntity, Ma
 
         return managerEntityList;
     }
+    
+    @Override
+    public List<ManagerDomain> toDomain(final List<ManagerEntity> entityList) {
+		var managerDomainList = new ArrayList<ManagerDomain>();
+
+		for (var manager : entityList) {
+			managerDomainList.add(toDomain(manager));
+		}
+
+		return managerDomainList;
+	}
 }
 

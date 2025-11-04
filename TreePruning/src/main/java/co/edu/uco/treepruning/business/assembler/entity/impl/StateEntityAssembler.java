@@ -47,5 +47,16 @@ public class StateEntityAssembler implements EntityAssembler<StateEntity, StateD
 		
 		return stateEntityList;
 	}
+	
+	@Override
+	public List<StateDomain> toDomain(List<StateEntity> entityList) {
+		var stateDomainList = new ArrayList<StateDomain>();
+		
+		for (var state : entityList) {
+			stateDomainList.add(toDomain(state));
+		}
+		
+		return stateDomainList;
+	}
 
 }

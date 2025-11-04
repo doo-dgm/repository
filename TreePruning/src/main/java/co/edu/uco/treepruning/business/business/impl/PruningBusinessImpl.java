@@ -7,6 +7,10 @@ import java.util.UUID;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.PruningEntityAssembler.getPruningEntityAssembler;
 
 import co.edu.uco.treepruning.business.business.PruningBusiness;
+import co.edu.uco.treepruning.business.business.validator.quadrille.ValidateQuadrilleExistsById;
+import co.edu.uco.treepruning.business.business.validator.status.ValidateStatusExistsById;
+import co.edu.uco.treepruning.business.business.validator.tree.ValidateTreeExistsById;
+import co.edu.uco.treepruning.business.business.validator.type.ValidateTypeExistsById;
 import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
@@ -23,9 +27,16 @@ public class PruningBusinessImpl implements PruningBusiness {
 	@Override
 	public void schedulePruning(final PruningDomain pruningDomain) {
 		
-		var id = UUIDHelper.getUUIDHelper().generateNewUUID();
+		
+		
+		ValidateStatusExistsById.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
+		ValidateTreeExistsById.executeValidation(pruningDomain.getTree().getId(), daoFactory);
+		ValidateQuadrilleExistsById.executeValidation(pruningDomain.getQuadrille().getId(), daoFactory);
+		ValidateTypeExistsById.executeValidation(pruningDomain.getType().getId(), daoFactory);
+		
 		var pruningEntity = getPruningEntityAssembler().toEntity(pruningDomain);
-		pruningEntity.setId(id);
+		
+		pruningEntity.setId(generateId());
 		
 		daoFactory.getPruningDAO().create(pruningEntity);
 	}

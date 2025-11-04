@@ -75,5 +75,16 @@ public class PQREntityAssembler implements EntityAssembler<PQREntity, PQRDomain>
 
         return pqrEntityList;
     }
+    
+    @Override
+    public List<PQRDomain> toDomain(final List<PQREntity> entityList) {
+		var pqrDomainList = new ArrayList<PQRDomain>();
+
+		for (var pqr : entityList) {
+			pqrDomainList.add(toDomain(pqr));
+		}
+
+		return pqrDomainList;
+	}
 }
 

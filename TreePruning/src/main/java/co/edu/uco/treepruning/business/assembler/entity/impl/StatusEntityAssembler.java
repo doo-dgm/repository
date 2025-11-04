@@ -43,5 +43,16 @@ public class StatusEntityAssembler implements EntityAssembler<StatusEntity, Stat
 
         return statusEntityList;
     }
+    
+    @Override
+    public List<StatusDomain> toDomain(final List<StatusEntity> entityList) {
+		var statusDomainList = new ArrayList<StatusDomain>();
+
+		for (var status : entityList) {
+			statusDomainList.add(toDomain(status));
+		}
+
+		return statusDomainList;
+	}
 }
 

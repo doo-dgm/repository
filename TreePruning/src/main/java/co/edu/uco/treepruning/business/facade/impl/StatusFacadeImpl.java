@@ -25,8 +25,9 @@ public final class StatusFacadeImpl implements StatusFacade {
             return StatusDTOAssembler.getStatusDTOAssembler().toDTO(domainList);
 
         } catch (final TreePruningException exception) {
-            daoFactory.rollbackTransaction();
-            throw exception;
+        	var userMessage = "";
+            var technicalMessage = "";
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();

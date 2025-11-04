@@ -45,4 +45,10 @@ public class AdministratorEntityAssembler implements EntityAssembler<Administrat
 	
 	}
 
+	@Override
+	public List<AdministratorDomain> toDomain(List<AdministratorEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

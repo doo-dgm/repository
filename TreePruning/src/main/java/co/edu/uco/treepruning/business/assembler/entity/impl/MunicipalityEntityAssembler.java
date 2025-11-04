@@ -48,5 +48,16 @@ public class MunicipalityEntityAssembler implements EntityAssembler<Municipality
 		
 		return municipalityEntityList;
 	}
+	
+	@Override
+	public List<MunicipalityDomain> toDomain(List<MunicipalityEntity> entityList) {
+		var municipalityDomainList = new ArrayList<MunicipalityDomain>();
+		
+		for (var municipality : entityList) {
+			municipalityDomainList.add(toDomain(municipality));
+		}
+		
+		return municipalityDomainList;
+	}
 
 }

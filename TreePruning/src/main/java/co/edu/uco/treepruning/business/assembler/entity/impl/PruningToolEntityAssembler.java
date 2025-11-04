@@ -61,5 +61,16 @@ public class PruningToolEntityAssembler implements EntityAssembler<PruningToolEn
 
         return pruningToolEntityList;
     }
+    
+    @Override
+    public List<PruningToolDomain> toDomain(final List<PruningToolEntity> entityList) {
+		var pruningToolDomainList = new ArrayList<PruningToolDomain>();
+
+		for (var pruningTool : entityList) {
+			pruningToolDomainList.add(toDomain(pruningTool));
+		}
+
+		return pruningToolDomainList;
+	}
 }
 

@@ -56,5 +56,16 @@ public class TreeEntityAssembler implements EntityAssembler<TreeEntity, TreeDoma
 
         return treeEntityList;
     }
+    
+    @Override
+    public List<TreeDomain> toDomain(List<TreeEntity> entityList) {
+		var treeDomainList = new ArrayList<TreeDomain>();
+
+		for (var tree : entityList) {
+			treeDomainList.add(toDomain(tree));
+		}
+
+		return treeDomainList;
+	}
 }
 

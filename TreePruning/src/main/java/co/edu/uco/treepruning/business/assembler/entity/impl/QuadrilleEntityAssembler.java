@@ -56,5 +56,16 @@ public class QuadrilleEntityAssembler implements EntityAssembler<QuadrilleEntity
 
         return quadrilleEntityList;
     }
+    
+    @Override
+    public List<QuadrilleDomain> toDomain(final List<QuadrilleEntity> entityList) {
+		var quadrilleDomainList = new ArrayList<QuadrilleDomain>();
+
+		for (var quadrille : entityList) {
+			quadrilleDomainList.add(toDomain(quadrille));
+		}
+
+		return quadrilleDomainList;
+	}
 }
 

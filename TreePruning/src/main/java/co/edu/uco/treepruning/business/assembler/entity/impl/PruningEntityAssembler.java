@@ -91,5 +91,16 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
 
         return pruningEntityList;
     }
+    
+    @Override
+    public List<PruningDomain> toDomain(final List<PruningEntity> entityList) {
+		var pruningDomainList = new ArrayList<PruningDomain>();
+
+		for (var pruning : entityList) {
+			pruningDomainList.add(toDomain(pruning));
+		}
+
+		return pruningDomainList;
+	}
 }
 

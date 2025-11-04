@@ -43,5 +43,16 @@ public class CountryEntityAssembler implements EntityAssembler<CountryEntity, Co
 		
 		return countryEntityList;
 	}
+	
+	@Override
+	public List<CountryDomain> toDomain(List<CountryEntity> entityList) {
+		var countryDomainList = new ArrayList<CountryDomain>();
+		
+		for (var country : entityList) {
+			countryDomainList.add(toDomain(country));
+		}
+		
+		return countryDomainList;
+	}
 
 }

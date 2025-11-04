@@ -31,7 +31,7 @@ public class TypeSqlServerDAO extends SqlConnection implements TypeDAO {
 	}
 
 	@Override
-	public List<TypeEntity> findByFilter(TypeEntity filterEntity) {
+	public List<TypeEntity> findByFilter(final TypeEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
 		
@@ -55,11 +55,11 @@ public class TypeSqlServerDAO extends SqlConnection implements TypeDAO {
 	}
 
 	@Override
-	public TypeEntity findById(UUID id) {
+	public TypeEntity findById(final UUID id) {
 		return findByFilter(new TypeEntity(id)).stream().findFirst().orElse(new TypeEntity());
 	}
 	
-private String createSentenceFindByFilter(final TypeEntity filterEntity, final List<Object> parameterList) {
+	private String createSentenceFindByFilter(final TypeEntity filterEntity, final List<Object> parameterList) {
 		
 		var sql = new StringBuilder(TypeSql.FIND_BY_FILTER);
 

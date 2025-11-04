@@ -47,5 +47,16 @@ public class SectorEntityAssembler implements EntityAssembler<SectorEntity, Sect
 
         return sectorEntityList;
     }
+    
+    @Override
+    public List<SectorDomain> toDomain(List<SectorEntity> entityList) {
+		var sectorDomainList = new ArrayList<SectorDomain>();
+
+		for (var sector : entityList) {
+			sectorDomainList.add(toDomain(sector));
+		}
+
+		return sectorDomainList;
+	}
 }
 

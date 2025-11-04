@@ -6,7 +6,6 @@ import static co.edu.uco.treepruning.business.assembler.dto.impl.StatusDTOAssemb
 
 import co.edu.uco.treepruning.business.assembler.dto.impl.PruningDTOAssembler;
 import co.edu.uco.treepruning.business.business.impl.PruningBusinessImpl;
-import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.business.facade.PruningFacade;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;

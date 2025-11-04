@@ -56,5 +56,16 @@ public class ProgrammingEntityAssembler implements EntityAssembler<ProgrammingEn
 
         return programmingEntityList;
     }
+    
+    @Override
+    public List<ProgrammingDomain> toDomain(final List<ProgrammingEntity> entityList) {
+		var programmingDomainList = new ArrayList<ProgrammingDomain>();
+
+		for (var programming : entityList) {
+			programmingDomainList.add(toDomain(programming));
+		}
+
+		return programmingDomainList;
+	}
 }
 

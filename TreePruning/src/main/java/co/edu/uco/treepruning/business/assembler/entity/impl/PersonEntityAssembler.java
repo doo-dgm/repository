@@ -58,5 +58,17 @@ public class PersonEntityAssembler implements EntityAssembler<PersonEntity, Pers
 
 		return personEntityList;
 	}
+	
+	@Override
+	public List<PersonDomain> toDomain(final List<PersonEntity> entityList) {
+
+		var personDomainList = new ArrayList<PersonDomain>();
+
+		for (var person :entityList) {
+			personDomainList.add(toDomain(person));
+		}
+
+		return personDomainList;
+	}
 }
 

@@ -12,9 +12,9 @@ public final class TypeSql {
 
     public static final String FIND_BY_FILTER = """
             SELECT 
-                id AS typeId,
-                name AS typeName
-            FROM Type
+                t.id AS typeId,
+                t.name AS typeName
+            FROM Type AS t
             """;
 
     public static final String UPDATE = """
