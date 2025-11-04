@@ -16,21 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.PQRFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.dto.PQRDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
 
 @RestController
 @RequestMapping("/api/v1/pqrs")
 public class PQRController {
-	@GetMapping("/dummy")
-	public PQRDTO getPQRDTODummy() {
-		return new PQRDTO();
-	}
 
-	@GetMapping
+    @GetMapping("/dummy")
+    public PQRDTO getPQRDTODummy() {
+        return new PQRDTO();
+    }
+
+    @GetMapping
     public ResponseEntity<Response<PQRDTO>> findPQRs(
             @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String date, 
+            @RequestParam(required = false) String date,
             @RequestParam(required = false) UUID statusId) {
 
         Response<PQRDTO> responseObjectData = Response.createSuccededResponse();
@@ -38,21 +42,37 @@ public class PQRController {
 
         try {
             var facade = new PQRFacadeImpl();
-            if (id == null && (date == null || date.isBlank()) && statusId == null) {
+            var dateHelper = DateHelper.getDateHelper();
+
+            if (ObjectHelper.isNull(id)
+                    && (ObjectHelper.isNull(date) || TextHelper.isEmptyWithTrim(date))
+                    && ObjectHelper.isNull(statusId)) {
+
                 responseObjectData.setData(facade.findAllPQRS());
+
+ 
+            } else if (!ObjectHelper.isNull(id)
+                    && (ObjectHelper.isNull(date) || TextHelper.isEmptyWithTrim(date))
+                    && ObjectHelper.isNull(statusId)) {
+
+                responseObjectData.getData().add(facade.findSpecificPQR(id));
+
+    
             } else {
                 PQRDTO filter = new PQRDTO();
                 filter.setId(id);
 
-                if (date != null && !date.isBlank()) {
+                if (!ObjectHelper.isNull(date) && !TextHelper.isEmptyWithTrim(date)) {
                     try {
-                        filter.setDate(LocalDate.parse(date));
-                    } catch (final Exception ex) {
-                    	System.out.println("Formato de fecha inválido: " + date);
+                        LocalDate parsedDate = LocalDate.parse(date);
+                        filter.setDate(dateHelper.getDefault(parsedDate));
+                    } catch (final Exception exception) {
+                        System.out.println("Formato de fecha inválido: " + date);
+                        filter.setDate(dateHelper.getDefault());
                     }
                 }
 
-                if (statusId != null) {
+                if (!ObjectHelper.isNull(statusId)) {
                     StatusDTO status = new StatusDTO();
                     status.setId(statusId);
                     filter.setStatus(status);
@@ -60,22 +80,24 @@ public class PQRController {
 
                 responseObjectData.setData(facade.findPQRSByFilter(filter));
             }
-                responseObjectData.addMessage("");
-            } catch (final TreePruningException exception) {
-                responseObjectData = Response.createFailedResponse();
-                responseObjectData.addMessage(exception.getUserMessage());
-                responseStatusCode = HttpStatus.BAD_REQUEST;
-                exception.printStackTrace();
 
-            } catch (final Exception exception) {
-                var userMessage = "";
-                responseObjectData = Response.createFailedResponse();
-                responseObjectData.addMessage(userMessage);
-                responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-                exception.printStackTrace();
-            }
-            return new ResponseEntity<Response<PQRDTO>>(responseObjectData, responseStatusCode);
+            responseObjectData.addMessage("");
+
+        } catch (final TreePruningException exception) {
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(exception.getUserMessage());
+            responseStatusCode = HttpStatus.BAD_REQUEST;
+            exception.printStackTrace();
+
+        } catch (final Exception exception) {
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage("");
+            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            exception.printStackTrace();
         }
+
+        return new ResponseEntity<Response<PQRDTO>>(responseObjectData, responseStatusCode);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<PQRDTO>> findSpecificPQR(@PathVariable UUID id) {
@@ -84,7 +106,6 @@ public class PQRController {
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
-
             var facade = new PQRFacadeImpl();
 
             responseObjectData.setData(List.of(facade.findSpecificPQR(id)));
@@ -97,13 +118,13 @@ public class PQRController {
             exception.printStackTrace();
 
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage("");
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
+
         return new ResponseEntity<Response<PQRDTO>>(responseObjectData, responseStatusCode);
     }
-
 }
+

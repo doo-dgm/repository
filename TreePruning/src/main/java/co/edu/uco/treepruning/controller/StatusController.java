@@ -39,13 +39,19 @@ public class StatusController {
         try {
             var facade = new StatusFacadeImpl();
 
-            
+          
             if (ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
                 responseObjectData.setData(facade.findAllStatuses());
+
+         
+            } else if (!ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
+                responseObjectData.getData().add(facade.findSpecificStatus(id));
+
+         
             } else {
                 StatusDTO filter = new StatusDTO();
                 filter.setId(id);
-                filter.setName(name);
+                filter.setName(TextHelper.getDefaultWithTrim(name));
 
                 responseObjectData.setData(facade.findStatusesByFilter(filter));
             }
@@ -59,9 +65,8 @@ public class StatusController {
             exception.printStackTrace();
 
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage("");
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
@@ -88,9 +93,8 @@ public class StatusController {
             exception.printStackTrace();
 
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage("");
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }

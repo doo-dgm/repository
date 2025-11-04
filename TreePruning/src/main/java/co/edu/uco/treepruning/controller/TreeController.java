@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.TreeFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.dto.TreeDTO;
 import co.edu.uco.treepruning.dto.FamilyDTO;
 import co.edu.uco.treepruning.dto.SectorDTO;
@@ -42,23 +44,37 @@ public class TreeController {
         try {
             var facade = new TreeFacadeImpl();
 
-            if (id == null && longitude == null && latitude == null && familyId == null && sectorId == null) {
+            if (ObjectHelper.isNull(id)
+                    && (ObjectHelper.isNull(longitude) || TextHelper.isEmptyWithTrim(longitude))
+                    && (ObjectHelper.isNull(latitude) || TextHelper.isEmptyWithTrim(latitude))
+                    && ObjectHelper.isNull(familyId)
+                    && ObjectHelper.isNull(sectorId)) {
+
                 responseObjectData.setData(facade.findAllTrees());
-            } 
-           
-            else {
+
+            
+            } else if (!ObjectHelper.isNull(id)
+                    && (ObjectHelper.isNull(longitude) || TextHelper.isEmptyWithTrim(longitude))
+                    && (ObjectHelper.isNull(latitude) || TextHelper.isEmptyWithTrim(latitude))
+                    && ObjectHelper.isNull(familyId)
+                    && ObjectHelper.isNull(sectorId)) {
+
+                responseObjectData.getData().add(facade.findSpecificTree(id));
+
+            
+            } else {
                 TreeDTO filter = new TreeDTO();
                 filter.setId(id);
-                filter.setLongitude(longitude);
-                filter.setLatitude(latitude);
+                filter.setLongitude(TextHelper.getDefaultWithTrim(longitude));
+                filter.setLatitude(TextHelper.getDefaultWithTrim(latitude));
 
-                if (familyId != null) {
+                if (!ObjectHelper.isNull(familyId)) {
                     FamilyDTO family = new FamilyDTO();
                     family.setId(familyId);
                     filter.setFamily(family);
                 }
 
-                if (sectorId != null) {
+                if (!ObjectHelper.isNull(sectorId)) {
                     SectorDTO sector = new SectorDTO();
                     sector.setId(sectorId);
                     filter.setSector(sector);
@@ -76,9 +92,8 @@ public class TreeController {
             exception.printStackTrace();
 
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage("");
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
@@ -105,9 +120,8 @@ public class TreeController {
             exception.printStackTrace();
 
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage("");
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
@@ -115,4 +129,5 @@ public class TreeController {
         return new ResponseEntity<Response<TreeDTO>>(responseObjectData, responseStatusCode);
     }
 }
+
 

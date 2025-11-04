@@ -7,23 +7,34 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.uco.treepruning.business.facade.impl.PruningFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.dto.PruningDTO;
+import co.edu.uco.treepruning.dto.QuadrilleDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
+import co.edu.uco.treepruning.dto.TreeDTO;
 
 @RestController
 @RequestMapping("/api/v1/prunings")
 public class PruningController {
-	
 
-	@GetMapping("/dummy")
-	public PruningDTO getPruningDTODummy() {
-		return new PruningDTO();
-	}
+    @GetMapping("/dummy")
+    public PruningDTO getPruningDTODummy() {
+        return new PruningDTO();
+    }
 
     @PostMapping
     public ResponseEntity<Response<PruningDTO>> schedulePruning(@RequestBody PruningDTO pruningDTO) {
@@ -47,7 +58,7 @@ public class PruningController {
             exception.printStackTrace();
         }
 
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
     @PutMapping("/{id}/cancel")
@@ -72,7 +83,7 @@ public class PruningController {
             exception.printStackTrace();
         }
 
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
     @PutMapping("/{id}/reschedule")
@@ -97,7 +108,7 @@ public class PruningController {
             exception.printStackTrace();
         }
 
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
     @PutMapping("/{id}/complete")
@@ -122,7 +133,7 @@ public class PruningController {
             exception.printStackTrace();
         }
 
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
     @GetMapping
@@ -139,46 +150,66 @@ public class PruningController {
 
         try {
             var facade = new PruningFacadeImpl();
+            var dateHelper = DateHelper.getDateHelper();
 
-            if (id == null && plannedDate == null && executedDate == null &&
-                statusId == null && treeId == null && quadrilleId == null) {
+          
+            if (ObjectHelper.isNull(id)
+                    && (ObjectHelper.isNull(plannedDate) || TextHelper.isEmptyWithTrim(plannedDate))
+                    && (ObjectHelper.isNull(executedDate) || TextHelper.isEmptyWithTrim(executedDate))
+                    && ObjectHelper.isNull(statusId)
+                    && ObjectHelper.isNull(treeId)
+                    && ObjectHelper.isNull(quadrilleId)) {
 
                 responseObjectData.setData(facade.findAllPrunings());
+
+         
+            } else if (!ObjectHelper.isNull(id)
+                    && (ObjectHelper.isNull(plannedDate) || TextHelper.isEmptyWithTrim(plannedDate))
+                    && (ObjectHelper.isNull(executedDate) || TextHelper.isEmptyWithTrim(executedDate))
+                    && ObjectHelper.isNull(statusId)
+                    && ObjectHelper.isNull(treeId)
+                    && ObjectHelper.isNull(quadrilleId)) {
+
+                responseObjectData.getData().add(facade.findSpecificPruning(id));
 
             } else {
                 PruningDTO filter = new PruningDTO();
                 filter.setId(id);
 
-                if (plannedDate != null && !plannedDate.isBlank()) {
+                if (!ObjectHelper.isNull(plannedDate) && !TextHelper.isEmptyWithTrim(plannedDate)) {
                     try {
-                        filter.setPlannedDate(LocalDate.parse(plannedDate));
+                        LocalDate parsedDate = LocalDate.parse(plannedDate);
+                        filter.setPlannedDate(dateHelper.getDefault(parsedDate));
                     } catch (final Exception ex) {
                         System.out.println("Formato de fecha inválido: " + plannedDate);
+                        filter.setPlannedDate(dateHelper.getDefault());
                     }
                 }
 
-                if (executedDate != null && !executedDate.isBlank()) {
+                if (!ObjectHelper.isNull(executedDate) && !TextHelper.isEmptyWithTrim(executedDate)) {
                     try {
-                        filter.setExecutedDate(LocalDate.parse(executedDate));
+                        LocalDate parsedDate = LocalDate.parse(executedDate);
+                        filter.setExecutedDate(dateHelper.getDefault(parsedDate));
                     } catch (final Exception ex) {
                         System.out.println("Formato de fecha inválido: " + executedDate);
+                        filter.setExecutedDate(dateHelper.getDefault());
                     }
                 }
 
-                if (statusId != null) {
+                if (!ObjectHelper.isNull(statusId)) {
                     var status = new StatusDTO();
                     status.setId(statusId);
                     filter.setStatus(status);
                 }
 
-                if (treeId != null) {
-                    var tree = new co.edu.uco.treepruning.dto.TreeDTO();
+                if (!ObjectHelper.isNull(treeId)) {
+                    var tree = new TreeDTO();
                     tree.setId(treeId);
                     filter.setTree(tree);
                 }
 
-                if (quadrilleId != null) {
-                    var quadrille = new co.edu.uco.treepruning.dto.QuadrilleDTO();
+                if (!ObjectHelper.isNull(quadrilleId)) {
+                    var quadrille = new QuadrilleDTO();
                     quadrille.setId(quadrilleId);
                     filter.setQuadrille(quadrille);
                 }
@@ -200,12 +231,11 @@ public class PruningController {
             exception.printStackTrace();
         }
 
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<PruningDTO>> findSpecificPruning(@PathVariable UUID id) {
-
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
@@ -225,76 +255,6 @@ public class PruningController {
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
-    }
-
-    @GetMapping("/filter")
-    public ResponseEntity<Response<PruningDTO>> findPruningsByFilter(
-            @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String plannedDate, 
-            @RequestParam(required = false) String executedDate, 
-            @RequestParam(required = false) UUID statusId,
-            @RequestParam(required = false) UUID treeId,
-            @RequestParam(required = false) UUID quadrilleId) {
-
-        Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
-
-        try {
-            var facade = new PruningFacadeImpl();
-
-            PruningDTO filter = new PruningDTO();
-            filter.setId(id);
-
-            if (plannedDate != null && !plannedDate.isBlank()) {
-                try {
-                    filter.setPlannedDate(LocalDate.parse(plannedDate));
-                } catch (final Exception exeption) {
-                        System.out.println("Formato de fecha inválido: " + plannedDate);
-                }
-            }
-
-            if (executedDate != null && !executedDate.isBlank()) {
-                try {
-                    filter.setExecutedDate(LocalDate.parse(executedDate));
-                } catch (final Exception ex) {
-                        System.out.println("Formato de fecha inválido: " + executedDate);
-                }
-            }
-
-            if (statusId != null) {
-                var status = new StatusDTO();
-                status.setId(statusId);
-                filter.setStatus(status);
-            }
-
-            if (treeId != null) {
-                var tree = new co.edu.uco.treepruning.dto.TreeDTO();
-                tree.setId(treeId);
-                filter.setTree(tree);
-            }
-
-            if (quadrilleId != null) {
-                var quadrille = new co.edu.uco.treepruning.dto.QuadrilleDTO();
-                quadrille.setId(quadrilleId);
-                filter.setQuadrille(quadrille);
-            }
-
-            responseObjectData.setData(facade.findPruningsByFilter(filter));
-            responseObjectData.addMessage("");
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
-
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
-        return new ResponseEntity<Response<PruningDTO>>(responseObjectData, responseStatusCode);
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 }

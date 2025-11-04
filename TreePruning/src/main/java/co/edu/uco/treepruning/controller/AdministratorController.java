@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.AdministratorFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.dto.AdministratorDTO;
-
 
 @RestController
 @RequestMapping("/api/v1/administrators")
@@ -26,73 +27,81 @@ public class AdministratorController {
 		return new AdministratorDTO();
 	}
 
-    @GetMapping
-    public ResponseEntity<Response<AdministratorDTO>> findAdministrators(
-            @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String username) {
+	@GetMapping
+	public ResponseEntity<Response<AdministratorDTO>> findAdministrators(
+			@RequestParam(required = false) UUID id,
+			@RequestParam(required = false) String username) {
 
-        Response<AdministratorDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
+		Response<AdministratorDTO> responseObjectData = Response.createSuccededResponse();
+		HttpStatusCode responseStatusCode = HttpStatus.OK;
 
-        try {
-            var facade = new AdministratorFacadeImpl();
+		try {
+			var facade = new AdministratorFacadeImpl();
 
-            if (id == null && (username == null || username.isBlank())) {
-                responseObjectData.setData(facade.findAllAdministrators());
-            } else {
-                AdministratorDTO filter = new AdministratorDTO();
-                filter.setId(id);
-                filter.setUsername(username);
+	
+			if (ObjectHelper.isNull(id)
+					&& (ObjectHelper.isNull(username) || TextHelper.isEmptyWithTrim(username))) {
 
-                responseObjectData.setData(facade.findAdministratorsByFilter(filter));
-            }
+				responseObjectData.setData(facade.findAllAdministrators());
 
-            responseObjectData.addMessage("");
 
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
+			} else if (!ObjectHelper.isNull(id)
+					&& (ObjectHelper.isNull(username) || TextHelper.isEmptyWithTrim(username))) {
 
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
+				responseObjectData.getData().add(facade.findSpecificAdministrator(id));
 
-        return new ResponseEntity<Response<AdministratorDTO>>(responseObjectData, responseStatusCode);
-    }
+			} else {
+				AdministratorDTO filter = new AdministratorDTO();
+				filter.setId(id);
+				filter.setUsername(TextHelper.getDefaultWithTrim(username));
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Response<AdministratorDTO>> findSpecificAdministrator(@PathVariable UUID id) {
+				responseObjectData.setData(facade.findAdministratorsByFilter(filter));
+			}
 
-        Response<AdministratorDTO> responseObjectData = Response.createSuccededResponse();
-        HttpStatusCode responseStatusCode = HttpStatus.OK;
+			responseObjectData.addMessage("");
 
-        try {
-            var facade = new AdministratorFacadeImpl();
+		} catch (final TreePruningException exception) {
+			responseObjectData = Response.createFailedResponse();
+			responseObjectData.addMessage(exception.getUserMessage());
+			responseStatusCode = HttpStatus.BAD_REQUEST;
+			exception.printStackTrace();
 
-            responseObjectData.setData(List.of(facade.findSpecificAdministrator(id)));
-            responseObjectData.addMessage("");
+		} catch (final Exception exception) {
+			var userMessage = "";
+			responseObjectData = Response.createFailedResponse();
+			responseObjectData.addMessage(userMessage);
+			responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+			exception.printStackTrace();
+		}
 
-        } catch (final TreePruningException exception) {
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(exception.getUserMessage());
-            responseStatusCode = HttpStatus.NOT_FOUND;
-            exception.printStackTrace();
+		return new ResponseEntity<Response<AdministratorDTO>>(responseObjectData, responseStatusCode);
+	}
 
-        } catch (final Exception exception) {
-            var userMessage = "";
-            responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
-            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
-            exception.printStackTrace();
-        }
+	@GetMapping("/{id}")
+	public ResponseEntity<Response<AdministratorDTO>> findSpecificAdministrator(@PathVariable UUID id) {
 
-        return new ResponseEntity<Response<AdministratorDTO>>(responseObjectData, responseStatusCode);
-    }
+		Response<AdministratorDTO> responseObjectData = Response.createSuccededResponse();
+		HttpStatusCode responseStatusCode = HttpStatus.OK;
+
+		try {
+			var facade = new AdministratorFacadeImpl();
+
+			responseObjectData.setData(List.of(facade.findSpecificAdministrator(id)));
+			responseObjectData.addMessage("");
+
+		} catch (final TreePruningException exception) {
+			responseObjectData = Response.createFailedResponse();
+			responseObjectData.addMessage(exception.getUserMessage());
+			responseStatusCode = HttpStatus.NOT_FOUND;
+			exception.printStackTrace();
+
+		} catch (final Exception exception) {
+			var userMessage = "";
+			responseObjectData = Response.createFailedResponse();
+			responseObjectData.addMessage(userMessage);
+			responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+			exception.printStackTrace();
+		}
+		return new ResponseEntity<Response<AdministratorDTO>>(responseObjectData, responseStatusCode);
+	}
 }
-
