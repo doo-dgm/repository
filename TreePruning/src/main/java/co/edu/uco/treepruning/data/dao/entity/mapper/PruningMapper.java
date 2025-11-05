@@ -34,8 +34,8 @@ public final class PruningMapper {
             pruning.setProgramming(programming);
      
             pruning.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("pruningId")));
-            pruning.setPlannedDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("pruningPlannedDate")));
-            pruning.setExecutedDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("pruningExecutedDate")));
+            pruning.setPlannedDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("pruningPlannedDate")));
+            pruning.setExecutedDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("pruningExecutedDate")));
             pruning.setPhotographicRecordPath(resultSet.getString("pruningPhotographicReportPath"));
             pruning.setObservations(resultSet.getString("pruningObservations"));
 

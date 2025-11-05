@@ -35,6 +35,13 @@ public class TreeExistsByIdRule implements Rule{
 		}
 		
 		var id = (UUID) data[0];
+		
+		if (UUIDHelper.getUUIDHelper().isDefaultUUID(id)) {
+			var userMessage = "El identificador del arbol no puede ser vacio...";
+			var technicalMessage = "Se esta tratando de validar la existencia de un estado con un identificador vacio.";
+			throw TreePruningException.create(userMessage, technicalMessage);
+		}
+		
 		var daoFactory = (DAOFactory)  data[1];
 		
 		var tree = daoFactory.getTreeDAO().findById(id);

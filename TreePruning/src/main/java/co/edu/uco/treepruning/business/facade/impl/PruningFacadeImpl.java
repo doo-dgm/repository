@@ -22,7 +22,7 @@ public final class PruningFacadeImpl implements PruningFacade {
 	}
 
 	@Override
-	public void schedulePruning(final PruningDTO pruningDTO) {
+	public void scheduleCorrectivePruning(final PruningDTO pruningDTO) {
 		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 		
@@ -31,7 +31,7 @@ public final class PruningFacadeImpl implements PruningFacade {
 			daoFactory.initTransaction();
 			
 			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
-			business.schedulePruning(domain);
+			business.scheduleCorrectivePruning(domain);
 			
 			daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
@@ -41,6 +41,7 @@ public final class PruningFacadeImpl implements PruningFacade {
 			daoFactory.rollbackTransaction();
 			var userMessage = "";
 			var technicalMessage = "";
+			//exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();

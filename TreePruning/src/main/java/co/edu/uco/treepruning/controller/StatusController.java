@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,10 @@ import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.StatusDTO;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/v1/statuses")
 public class StatusController {
@@ -62,7 +65,6 @@ public class StatusController {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
-            exception.printStackTrace();
 
         } catch (final Exception exception) {
             responseObjectData = Response.createFailedResponse();
@@ -82,7 +84,7 @@ public class StatusController {
         try {
 
             var facade = new StatusFacadeImpl();
-
+            
             responseObjectData.setData(List.of(facade.findSpecificStatus(id)));
             responseObjectData.addMessage("");
 

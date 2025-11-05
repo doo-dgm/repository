@@ -8,7 +8,7 @@ import co.edu.uco.treepruning.business.domain.StatusDomain;
 
 public interface PruningBusiness {
 	
-	void schedulePruning(PruningDomain pruningDomain);
+	void scheduleCorrectivePruning(PruningDomain pruningDomain);
 	
 	void cancelPruning(UUID id, StatusDomain status);
 	

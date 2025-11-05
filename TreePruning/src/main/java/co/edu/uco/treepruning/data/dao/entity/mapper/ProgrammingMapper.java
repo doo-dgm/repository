@@ -19,10 +19,11 @@ public final class ProgrammingMapper {
         var programming = new ProgrammingEntity();
 
         try {
+        	System.out.println((resultSet.getInt("programmingFrequencyMonths") == 0 ? null : resultSet.getInt("programmingFrequencyMonths")));
             programming.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("programmingId")));
-            programming.setInitialDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("programmingInitialDate")));
-            programming.setFrequencyMonths(resultSet.getInt("programmingFrequencyMonths"));
-            programming.setAmount(resultSet.getInt("programmingAmount"));
+            programming.setInitialDate((resultSet.getDate("programmingInitialDate") == null ? null : DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("programmingInitialDate"))));
+            programming.setFrequencyMonths((resultSet.getInt("programmingFrequencyMonths") == 0 ? 0 : resultSet.getInt("programmingFrequencyMonths")));
+            programming.setAmount(resultSet.getInt("programmingAmount") == 0 ? 0 : resultSet.getInt("programmingAmount"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_MAPPER.getContent();
@@ -32,6 +33,7 @@ public final class ProgrammingMapper {
         } catch (final Exception exception) {
             var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_MAPPER_UNEXPECTED.getContent();
             var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_MAPPER_UNEXPECTED.getContent();
+            exception.printStackTrace();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 

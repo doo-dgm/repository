@@ -7,12 +7,17 @@ import java.util.UUID;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.PruningEntityAssembler.getPruningEntityAssembler;
 
 import co.edu.uco.treepruning.business.business.PruningBusiness;
+import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRExistsById;
+import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRIsNotClosed;
+import co.edu.uco.treepruning.business.business.validator.pruning.ValidateDataPruningConsistencyForRegisterNewInformation;
 import co.edu.uco.treepruning.business.business.validator.quadrille.ValidateQuadrilleExistsById;
 import co.edu.uco.treepruning.business.business.validator.status.ValidateStatusExistsById;
 import co.edu.uco.treepruning.business.business.validator.tree.ValidateTreeExistsById;
 import co.edu.uco.treepruning.business.business.validator.type.ValidateTypeExistsById;
+import co.edu.uco.treepruning.business.business.validator.type.ValidateTypeIsCorrective;
 import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
+import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
@@ -25,28 +30,47 @@ public class PruningBusinessImpl implements PruningBusiness {
 	}
 
 	@Override
-	public void schedulePruning(final PruningDomain pruningDomain) {
+	public void scheduleCorrectivePruning(final PruningDomain pruningDomain) {
 		
+		try {
+			ValidateDataPruningConsistencyForRegisterNewInformation.executeValidation(pruningDomain);
+			
+			ValidateStatusExistsById.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
+			
+			ValidateTreeExistsById.executeValidation(pruningDomain.getTree().getId(), daoFactory);
+			
+			ValidateQuadrilleExistsById.executeValidation(pruningDomain.getQuadrille().getId(), daoFactory);
+			
+			ValidateTypeExistsById.executeValidation(pruningDomain.getType().getId(), daoFactory);
+			ValidateTypeIsCorrective.executeValidation(pruningDomain.getType().getId(), daoFactory);
+			
+			ValidatePQRExistsById.executeValidation(pruningDomain.getPqr().getId(), daoFactory);
+			ValidatePQRIsNotClosed.executeValidation(pruningDomain.getPqr().getId(), daoFactory);
+			
+			var pruningEntity = getPruningEntityAssembler().toEntity(pruningDomain);
+			
+			pruningEntity.setId(generateId());
+			
+			daoFactory.getPruningDAO().create(pruningEntity);
+		} catch (final TreePruningException exception) {
+			var userMessage = exception.getUserMessage();
+			var technicalMessage = exception.getTechnicalMessage();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} catch (final Exception exception) {
+			// Manejo de excepciones si es necesario
+			var userMessage = "";
+			var technicalMessage = "";
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		}
 		
-		
-		ValidateStatusExistsById.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
-		ValidateTreeExistsById.executeValidation(pruningDomain.getTree().getId(), daoFactory);
-		ValidateQuadrilleExistsById.executeValidation(pruningDomain.getQuadrille().getId(), daoFactory);
-		ValidateTypeExistsById.executeValidation(pruningDomain.getType().getId(), daoFactory);
-		
-		var pruningEntity = getPruningEntityAssembler().toEntity(pruningDomain);
-		
-		pruningEntity.setId(generateId());
-		
-		daoFactory.getPruningDAO().create(pruningEntity);
 	}
 	
 	private UUID generateId() {
 		var id = UUIDHelper.getUUIDHelper().generateNewUUID();
-		var userEntity = daoFactory.getPruningDAO().findById(id);
-		while (!UUIDHelper.getUUIDHelper().isDefaultUUID(userEntity.getId())) {
+		var pruningEntity = daoFactory.getPruningDAO().findById(id);
+		while (!UUIDHelper.getUUIDHelper().isDefaultUUID(pruningEntity.getId())) {
 			id = UUIDHelper.getUUIDHelper().generateNewUUID();
-			userEntity = daoFactory.getPruningDAO().findById(id);
+			pruningEntity = daoFactory.getPruningDAO().findById(id);
 		}
 		return id;
 	}

@@ -40,11 +40,11 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 			preparedStatement.setObject(5, entity.getTree().getId());
 			preparedStatement.setObject(6, entity.getQuadrille().getId());
 			preparedStatement.setObject(7, entity.getType().getId());
-			preparedStatement.setObject(8, entity.getPqr().getId());
-			preparedStatement.setObject(9, entity.getProgramming().getId());
+			preparedStatement.setObject(8, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getPqr().getId()) ? null : entity.getPqr().getId()));
+			preparedStatement.setObject(9, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getProgramming().getId()) ? null : entity.getProgramming().getId()));
 			preparedStatement.setString(10, entity.getPhotographicRecordPath());
 			preparedStatement.setString(11, entity.getObservations());
-			
+
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
@@ -63,7 +63,7 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	public List<PruningEntity> findByFilter(final PruningEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-		
+		System.out.println(sql);
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
 
 			for (var index = 0; index < parameterList.size(); index++) {
@@ -79,7 +79,6 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
-			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		}
 	}
@@ -125,37 +124,37 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		final var conditions = new ArrayList<String>();
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()),
-				"p.id = ?", filterEntityValidated.getId());
+				"pru.id = ?", filterEntityValidated.getId());
 
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()),
-				"p.statusId = ?", filterEntityValidated.getStatus().getId());
+				"pru.statusId = ?", filterEntityValidated.getStatus().getId());
 		
 		addCondition(conditions, parameterList, !DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getPlannedDate()),
-				"p.plannedDate = ?", filterEntityValidated.getPlannedDate());
+				"pru.plannedDate = ?", filterEntityValidated.getPlannedDate());
 		
 		addCondition(conditions, parameterList, !DateHelper.getDateHelper().isDefaultDate(filterEntityValidated.getExecutedDate()),
-				"p.executedDate = ?", filterEntityValidated.getExecutedDate());
+				"pru.executedDate = ?", filterEntityValidated.getExecutedDate());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getTree().getId()),
-				"p.treeId = ?", filterEntityValidated.getTree().getId());
+				"pru.treeId = ?", filterEntityValidated.getTree().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getQuadrille().getId()),
-				"p.quadrilleId = ?", filterEntityValidated.getQuadrille().getId());
+				"pru.quadrilleId = ?", filterEntityValidated.getQuadrille().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getType().getId()),
-				"p.typeId = ?", filterEntityValidated.getType().getId());
+				"pru.typeId = ?", filterEntityValidated.getType().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPqr().getId()),
-				"p.pqrId = ?", filterEntityValidated.getPqr().getId());
+				"pru.pqrId = ?", filterEntityValidated.getPqr().getId());
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getProgramming().getId()),
-				"p.programmingId = ?", filterEntityValidated.getProgramming().getId());
+				"pru.programmingId = ?", filterEntityValidated.getProgramming().getId());
 		
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhotographicRecordPath()),
-				"p.photoRecord = ?", filterEntityValidated.getPhotographicRecordPath());
+				"pru.photographicReportPath = ?", filterEntityValidated.getPhotographicRecordPath());
 		
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getObservations()),
-				"p.observations = ?", filterEntityValidated.getObservations());
+				"pru.observations = ?", filterEntityValidated.getObservations());
 		
 		
 		
@@ -183,7 +182,6 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER.getContent();
-			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();

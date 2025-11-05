@@ -23,7 +23,7 @@ public class PersonMapper {
             person.setFirstLastName(resultSet.getString("personSurname"));
             person.setSecondLastName(resultSet.getString("personSecondSurname"));
             person.setDocumentNumber(resultSet.getString("personDocumentNumber"));
-            person.setBirthDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("personBirthDate")));
+            person.setBirthDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("personBirthDate")));
             person.setAddress(resultSet.getString("personAddress"));
             person.setEmail(resultSet.getString("personEmail"));
             person.setEmailConfirmed(resultSet.getBoolean("personEmailConfirmed"));
@@ -58,7 +58,7 @@ public class PersonMapper {
             person.setFirstLastName(resultSet.getString("personOperatorSurname"));
             person.setSecondLastName(resultSet.getString("personOperatorSecondSurname"));
             person.setDocumentNumber(resultSet.getString("personOperatorDocumentNumber"));
-            person.setBirthDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("personOperatorBirthDate")));
+            person.setBirthDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("personOperatorBirthDate")));
             person.setAddress(resultSet.getString("personOperatorAddress"));
             person.setEmail(resultSet.getString("personOperatorEmail"));
             person.setEmailConfirmed(resultSet.getBoolean("personOperatorEmailConfirmed"));
@@ -93,7 +93,7 @@ public class PersonMapper {
             person.setFirstLastName(resultSet.getString("personPQRSurname"));
             person.setSecondLastName(resultSet.getString("personPQRSecondSurname"));
             person.setDocumentNumber(resultSet.getString("personPQRDocumentNumber"));
-            person.setBirthDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("personPQRBirthDate")));
+            person.setBirthDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("personPQRBirthDate")));
             person.setAddress(resultSet.getString("personPQRAddress"));
             person.setEmail(resultSet.getString("personPQREmail"));
             person.setEmailConfirmed(resultSet.getBoolean("personPQREmailConfirmed"));
@@ -128,7 +128,7 @@ public class PersonMapper {
             person.setFirstLastName(resultSet.getString("personManagerSurname"));
             person.setSecondLastName(resultSet.getString("personManagerSecondSurname"));
             person.setDocumentNumber(resultSet.getString("personManagerDocumentNumber"));
-            person.setBirthDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("personManagerBirthDate")));
+            person.setBirthDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("personManagerBirthDate")));
             person.setAddress(resultSet.getString("personManagerAddress"));
             person.setEmail(resultSet.getString("personManagerEmail"));
             person.setEmailConfirmed(resultSet.getBoolean("personManagerEmailConfirmed"));

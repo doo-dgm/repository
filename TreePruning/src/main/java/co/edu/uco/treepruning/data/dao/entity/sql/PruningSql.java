@@ -13,7 +13,7 @@ public final class PruningSql {
                 typeId,
                 pqrId,
                 programmingId,
-                photoRecord,
+                photographicReportPath,
                 observations
             )
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -135,7 +135,7 @@ public final class PruningSql {
                 type = ?,
                 pqr = ?,
                 programming = ?,
-                photoRecord = ?,
+                photographicReportPath = ?,
                 observations = ?
             WHERE id = ?
             """;

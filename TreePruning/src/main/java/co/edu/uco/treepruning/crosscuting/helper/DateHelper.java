@@ -30,9 +30,13 @@ public final class DateHelper {
 		return getDefault().equals(date);
 	}
 	
-	public LocalDate toLocalDate(final Date value) {
-		return value.toLocalDate();
-		
+	public LocalDate dateToLocalDate(final Date value) {
+		return value.toLocalDate();	
 	}
+	
+	public boolean isLocalDateAfterOrEquals(final LocalDate value) {
+		return (value.isAfter(LocalDate.now()) || value.isEqual(LocalDate.now()));
+	}
+	
 
 }

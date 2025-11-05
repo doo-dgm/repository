@@ -33,15 +33,23 @@ public class StatusExistsByIdRule implements Rule {
 			var technicalMessage = "No se recibieron los parametros requeridos para ejecutar la regla de StatusExistsByIdRule.";
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
+		
 		var id = (UUID) data[0];
+		
+		if (UUIDHelper.getUUIDHelper().isDefaultUUID(id)) {
+			var userMessage = "El identificador del estado no puede ser vacio...";
+			var technicalMessage = "Se esta tratando de validar la existencia de un estado con un identificador vacio.";
+			throw TreePruningException.create(userMessage, technicalMessage);
+		}
+		
 		var daoFactory = (DAOFactory) data[1];
 		
 		var status = daoFactory.getStatusDAO().findById(id);
-		
+
 		if (UUIDHelper.getUUIDHelper().isDefaultUUID(status.getId())) {
 			var userMessage = "El estado deseado no existe...";
 			var technicalMessage = "El estado con id[".concat(id.toString()).concat("] no existe...");
-			throw new RuntimeException(userMessage + " " + technicalMessage);
+			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 		
 	}

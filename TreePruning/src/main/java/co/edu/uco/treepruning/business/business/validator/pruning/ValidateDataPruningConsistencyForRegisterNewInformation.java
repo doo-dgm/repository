@@ -1,7 +1,9 @@
 package co.edu.uco.treepruning.business.business.validator.pruning;
 
+import co.edu.uco.treepruning.business.business.rule.generics.DateFormatValueIsValidRule;
+import co.edu.uco.treepruning.business.business.rule.generics.DateRangeValueIsValidRule;
+import co.edu.uco.treepruning.business.business.rule.generics.DateValueIsEmptyDate;
 import co.edu.uco.treepruning.business.business.rule.generics.StringLengthValueIsValidRule;
-import co.edu.uco.treepruning.business.business.rule.generics.StringValueIsPresentRule;
 import co.edu.uco.treepruning.business.business.validator.Validator;
 import co.edu.uco.treepruning.business.domain.PruningDomain;
 
@@ -20,17 +22,24 @@ public class ValidateDataPruningConsistencyForRegisterNewInformation implements 
 	public void validate(final Object... data) {
 		var pruningDomainData = (PruningDomain) data[0];
 		
+		validateEmptyData(pruningDomainData);
+		
 		validateDataLength(pruningDomainData);
 		
+		validateDateFormat(pruningDomainData);
 	}
 	
 	private void validateEmptyData(final PruningDomain data) {
-		StringValueIsPresentRule.executeRule();
+		DateValueIsEmptyDate.executeRule(data.getPlannedDate(), "fecha planificada");
 	}
 	
 	private void validateDataLength(final PruningDomain data) {
 		StringLengthValueIsValidRule.executeRule(data.getPhotographicRecordPath(), "ruta del registro fotografico", 1, 2000, true);
 		StringLengthValueIsValidRule.executeRule(data.getObservations(), "observaciones", 1, 500, true);
+	}
+	
+	private void validateDateFormat(final PruningDomain data) {
+		DateRangeValueIsValidRule.executeRule(data.getPlannedDate(), "fecha planificada");
 	}
 
 }

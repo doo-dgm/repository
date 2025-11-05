@@ -34,6 +34,13 @@ public class QuadrilleExistsByIdRule implements Rule {
 		}
 		
 		var id = (UUID) data[0];
+		
+		if (UUIDHelper.getUUIDHelper().isDefaultUUID(id)) {
+			var userMessage = "El identificador del cuadrilla no puede ser vacio...";
+			var technicalMessage = "Se esta tratando de validar la existencia de un estado con un identificador vacio.";
+			throw TreePruningException.create(userMessage, technicalMessage);
+		}
+		
 		var daoFactory = (DAOFactory) data [1];
 		
 		var quadrille = daoFactory.getQuadrilleDAO().findById(id);

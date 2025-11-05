@@ -29,7 +29,7 @@ public final class PQRMapper {
             pqr.setPerson(person);
             
             pqr.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("pqrId")));
-            pqr.setDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("pqrDate")));
+            pqr.setDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("pqrDate")));
             pqr.setPhotographicRecordPath(resultSet.getString("pqrPhotographicRecordPath"));
 
         } catch (final SQLException exception) {
@@ -63,7 +63,7 @@ public final class PQRMapper {
             pqr.setPerson(person);
             
             pqr.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("pqrId")));
-            pqr.setDate(DateHelper.getDateHelper().toLocalDate(resultSet.getDate("pqrDate")));
+            pqr.setDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("pqrDate")));
             pqr.setPhotographicRecordPath(resultSet.getString("pqrPhotographicRecordPath"));
 
         } catch (final SQLException exception) {

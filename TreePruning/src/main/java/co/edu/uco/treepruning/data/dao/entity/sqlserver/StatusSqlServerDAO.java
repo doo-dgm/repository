@@ -30,10 +30,10 @@ public class StatusSqlServerDAO extends SqlConnection implements StatusDAO {
 	}
 
 	@Override
-	public List<StatusEntity> findByFilter(StatusEntity filterEntity) {
+	public List<StatusEntity> findByFilter(final StatusEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-		
+
 		try (var preparedStatement = getConnection().prepareStatement(sql)) {
 			
 			for (int index = 0; index < parameterList.size(); index++) {
@@ -56,7 +56,7 @@ public class StatusSqlServerDAO extends SqlConnection implements StatusDAO {
 	}
 
 	@Override
-	public StatusEntity findById(UUID id) { 
+	public StatusEntity findById(final UUID id) {
 		return findByFilter(new StatusEntity(id)).stream().findFirst().orElse(new StatusEntity());
 	}
 	
@@ -77,7 +77,6 @@ public class StatusSqlServerDAO extends SqlConnection implements StatusDAO {
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()),
 				"s.id = ?", filterEntityValidated.getId());		
-
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getName()),
 				"s.name= ?", filterEntityValidated.getName());
 		

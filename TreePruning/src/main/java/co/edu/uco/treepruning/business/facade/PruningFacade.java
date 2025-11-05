@@ -7,7 +7,7 @@ import co.edu.uco.treepruning.dto.PruningDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
 
 public interface PruningFacade {
-void schedulePruning(PruningDTO pruningDTO);
+void scheduleCorrectivePruning(PruningDTO pruningDTO);
 	
 	void cancelPruning(UUID id, StatusDTO status);
 	

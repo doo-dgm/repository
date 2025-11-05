@@ -16,8 +16,7 @@ public class ValidateTypeExistsById implements Validator {
 	
 	@Override
 	public void validate(Object... data) {
-		TypeExistsByIdRule.executeRule(data);
-		
+		TypeExistsByIdRule.executeRule(data);		
 	}
 
 }
