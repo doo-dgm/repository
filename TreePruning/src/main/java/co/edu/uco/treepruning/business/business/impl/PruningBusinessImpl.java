@@ -37,6 +37,7 @@ public class PruningBusinessImpl implements PruningBusiness {
 			
 			ValidateStatusExistsById.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
 			
+			
 			ValidateTreeExistsById.executeValidation(pruningDomain.getTree().getId(), daoFactory);
 			
 			ValidateQuadrilleExistsById.executeValidation(pruningDomain.getQuadrille().getId(), daoFactory);
