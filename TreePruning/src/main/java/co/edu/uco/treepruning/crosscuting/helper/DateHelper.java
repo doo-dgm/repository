@@ -31,7 +31,7 @@ public final class DateHelper {
 	}
 	
 	public LocalDate dateToLocalDate(final Date value) {
-		return value.toLocalDate();	
+		return ObjectHelper.getDefault(value, Date.valueOf(getDefault())).toLocalDate();	
 	}
 	
 	public boolean isLocalDateAfterOrEquals(final LocalDate value) {

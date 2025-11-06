@@ -6,6 +6,7 @@ import co.edu.uco.treepruning.business.business.rule.generics.DateValueIsEmptyDa
 import co.edu.uco.treepruning.business.business.rule.generics.StringLengthValueIsValidRule;
 import co.edu.uco.treepruning.business.business.validator.Validator;
 import co.edu.uco.treepruning.business.domain.PruningDomain;
+import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 
 public class ValidateDataPruningConsistencyForRegisterNewInformation implements Validator {
 	
@@ -34,8 +35,14 @@ public class ValidateDataPruningConsistencyForRegisterNewInformation implements 
 	}
 	
 	private void validateDataLength(final PruningDomain data) {
-		StringLengthValueIsValidRule.executeRule(data.getPhotographicRecordPath(), "ruta del registro fotografico", 1, 2000, true);
-		StringLengthValueIsValidRule.executeRule(data.getObservations(), "observaciones", 1, 500, true);
+		if (!TextHelper.isEmptyWithTrim(data.getPhotographicRecordPath())) {
+			StringLengthValueIsValidRule.executeRule(data.getPhotographicRecordPath(), "ruta del registro fotografico", 1, 2000, true);
+		}
+		
+		if (!TextHelper.isEmptyWithTrim(data.getObservations())) {
+			StringLengthValueIsValidRule.executeRule(data.getObservations(), "observaciones", 1, 500, true);
+		}
+		
 	}
 	
 	private void validateDateFormat(final PruningDomain data) {

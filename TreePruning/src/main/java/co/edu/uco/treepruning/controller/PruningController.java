@@ -23,6 +23,7 @@ import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.PruningDTO;
 import co.edu.uco.treepruning.dto.QuadrilleDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
@@ -40,6 +41,7 @@ public class PruningController {
 
     @PostMapping("/corrective")
     public ResponseEntity<Response<PruningDTO>> scheduleCorrectivePruning(@RequestBody PruningDTO pruningDTO) {
+    	System.out.println(pruningDTO.getType().getId());
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
@@ -194,7 +196,7 @@ public class PruningController {
                     }
                 }
 
-                if (!ObjectHelper.isNull(statusId)) {
+                if (!UUIDHelper.getUUIDHelper().isDefaultUUID(statusId)) {
                     var status = new StatusDTO();
                     status.setId(statusId);
                     filter.setStatus(status);

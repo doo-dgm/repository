@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import co.edu.uco.treepruning.business.business.StatusBusiness;
 import co.edu.uco.treepruning.business.business.validator.generics.ValidateIdExists;
+import co.edu.uco.treepruning.business.business.validator.status.ValidateStatusExistsById;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
@@ -34,6 +35,7 @@ public class StatusBusinessImpl implements StatusBusiness{
 	public StatusDomain getStatusById(final UUID id) {
 		try {
 			ValidateIdExists.executeValidation(id, "estado");
+			ValidateStatusExistsById.executeValidation(id, daoFactory);
 			
 			var statusEntity = daoFactory.getStatusDAO().findById(id);
 			return getStatusEntityAssembler().toDomain(statusEntity);
