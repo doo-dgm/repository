@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class ProgrammingDomain extends Domain {
@@ -47,19 +48,19 @@ public final class ProgrammingDomain extends Domain {
     }
 
     public int getFrequencyMonths() {
-        return frequencyMonths;
+        return NumericHelper.getDefaultInt(frequencyMonths);
     }
 
     private void setFrequencyMonths(final int frequencyMonths) {
-        this.frequencyMonths = frequencyMonths < 0 ? 0 : frequencyMonths;
+        this.frequencyMonths = Math.max(NumericHelper.getDefaultInt(frequencyMonths), 0);
     }
 
     public int getAmount() {
-        return amount;
+        return NumericHelper.getDefaultInt(amount);
     }
 
     private void setAmount(final int amount) {
-        this.amount = amount < 0 ? 0 : amount;
+        this.amount = Math.max(NumericHelper.getDefaultInt(amount), 0);
     }
 }
 

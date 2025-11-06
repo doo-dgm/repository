@@ -18,6 +18,7 @@ import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.ManagerDTO;
 import co.edu.uco.treepruning.dto.QuadrilleDTO;
 
@@ -43,31 +44,15 @@ public class QuadrilleController {
         try {
             var facade = new QuadrilleFacadeImpl();
 
-            if (ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))
-                    && ObjectHelper.isNull(managerId)) {
+            QuadrilleDTO filter = new QuadrilleDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+            filter.setName(TextHelper.getDefaultWithTrim(name));
 
-                responseObjectData.setData(facade.findAllQuadrilles());
+            ManagerDTO manager = new ManagerDTO();
+            manager.setId(UUIDHelper.getUUIDHelper().getDefault(managerId));
+            filter.setManager(manager);
 
-     
-            } else if (!ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))
-                    && ObjectHelper.isNull(managerId)) {
-
-                responseObjectData.getData().add(facade.findSpecificQuadrille(id));
-
-            } else {
-                QuadrilleDTO filter = new QuadrilleDTO();
-                filter.setId(id);
-                filter.setName(TextHelper.getDefaultWithTrim(name));
-
-                if (!ObjectHelper.isNull(managerId)) {
-                    var manager = new ManagerDTO();
-                    manager.setId(managerId);
-                    filter.setManager(manager);
-                }
-
-                responseObjectData.setData(facade.findQuadrillesByFilter(filter));
-            }
-
+            responseObjectData.setData(facade.findQuadrillesByFilter(filter));
             responseObjectData.addMessage("");
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();

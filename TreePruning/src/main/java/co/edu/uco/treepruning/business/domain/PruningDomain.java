@@ -14,10 +14,8 @@ public final class PruningDomain extends Domain {
     private LocalDate plannedDate;
     private LocalDate executedDate;
     private TreeDomain tree;
-    private QuadrilleDomain quadrille;
     private TypeDomain type;
     private PQRDomain pqr;
-    private ProgrammingDomain programming;
     private String photographicRecordPath;
     private String observations;
 
@@ -27,10 +25,8 @@ public final class PruningDomain extends Domain {
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDomain());
-        setQuadrille(new QuadrilleDomain());
         setType(new TypeDomain());
         setPqr(new PQRDomain());
-        setProgramming(new ProgrammingDomain());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
@@ -41,27 +37,23 @@ public final class PruningDomain extends Domain {
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDomain());
-        setQuadrille(new QuadrilleDomain());
         setType(new TypeDomain());
         setPqr(new PQRDomain());
-        setProgramming(new ProgrammingDomain());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
     public PruningDomain(final UUID id, final StatusDomain status, final LocalDate plannedDate, final LocalDate executedDate,
-                         final TreeDomain tree, final QuadrilleDomain quadrille, final TypeDomain type,
-                         final PQRDomain pqr, final ProgrammingDomain programming,
+                         final TreeDomain tree, final TypeDomain type,
+                         final PQRDomain pqr, 
                          final String photographicRecordPath, final String observations) {
         super(id);
         setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
-        setQuadrille(quadrille);
         setType(type);
         setPqr(pqr);
-        setProgramming(programming);
         setPhotographicRecordPath(photographicRecordPath);
         setObservations(observations);
     }
@@ -98,14 +90,6 @@ public final class PruningDomain extends Domain {
         this.tree = ObjectHelper.getDefault(tree, new TreeDomain());
     }
 
-    public QuadrilleDomain getQuadrille() {
-        return quadrille;
-    }
-
-    public void setQuadrille(final QuadrilleDomain quadrille) {
-        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDomain());
-    }
-
     public TypeDomain getType() {
         return type;
     }
@@ -120,14 +104,6 @@ public final class PruningDomain extends Domain {
 
     public void setPqr(final PQRDomain pqr) {
         this.pqr = ObjectHelper.getDefault(pqr, new PQRDomain());
-    }
-
-    public ProgrammingDomain getProgramming() {
-        return programming;
-    }
-
-    public void setProgramming(final ProgrammingDomain programming) {
-        this.programming = ObjectHelper.getDefault(programming, new ProgrammingDomain());
     }
 
     public String getPhotographicRecordPath() {

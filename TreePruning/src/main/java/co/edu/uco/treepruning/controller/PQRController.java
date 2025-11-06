@@ -18,8 +18,8 @@ import co.edu.uco.treepruning.business.facade.impl.PQRFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.PQRDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
 
@@ -41,48 +41,27 @@ public class PQRController {
 
         Response<PQRDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
-
+        
         try {
             var facade = new PQRFacadeImpl();
             var dateHelper = DateHelper.getDateHelper();
 
-            if (ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(date) || TextHelper.isEmptyWithTrim(date))
-                    && ObjectHelper.isNull(statusId)) {
+            
+            PQRDTO filter = new PQRDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
 
-                responseObjectData.setData(facade.findAllPQRS());
-
- 
-            } else if (!ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(date) || TextHelper.isEmptyWithTrim(date))
-                    && ObjectHelper.isNull(statusId)) {
-
-                responseObjectData.getData().add(facade.findSpecificPQR(id));
-
-    
-            } else {
-                PQRDTO filter = new PQRDTO();
-                filter.setId(id);
-
-                if (!ObjectHelper.isNull(date) && !TextHelper.isEmptyWithTrim(date)) {
-                    try {
-                        LocalDate parsedDate = LocalDate.parse(date);
-                        filter.setDate(dateHelper.getDefault(parsedDate));
-                    } catch (final Exception exception) {
-                        System.out.println("Formato de fecha inválido: " + date);
-                        filter.setDate(dateHelper.getDefault());
-                    }
-                }
-
-                if (!ObjectHelper.isNull(statusId)) {
-                    StatusDTO status = new StatusDTO();
-                    status.setId(statusId);
-                    filter.setStatus(status);
-                }
-
-                responseObjectData.setData(facade.findPQRSByFilter(filter));
+            try {
+                LocalDate parsedDate = LocalDate.parse(TextHelper.getDefaultWithTrim(date));
+                filter.setDate(dateHelper.getDefault(parsedDate));
+            } catch (final Exception exception) {
+                filter.setDate(dateHelper.getDefault());
             }
 
+            var status = new StatusDTO();
+            status.setId(UUIDHelper.getUUIDHelper().getDefault(statusId));
+            filter.setStatus(status);
+
+            responseObjectData.setData(facade.findPQRSByFilter(filter));
             responseObjectData.addMessage("");
 
         } catch (final TreePruningException exception) {

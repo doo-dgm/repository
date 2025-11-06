@@ -16,6 +16,7 @@ import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.TypeDTO;
 
 @CrossOrigin
@@ -38,17 +39,12 @@ public class TypeController {
 		try {
 			var facade = new TypeFacadeImpl();
 			
-			if (ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
-				responseObjectData.setData(facade.listAllTypes());
-			} else if (!ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
-				responseObjectData.getData().add(facade.getTypeById(id));
-			} else {
-				TypeDTO filter = new TypeDTO();
-				filter.setId(id);
-				filter.setName(name);
+			TypeDTO filter = new TypeDTO();
+	        filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+	        filter.setName(TextHelper.getDefaultWithTrim(name));
 				
 				responseObjectData.setData(facade.listTypesByCriteria(filter));
-			}
+	
 		} catch (final TreePruningException exception) {
 			responseObjectData = Response.createFailedResponse();
 			responseObjectData.addMessage(exception.getUserMessage());

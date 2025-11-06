@@ -13,6 +13,7 @@ public class TreeDTO {
     private String latitude;
     private FamilyDTO family;
     private SectorDTO sector;
+	private ProgrammingDTO programming;
 
     public TreeDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
@@ -20,6 +21,7 @@ public class TreeDTO {
         setLatitude(TextHelper.getDefault());
         setFamily(new FamilyDTO());
         setSector(new SectorDTO());
+        setProgramming(new ProgrammingDTO());
     }
 
     public TreeDTO(final UUID id) {
@@ -28,14 +30,16 @@ public class TreeDTO {
         setLatitude(TextHelper.getDefault());
         setFamily(new FamilyDTO());
         setSector(new SectorDTO());
+        setProgramming(new ProgrammingDTO());
     }
 
-    public TreeDTO(final UUID id, final String longitude, final String latitude, final FamilyDTO family, final SectorDTO sector) {
+    public TreeDTO(final UUID id, final String longitude, final String latitude, final FamilyDTO family, final SectorDTO sector, final ProgrammingDTO programming) {
         setId(id);
         setLongitude(longitude);
         setLatitude(latitude);
         setFamily(family);
         setSector(sector);
+        setProgramming(programming);
     }
 
     public UUID getId() {
@@ -77,5 +81,13 @@ public class TreeDTO {
     public void setSector(final SectorDTO sector) {
         this.sector = ObjectHelper.getDefault(sector, new SectorDTO());
     }
+	public ProgrammingDTO getProgramming() {
+		return programming;
+	}
+
+	public void setProgramming(ProgrammingDTO programming) {
+		this.programming = ObjectHelper.getDefault(programming, new ProgrammingDTO());
+		
+	}
 }
 

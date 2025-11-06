@@ -15,10 +15,8 @@ public class PruningDTO {
     private LocalDate plannedDate;
     private LocalDate executedDate;
     private TreeDTO tree;
-    private QuadrilleDTO quadrille;
     private TypeDTO type;
     private PQRDTO pqr;
-    private ProgrammingDTO programming;
     private String photographicRecordPath;
     private String observations;
 
@@ -28,10 +26,8 @@ public class PruningDTO {
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDTO());
-        setQuadrille(new QuadrilleDTO());
         setType(new TypeDTO());
         setPqr(new PQRDTO());
-        setProgramming(new ProgrammingDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
@@ -42,27 +38,23 @@ public class PruningDTO {
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDTO());
-        setQuadrille(new QuadrilleDTO());
         setType(new TypeDTO());
         setPqr(new PQRDTO());
-        setProgramming(new ProgrammingDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
     public PruningDTO(final UUID id, final StatusDTO status, final LocalDate plannedDate, final LocalDate executedDate,
-                      final TreeDTO tree, final QuadrilleDTO quadrille, final TypeDTO type,
-                      final PQRDTO pqr, final ProgrammingDTO programming, final String photographicRecordPath,
+                      final TreeDTO tree, final TypeDTO type,
+                      final PQRDTO pqr, final String photographicRecordPath,
                       final String observations) {
         setId(id);
         setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
-        setQuadrille(quadrille);
         setType(type);
         setPqr(pqr);
-        setProgramming(programming);
         setPhotographicRecordPath(photographicRecordPath);
         setObservations(observations);
     }
@@ -107,14 +99,6 @@ public class PruningDTO {
         this.tree = ObjectHelper.getDefault(tree, new TreeDTO());
     }
 
-    public QuadrilleDTO getQuadrille() {
-        return quadrille;
-    }
-
-    public void setQuadrille(final QuadrilleDTO quadrille) {
-        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDTO());
-    }
-
     public TypeDTO getType() {
         return type;
     }
@@ -129,14 +113,6 @@ public class PruningDTO {
 
     public void setPqr(final PQRDTO pqr) {
         this.pqr = ObjectHelper.getDefault(pqr, new PQRDTO());
-    }
-
-    public ProgrammingDTO getProgramming() {
-        return programming;
-    }
-
-    public void setProgramming(final ProgrammingDTO programming) {
-        this.programming = ObjectHelper.getDefault(programming, new ProgrammingDTO());
     }
 
     public String getPhotographicRecordPath() {

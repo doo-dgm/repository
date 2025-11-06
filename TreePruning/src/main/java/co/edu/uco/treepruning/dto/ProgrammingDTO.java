@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public class ProgrammingDTO {
@@ -51,19 +52,19 @@ public class ProgrammingDTO {
     }
 
     public int getFrequencyMonths() {
-        return frequencyMonths;
+        return NumericHelper.getDefaultInt(frequencyMonths); 
     }
 
     public void setFrequencyMonths(final int frequencyMonths) {
-        this.frequencyMonths = frequencyMonths;
+    	this.frequencyMonths = NumericHelper.getDefaultInt(frequencyMonths); 
     }
 
     public int getAmount() {
-        return amount;
+        return NumericHelper.getDefaultInt(amount); 
     }
 
     public void setAmount(final int amount) {
-        this.amount = amount;
+        this.amount = NumericHelper.getDefaultInt(amount);
     }
 }
 

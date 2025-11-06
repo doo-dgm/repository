@@ -16,17 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.TreeFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.TreeDTO;
 import co.edu.uco.treepruning.dto.FamilyDTO;
+import co.edu.uco.treepruning.dto.ProgrammingDTO;
 import co.edu.uco.treepruning.dto.SectorDTO;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/v1/trees")
 public class TreeController {
-	
+
 	@GetMapping("/dummy")
 	public TreeDTO dummy() {
 		return new TreeDTO();
@@ -38,55 +39,33 @@ public class TreeController {
             @RequestParam(required = false) String longitude,
             @RequestParam(required = false) String latitude,
             @RequestParam(required = false) UUID familyId,
-            @RequestParam(required = false) UUID sectorId
+            @RequestParam(required = false) UUID sectorId,
+            @RequestParam(required = false) UUID programmingId
     ) {
         Response<TreeDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
             var facade = new TreeFacadeImpl();
+            TreeDTO filter = new TreeDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+            filter.setLongitude(TextHelper.getDefaultWithTrim(longitude));
+            filter.setLatitude(TextHelper.getDefaultWithTrim(latitude));
 
-            if (ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(longitude) || TextHelper.isEmptyWithTrim(longitude))
-                    && (ObjectHelper.isNull(latitude) || TextHelper.isEmptyWithTrim(latitude))
-                    && ObjectHelper.isNull(familyId)
-                    && ObjectHelper.isNull(sectorId)) {
+            FamilyDTO family = new FamilyDTO();
+            family.setId(UUIDHelper.getUUIDHelper().getDefault(familyId));
+            filter.setFamily(family);
 
-                responseObjectData.setData(facade.findAllTrees());
+            SectorDTO sector = new SectorDTO();
+            sector.setId(UUIDHelper.getUUIDHelper().getDefault(sectorId));
+            filter.setSector(sector);
 
-            
-            } else if (!ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(longitude) || TextHelper.isEmptyWithTrim(longitude))
-                    && (ObjectHelper.isNull(latitude) || TextHelper.isEmptyWithTrim(latitude))
-                    && ObjectHelper.isNull(familyId)
-                    && ObjectHelper.isNull(sectorId)) {
+            ProgrammingDTO programming = new ProgrammingDTO();
+            programming.setId(UUIDHelper.getUUIDHelper().getDefault(programmingId));
+            filter.setProgramming(programming);
 
-                responseObjectData.getData().add(facade.findSpecificTree(id));
-
-            
-            } else {
-                TreeDTO filter = new TreeDTO();
-                filter.setId(id);
-                filter.setLongitude(TextHelper.getDefaultWithTrim(longitude));
-                filter.setLatitude(TextHelper.getDefaultWithTrim(latitude));
-
-                if (!ObjectHelper.isNull(familyId)) {
-                    FamilyDTO family = new FamilyDTO();
-                    family.setId(familyId);
-                    filter.setFamily(family);
-                }
-
-                if (!ObjectHelper.isNull(sectorId)) {
-                    SectorDTO sector = new SectorDTO();
-                    sector.setId(sectorId);
-                    filter.setSector(sector);
-                }
-
-                responseObjectData.setData(facade.findTreesByFilter(filter));
-            }
-
+            responseObjectData.setData(facade.findTreesByFilter(filter));
             responseObjectData.addMessage("");
-
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());

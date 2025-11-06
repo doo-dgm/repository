@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.StatusFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.StatusDTO;
@@ -42,23 +41,11 @@ public class StatusController {
         try {
             var facade = new StatusFacadeImpl();
 
-          
-            if (ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
-                responseObjectData.setData(facade.findAllStatuses());
+            StatusDTO filter = new StatusDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+            filter.setName(TextHelper.getDefaultWithTrim(name));
 
-         
-            } else if (!ObjectHelper.isNull(id) && (ObjectHelper.isNull(name) || TextHelper.isEmptyWithTrim(name))) {
-                responseObjectData.getData().add(facade.findSpecificStatus(id));
-
-         
-            } else {
-                StatusDTO filter = new StatusDTO();
-                filter.setId(id);
-                filter.setName(TextHelper.getDefaultWithTrim(name));
-
-                responseObjectData.setData(facade.findStatusesByFilter(filter));
-            }
-
+            responseObjectData.setData(facade.findStatusesByFilter(filter));
             responseObjectData.addMessage("");
 
         } catch (final TreePruningException exception) {

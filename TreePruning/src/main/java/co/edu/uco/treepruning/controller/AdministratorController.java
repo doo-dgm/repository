@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import co.edu.uco.treepruning.business.facade.impl.AdministratorFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.AdministratorDTO;
 
 @CrossOrigin
@@ -41,25 +41,11 @@ public class AdministratorController {
 			var facade = new AdministratorFacadeImpl();
 
 	
-			if (ObjectHelper.isNull(id)
-					&& (ObjectHelper.isNull(username) || TextHelper.isEmptyWithTrim(username))) {
+			AdministratorDTO filter = new AdministratorDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+            filter.setUsername(TextHelper.getDefaultWithTrim(username));
 
-				responseObjectData.setData(facade.findAllAdministrators());
-
-
-			} else if (!ObjectHelper.isNull(id)
-					&& (ObjectHelper.isNull(username) || TextHelper.isEmptyWithTrim(username))) {
-
-				responseObjectData.getData().add(facade.findSpecificAdministrator(id));
-
-			} else {
-				AdministratorDTO filter = new AdministratorDTO();
-				filter.setId(id);
-				filter.setUsername(TextHelper.getDefaultWithTrim(username));
-
-				responseObjectData.setData(facade.findAdministratorsByFilter(filter));
-			}
-
+            responseObjectData.setData(facade.findAdministratorsByFilter(filter));
 			responseObjectData.addMessage("");
 
 		} catch (final TreePruningException exception) {

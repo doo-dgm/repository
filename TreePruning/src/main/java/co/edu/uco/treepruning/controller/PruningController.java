@@ -21,11 +21,9 @@ import co.edu.uco.treepruning.business.facade.impl.PruningFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.PruningDTO;
-import co.edu.uco.treepruning.dto.QuadrilleDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
 import co.edu.uco.treepruning.dto.TreeDTO;
 
@@ -41,7 +39,6 @@ public class PruningController {
 
     @PostMapping("/corrective")
     public ResponseEntity<Response<PruningDTO>> scheduleCorrectivePruning(@RequestBody PruningDTO pruningDTO) {
-    	System.out.println(pruningDTO.getType().getId());
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
@@ -142,81 +139,42 @@ public class PruningController {
             @RequestParam(required = false) String plannedDate,
             @RequestParam(required = false) String executedDate,
             @RequestParam(required = false) UUID statusId,
-            @RequestParam(required = false) UUID treeId,
-            @RequestParam(required = false) UUID quadrilleId) {
+            @RequestParam(required = false) UUID treeId) {
 
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
-
         try {
             var facade = new PruningFacadeImpl();
             var dateHelper = DateHelper.getDateHelper();
 
-          
-            if (ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(plannedDate) || TextHelper.isEmptyWithTrim(plannedDate))
-                    && (ObjectHelper.isNull(executedDate) || TextHelper.isEmptyWithTrim(executedDate))
-                    && ObjectHelper.isNull(statusId)
-                    && ObjectHelper.isNull(treeId)
-                    && ObjectHelper.isNull(quadrilleId)) {
+            PruningDTO filter = new PruningDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
 
-                responseObjectData.setData(facade.findAllPrunings());
-
-         
-            } else if (!ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(plannedDate) || TextHelper.isEmptyWithTrim(plannedDate))
-                    && (ObjectHelper.isNull(executedDate) || TextHelper.isEmptyWithTrim(executedDate))
-                    && ObjectHelper.isNull(statusId)
-                    && ObjectHelper.isNull(treeId)
-                    && ObjectHelper.isNull(quadrilleId)) {
-
-                responseObjectData.getData().add(facade.findSpecificPruning(id));
-
-            } else {
-                PruningDTO filter = new PruningDTO();
-                filter.setId(id);
-
-                if (!ObjectHelper.isNull(plannedDate) && !TextHelper.isEmptyWithTrim(plannedDate)) {
-                    try {
-                        LocalDate parsedDate = LocalDate.parse(plannedDate);
-                        filter.setPlannedDate(dateHelper.getDefault(parsedDate));
-                    } catch (final Exception ex) {
-                        System.out.println("Formato de fecha inválido: " + plannedDate);
-                        filter.setPlannedDate(dateHelper.getDefault());
-                    }
-                }
-
-                if (!ObjectHelper.isNull(executedDate) && !TextHelper.isEmptyWithTrim(executedDate)) {
-                    try {
-                        LocalDate parsedDate = LocalDate.parse(executedDate);
-                        filter.setExecutedDate(dateHelper.getDefault(parsedDate));
-                    } catch (final Exception ex) {
-                        System.out.println("Formato de fecha inválido: " + executedDate);
-                        filter.setExecutedDate(dateHelper.getDefault());
-                    }
-                }
-
-                if (!UUIDHelper.getUUIDHelper().isDefaultUUID(statusId)) {
-                    var status = new StatusDTO();
-                    status.setId(statusId);
-                    filter.setStatus(status);
-                }
-
-                if (!ObjectHelper.isNull(treeId)) {
-                    var tree = new TreeDTO();
-                    tree.setId(treeId);
-                    filter.setTree(tree);
-                }
-
-                if (!ObjectHelper.isNull(quadrilleId)) {
-                    var quadrille = new QuadrilleDTO();
-                    quadrille.setId(quadrilleId);
-                    filter.setQuadrille(quadrille);
-                }
-
-                responseObjectData.setData(facade.findPruningsByFilter(filter));
+     
+            try {
+                LocalDate parsedPlanned = LocalDate.parse(TextHelper.getDefaultWithTrim(plannedDate));
+                filter.setPlannedDate(dateHelper.getDefault(parsedPlanned));
+            } catch (final Exception exception) {
+                filter.setPlannedDate(dateHelper.getDefault());
             }
 
+            try {
+                LocalDate parsedExecuted = LocalDate.parse(TextHelper.getDefaultWithTrim(executedDate));
+                filter.setExecutedDate(dateHelper.getDefault(parsedExecuted));
+            } catch (final Exception exception) {
+                filter.setExecutedDate(dateHelper.getDefault());
+            }
+            var status = new StatusDTO();
+            status.setId(UUIDHelper.getUUIDHelper().getDefault(statusId));
+            filter.setStatus(status);
+
+        
+            var tree = new TreeDTO();
+            tree.setId(UUIDHelper.getUUIDHelper().getDefault(treeId));
+            filter.setTree(tree);
+
+
+            responseObjectData.setData(facade.findPruningsByFilter(filter));
             responseObjectData.addMessage("");
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();

@@ -18,8 +18,9 @@ import co.edu.uco.treepruning.business.facade.impl.ProgrammingFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
-import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.ProgrammingDTO;
 
 @CrossOrigin
@@ -47,46 +48,21 @@ public class ProgrammingController {
             var dateHelper = DateHelper.getDateHelper();
 
          
-            if (ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(initialDate) || TextHelper.isEmptyWithTrim(initialDate))
-                    && ObjectHelper.isNull(frequencyMonths)
-                    && ObjectHelper.isNull(amount)) {
+            ProgrammingDTO filter = new ProgrammingDTO();
+            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+            
+            try {
+                String dateText = TextHelper.getDefaultWithTrim(initialDate);
+                LocalDate parsed = LocalDate.parse(dateText);
+                filter.setInitialDate(dateHelper.getDefault(parsed));
+            } catch (final Exception exception) {
+                filter.setInitialDate(dateHelper.getDefault());
+            }
 
-                responseObjectData.setData(facade.findAllProgrammings());
-
-           
-            } else if (!ObjectHelper.isNull(id)
-                    && (ObjectHelper.isNull(initialDate) || TextHelper.isEmptyWithTrim(initialDate))
-                    && ObjectHelper.isNull(frequencyMonths)
-                    && ObjectHelper.isNull(amount)) {
-
-                responseObjectData.getData().add(facade.findSpecificProgramming(id));
-
-      
-            } else {
-                ProgrammingDTO filter = new ProgrammingDTO();
-                filter.setId(id);
-
-                if (!ObjectHelper.isNull(initialDate) && !TextHelper.isEmptyWithTrim(initialDate)) {
-                    try {
-                        LocalDate parsedDate = LocalDate.parse(initialDate);
-                        filter.setInitialDate(dateHelper.getDefault(parsedDate));
-                    } catch (final Exception exception) {
-                        System.out.println("Formato de fecha inválido: " + initialDate);
-                        filter.setInitialDate(dateHelper.getDefault());
-                    }
-                }
-
-                if (!ObjectHelper.isNull(frequencyMonths)) {
-                    filter.setFrequencyMonths(frequencyMonths);
-                }
-
-                if (!ObjectHelper.isNull(amount)) {
-                    filter.setAmount(amount);
-                }
+            filter.setFrequencyMonths(NumericHelper.getDefaultInt(frequencyMonths));
+            filter.setAmount(NumericHelper.getDefaultInt(amount));
 
                 responseObjectData.setData(facade.findProgrammingsByFilter(filter));
-            }
 
             responseObjectData.addMessage("");
         } catch (final TreePruningException exception) {
