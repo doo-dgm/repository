@@ -104,6 +104,7 @@ public class TypeSqlServerDAO extends SqlConnection implements TypeDAO {
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_TYPE_FIND_BY_FILTER.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_FIND_BY_FILTER.getContent();
+			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
 			var userMessage = MessagesEnum.USER_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED.getContent();
