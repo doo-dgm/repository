@@ -43,7 +43,7 @@ public final class PruningSql {
 			pro.id AS programmingId,
 			pro.initialDate AS programmingInitialDate,
 			pro.frequencyMonths AS programmingFrequencyMonths,
-			pro.amount AS programmingAmount
+			pro.amount AS programmingAmount,
 			qua.id AS quadrilleId,
 			qua.quadrilleName AS quadrilleName,
 			man.id AS managerPruningId,
