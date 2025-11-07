@@ -46,7 +46,7 @@ public class PQRExistsByIdRule implements Rule {
 		
 		var pqr = daoFactory.getPQRDAO().findById(id);
 		
-		if (UUIDHelper.getUUIDHelper().isDefaultUUID(id)) {
+		if (UUIDHelper.getUUIDHelper().isDefaultUUID(pqr.getId())) {
 			var userMessage = "La PQR especificada no existe...";
 			var technicalMessage = "La PQR con id[".concat(id.toString()).concat("] no existe...");
 			throw new RuntimeException(userMessage + " " + technicalMessage);

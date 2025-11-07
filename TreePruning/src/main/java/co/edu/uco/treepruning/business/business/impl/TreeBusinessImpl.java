@@ -30,7 +30,7 @@ public class TreeBusinessImpl implements TreeBusiness{
 	}
 
 	@Override
-	public List<TreeDomain> findTreesByFilter(TreeDomain treeFilters) {
+	public List<TreeDomain> findTreesByFilter(final TreeDomain treeFilters) {
 		var treeEntity = getTreeEntityAssembler().toEntity(treeFilters);
 		var treeEntityList = daoFactory.getTreeDAO().findByFilter(treeEntity);
 		var treeDomainList = new ArrayList<TreeDomain>();
@@ -43,7 +43,7 @@ public class TreeBusinessImpl implements TreeBusiness{
 	}
 
 	@Override
-	public TreeDomain findSpecificTree(UUID id) {
+	public TreeDomain findSpecificTree(final UUID id) {
 		var treeEntity = daoFactory.getTreeDAO().findById(id);
 		
 		return getTreeEntityAssembler().toDomain(treeEntity);

@@ -22,19 +22,19 @@ public class ToolEntityAssembler implements EntityAssembler<ToolEntity, ToolDoma
     }
 
     @Override
-    public ToolEntity toEntity(ToolDomain domain) {
+    public ToolEntity toEntity(final ToolDomain domain) {
         var domainTmp = ObjectHelper.getDefault(domain, new ToolDomain(UUIDHelper.getUUIDHelper().getDefault()));
         return new ToolEntity(domainTmp.getId(), domainTmp.getName(), domainTmp.getDescription());
     }
 
     @Override
-    public ToolDomain toDomain(ToolEntity entity) {
+    public ToolDomain toDomain(final ToolEntity entity) {
         var entityTmp = ObjectHelper.getDefault(entity, new ToolEntity(UUIDHelper.getUUIDHelper().getDefault()));
         return new ToolDomain(entityTmp.getId(), entityTmp.getName(), entityTmp.getDescription());
     }
 
     @Override
-    public List<ToolEntity> toEntity(List<ToolDomain> domainList) {
+    public List<ToolEntity> toEntity(final List<ToolDomain> domainList) {
         var toolEntityList = new ArrayList<ToolEntity>();
         
         for (var tool : domainList) {
@@ -45,7 +45,7 @@ public class ToolEntityAssembler implements EntityAssembler<ToolEntity, ToolDoma
     }
     
     @Override
-    public List<ToolDomain> toDomain(List<ToolEntity> entityList) {
+    public List<ToolDomain> toDomain(final List<ToolEntity> entityList) {
 		var toolDomainList = new ArrayList<ToolDomain>();
 		
 		for (var tool : entityList) {

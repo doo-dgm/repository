@@ -23,14 +23,14 @@ public class StateEntityAssembler implements EntityAssembler<StateEntity, StateD
 	}
 
 	@Override
-	public StateEntity toEntity(StateDomain domain) {
+	public StateEntity toEntity(final StateDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new StateDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		var countryEntityTmp = getCountryEntityAssembler().toEntity(domainTmp.getCountry());
 		return new StateEntity(domainTmp.getId(), domainTmp.getName(), countryEntityTmp);
 	}
 
 	@Override
-	public StateDomain toDomain(StateEntity entity) {
+	public StateDomain toDomain(final StateEntity entity) {
 		var entityTmp = ObjectHelper.getDefault(entity, new StateEntity(UUIDHelper.getUUIDHelper().getDefault()));
 		var countryDomainTmp = getCountryEntityAssembler().toDomain(entityTmp.getCountry());
 		
@@ -38,7 +38,7 @@ public class StateEntityAssembler implements EntityAssembler<StateEntity, StateD
 	}
 
 	@Override
-	public List<StateEntity> toEntity(List<StateDomain> domainList) {
+	public List<StateEntity> toEntity(final List<StateDomain> domainList) {
 		var stateEntityList = new ArrayList<StateEntity>();
 		
 		for (var state : domainList) {
@@ -49,7 +49,7 @@ public class StateEntityAssembler implements EntityAssembler<StateEntity, StateD
 	}
 	
 	@Override
-	public List<StateDomain> toDomain(List<StateEntity> entityList) {
+	public List<StateDomain> toDomain(final List<StateEntity> entityList) {
 		var stateDomainList = new ArrayList<StateDomain>();
 		
 		for (var state : entityList) {

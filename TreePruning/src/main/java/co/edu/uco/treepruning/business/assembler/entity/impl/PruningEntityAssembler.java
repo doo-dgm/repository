@@ -13,7 +13,6 @@ import static co.edu.uco.treepruning.business.assembler.entity.impl.TreeEntityAs
 import static co.edu.uco.treepruning.business.assembler.entity.impl.QuadrilleEntityAssembler.getQuadrilleEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.TypeEntityAssembler.getTypeEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.PQREntityAssembler.getPQREntityAssembler;
-import static co.edu.uco.treepruning.business.assembler.entity.impl.ProgrammingEntityAssembler.getProgrammingEntityAssembler;
 
 
 public class PruningEntityAssembler implements EntityAssembler<PruningEntity, PruningDomain> {

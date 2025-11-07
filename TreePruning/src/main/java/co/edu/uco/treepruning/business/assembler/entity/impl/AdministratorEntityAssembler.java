@@ -46,9 +46,14 @@ public class AdministratorEntityAssembler implements EntityAssembler<Administrat
 	}
 
 	@Override
-	public List<AdministratorDomain> toDomain(List<AdministratorEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<AdministratorDomain> toDomain(final List<AdministratorEntity> entityList) {
+		var administratorDomainList = new ArrayList<AdministratorDomain>();
+		
+		for (var administrator : entityList) {
+			administratorDomainList.add(toDomain(administrator));
+		}
+		
+		return administratorDomainList;
 	}
 
 }

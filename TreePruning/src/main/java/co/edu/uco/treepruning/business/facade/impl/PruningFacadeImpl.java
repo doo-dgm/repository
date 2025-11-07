@@ -39,8 +39,8 @@ public final class PruningFacadeImpl implements PruningFacade {
 			throw exception;
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_CREATE_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_CREATE_UNEXPECTED.getContent();
 			//exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
@@ -67,8 +67,8 @@ public final class PruningFacadeImpl implements PruningFacade {
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
 			
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_UPDATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
@@ -93,8 +93,8 @@ public final class PruningFacadeImpl implements PruningFacade {
 		} catch (final Exception exception) {
 			daoFactory.rollbackTransaction();
 
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_UPDATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
@@ -120,8 +120,8 @@ public final class PruningFacadeImpl implements PruningFacade {
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
 			
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_UPDATE_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
@@ -146,8 +146,8 @@ public final class PruningFacadeImpl implements PruningFacade {
 		} catch(final Exception exception) {
 			daoFactory.rollbackTransaction();
 			
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
@@ -170,8 +170,8 @@ public final class PruningFacadeImpl implements PruningFacade {
 		} catch (final Exception exception) {
 			daoFactory.rollbackTransaction();
 
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
@@ -193,12 +193,11 @@ public final class PruningFacadeImpl implements PruningFacade {
 		} catch (final Exception exception) {
 			daoFactory.rollbackTransaction();
 
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
 		}
 	}
 }
-

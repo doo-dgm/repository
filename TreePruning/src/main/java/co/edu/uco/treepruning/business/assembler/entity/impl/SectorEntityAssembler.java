@@ -24,21 +24,21 @@ public class SectorEntityAssembler implements EntityAssembler<SectorEntity, Sect
     }
 
     @Override
-    public SectorEntity toEntity(SectorDomain domain) {
+    public SectorEntity toEntity(final SectorDomain domain) {
         var domainTmp = ObjectHelper.getDefault(domain, new SectorDomain(UUIDHelper.getUUIDHelper().getDefault()));
         var municipalityEntityTmp = getMunicipalityEntityAssembler().toEntity(domainTmp.getMunicipality());
         return new SectorEntity(domainTmp.getId(), domainTmp.getName(), municipalityEntityTmp);
     }
 
     @Override
-    public SectorDomain toDomain(SectorEntity entity) {
+    public SectorDomain toDomain(final SectorEntity entity) {
         var entityTmp = ObjectHelper.getDefault(entity, new SectorEntity(UUIDHelper.getUUIDHelper().getDefault()));
         var municipalityDomainTmp = getMunicipalityEntityAssembler().toDomain(entityTmp.getMunicipality());
         return new SectorDomain(entityTmp.getId(), entityTmp.getName(), municipalityDomainTmp);
     }
 
     @Override
-    public List<SectorEntity> toEntity(List<SectorDomain> domainList) {
+    public List<SectorEntity> toEntity(final List<SectorDomain> domainList) {
         var sectorEntityList = new ArrayList<SectorEntity>();
 
         for (var sector : domainList) {
@@ -49,7 +49,7 @@ public class SectorEntityAssembler implements EntityAssembler<SectorEntity, Sect
     }
     
     @Override
-    public List<SectorDomain> toDomain(List<SectorEntity> entityList) {
+    public List<SectorDomain> toDomain(final List<SectorEntity> entityList) {
 		var sectorDomainList = new ArrayList<SectorDomain>();
 
 		for (var sector : entityList) {

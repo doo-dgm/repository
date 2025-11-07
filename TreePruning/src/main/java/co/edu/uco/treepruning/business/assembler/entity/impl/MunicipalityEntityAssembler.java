@@ -25,21 +25,21 @@ public class MunicipalityEntityAssembler implements EntityAssembler<Municipality
 	}
 
 	@Override
-	public MunicipalityEntity toEntity(MunicipalityDomain domain) {
+	public MunicipalityEntity toEntity(final MunicipalityDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new MunicipalityDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		var stateEntityTmp = getStateEntityAssembler().toEntity(domainTmp.getState());
 		return new MunicipalityEntity(domainTmp.getId(), domainTmp.getName(), stateEntityTmp);
 	}
 
 	@Override
-	public MunicipalityDomain toDomain(MunicipalityEntity entity) {
+	public MunicipalityDomain toDomain(final MunicipalityEntity entity) {
 		var entityTmp = ObjectHelper.getDefault(entity, new MunicipalityEntity(UUIDHelper.getUUIDHelper().getDefault()));
 		var stateDomainTmp = getStateEntityAssembler().toDomain(entityTmp.getState());
 		return new MunicipalityDomain(entityTmp.getId(), entityTmp.getName(), stateDomainTmp);
 	}
 
 	@Override
-	public List<MunicipalityEntity> toEntity(List<MunicipalityDomain> domainList) {
+	public List<MunicipalityEntity> toEntity(final List<MunicipalityDomain> domainList) {
 		var municipalityEntityList = new ArrayList<MunicipalityEntity>();
 		
 		for (var municipality : domainList) {
@@ -50,7 +50,7 @@ public class MunicipalityEntityAssembler implements EntityAssembler<Municipality
 	}
 	
 	@Override
-	public List<MunicipalityDomain> toDomain(List<MunicipalityEntity> entityList) {
+	public List<MunicipalityDomain> toDomain(final List<MunicipalityEntity> entityList) {
 		var municipalityDomainList = new ArrayList<MunicipalityDomain>();
 		
 		for (var municipality : entityList) {
