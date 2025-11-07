@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -30,7 +32,7 @@ public class PersonDTO {
         setSecondName(TextHelper.getDefault());
         setFirstLastName(TextHelper.getDefault());
         setSecondLastName(TextHelper.getDefault());
-        setDocument(null);
+        setDocument(new DocumentDTO());
         setDocumentNumber(TextHelper.getDefault());
         setBirthDate(DateHelper.getDateHelper().getDefault());
         setAddress(TextHelper.getDefault());
@@ -47,7 +49,7 @@ public class PersonDTO {
         setSecondName(TextHelper.getDefault());
         setFirstLastName(TextHelper.getDefault());
         setSecondLastName(TextHelper.getDefault());
-        setDocument(null);
+        setDocument(new DocumentDTO());
         setDocumentNumber(TextHelper.getDefault());
         setBirthDate(DateHelper.getDateHelper().getDefault());
         setAddress(TextHelper.getDefault());
@@ -87,7 +89,7 @@ public class PersonDTO {
     }
 
     public String getFirstName() {
-        return TextHelper.getDefaultWithTrim(firstName);
+        return firstName;
     }
 
     public void setFirstName(final String firstName) {
@@ -95,7 +97,7 @@ public class PersonDTO {
     }
 
     public String getSecondName() {
-        return TextHelper.getDefaultWithTrim(secondName);
+        return secondName;
     }
 
     public void setSecondName(final String secondName) {
@@ -103,7 +105,7 @@ public class PersonDTO {
     }
 
     public String getFirstLastName() {
-        return TextHelper.getDefaultWithTrim(firstLastName);
+        return firstLastName;
     }
 
     public void setFirstLastName(final String firstLastName) {
@@ -111,7 +113,7 @@ public class PersonDTO {
     }
 
     public String getSecondLastName() {
-        return TextHelper.getDefaultWithTrim(secondLastName);
+        return secondLastName;
     }
 
     public void setSecondLastName(final String secondLastName) {
@@ -123,11 +125,11 @@ public class PersonDTO {
     }
 
     public void setDocument(final DocumentDTO document) {
-        this.document = document == null ? new DocumentDTO() : document;
+        this.document = ObjectHelper.getDefault(document, new DocumentDTO());
     }
 
     public String getDocumentNumber() {
-        return TextHelper.getDefaultWithTrim(documentNumber);
+        return documentNumber;
     }
 
     public void setDocumentNumber(final String documentNumber) {
@@ -143,7 +145,7 @@ public class PersonDTO {
     }
 
     public String getAddress() {
-        return TextHelper.getDefaultWithTrim(address);
+        return address;
     }
 
     public void setAddress(final String address) {
@@ -162,12 +164,12 @@ public class PersonDTO {
         return emailConfirmed;
     }
 
-    public void setEmailConfirmed(boolean emailConfirmed) {
+    public void setEmailConfirmed(final boolean emailConfirmed) {
         this.emailConfirmed = emailConfirmed;
     }
 
     public String getPhone() {
-        return TextHelper.getDefaultWithTrim(phone);
+        return phone;
     }
 
     public void setPhone(final String phone) {
@@ -178,7 +180,7 @@ public class PersonDTO {
         return phoneConfirmed;
     }
 
-    public void setPhoneConfirmed(boolean phoneConfirmed) {
+    public void setPhoneConfirmed(final boolean phoneConfirmed) {
         this.phoneConfirmed = phoneConfirmed;
     }
 
@@ -187,6 +189,6 @@ public class PersonDTO {
     }
 
     public void setAge(final int age) {
-        this.age = age;
+        this.age = NumericHelper.getDefaultInt(age);
     }
 }

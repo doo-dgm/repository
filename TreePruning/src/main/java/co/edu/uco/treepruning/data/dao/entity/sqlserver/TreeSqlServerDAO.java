@@ -35,7 +35,8 @@ public class TreeSqlServerDAO extends SqlConnection implements TreeDAO {
 			preparedStatement.setString(2, entity.getLatitude());
 			preparedStatement.setString(3, entity.getLongitude());
 			preparedStatement.setObject(4, entity.getFamily().getId());
-			preparedStatement.setObject(5,  entity.getSector().getId());
+			preparedStatement.setObject(5, entity.getSector().getId());
+			preparedStatement.setObject(6, entity.getProgramming().getId());
 			
 			preparedStatement.executeUpdate();
 			
@@ -164,6 +165,9 @@ private String createSentenceFindByFilter(final TreeEntity filterEntity, final L
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getSector().getId()),
 				"t.sectorId = ?", filterEntityValidated.getSector().getId());
+		
+		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getProgramming().getId()),
+				"t.programmingId = ?", filterEntityValidated.getProgramming().getId());
 		
 		
 		if (!conditions.isEmpty()) {

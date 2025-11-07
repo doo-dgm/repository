@@ -13,13 +13,15 @@ public final class TreeEntity {
     private String latitude;
     private FamilyEntity family;
     private SectorEntity sector;
+    private ProgrammingEntity programming;
 
     public TreeEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setLongitude(TextHelper.getDefault());
         setLatitude(TextHelper.getDefault());
         setFamily(new FamilyEntity());
-        setSector(null);
+        setSector(new SectorEntity());
+        setProgramming(new ProgrammingEntity());
     }
 
     public TreeEntity(final UUID id) {
@@ -27,15 +29,23 @@ public final class TreeEntity {
         setLongitude(TextHelper.getDefault());
         setLatitude(TextHelper.getDefault());
         setFamily(new FamilyEntity());
-        setSector(null);
+        setSector(new SectorEntity());
+        setProgramming(new ProgrammingEntity());
     }
 
-    public TreeEntity(final UUID id, final String longitude, final String latitude, final FamilyEntity family, final SectorEntity sector) {
+    public TreeEntity(
+    		final UUID id, 
+    		final String longitude, 
+    		final String latitude, 
+    		final FamilyEntity family, 
+    		final SectorEntity sector,
+    		final ProgrammingEntity programming) {
         setId(id);
         setLongitude(longitude);
         setLatitude(latitude);
         setFamily(family);
         setSector(sector);
+        setProgramming(programming);
     }
 
     public UUID getId() {
@@ -76,6 +86,14 @@ public final class TreeEntity {
 
     public void setSector(final SectorEntity sector) {
         this.sector = ObjectHelper.getDefault(sector, new SectorEntity());
+    }
+    
+    public ProgrammingEntity getProgramming() {
+        return programming;
+    }
+
+    public void setProgramming(final ProgrammingEntity programming) {
+        this.programming = ObjectHelper.getDefault(programming, new ProgrammingEntity());
     }
 }
 

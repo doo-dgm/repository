@@ -38,8 +38,14 @@ public class PQRDTO {
         setPhotographicRecordPath(TextHelper.getDefault());
     }
 
-    public PQRDTO(final UUID id, final LocalDate date, final StatusDTO status, final RiskDTO risk,
-                  final SectorDTO sector, final PersonDTO person, final String photographicRecordPath) {
+    public PQRDTO(
+    		final UUID id, 
+    		final LocalDate date, 
+    		final StatusDTO status, 
+    		final RiskDTO risk,
+    		final SectorDTO sector, 
+    		final PersonDTO person, 
+    		final String photographicRecordPath) {
         setId(id);
         setDate(date);
         setStatus(status);
@@ -98,7 +104,7 @@ public class PQRDTO {
     }
 
     public String getPhotographicRecordPath() {
-        return TextHelper.getDefaultWithTrim(photographicRecordPath);
+        return photographicRecordPath;
     }
 
     public void setPhotographicRecordPath(final String photographicRecordPath) {

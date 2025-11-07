@@ -34,7 +34,7 @@ public class CountryDTO {
     }
 
     public String getName() {
-        return TextHelper.getDefaultWithTrim(name);
+        return name;
     }
 
     public void setName(final String name) {

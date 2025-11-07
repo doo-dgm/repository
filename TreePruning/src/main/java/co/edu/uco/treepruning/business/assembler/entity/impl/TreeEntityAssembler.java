@@ -10,6 +10,7 @@ import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.entity.TreeEntity;
 
 import static co.edu.uco.treepruning.business.assembler.entity.impl.FamilyEntityAssembler.getFamilyEntityAssembler;
+import static co.edu.uco.treepruning.business.assembler.entity.impl.ProgrammingEntityAssembler.getProgrammingEntityAssembler;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.SectorEntityAssembler.getSectorEntityAssembler;
 
 public class TreeEntityAssembler implements EntityAssembler<TreeEntity, TreeDomain> {
@@ -30,9 +31,10 @@ public class TreeEntityAssembler implements EntityAssembler<TreeEntity, TreeDoma
         
         var familyTmp = getFamilyEntityAssembler().toEntity(domainTmp.getFamily());
         var sectorEntityTmp = getSectorEntityAssembler().toEntity(domainTmp.getSector());
+        var programmingEntityTmp = getProgrammingEntityAssembler().toEntity(domainTmp.getProgramming());
 
         return new TreeEntity(domainTmp.getId(), domainTmp.getLongitude(),
-                domainTmp.getLatitude(), familyTmp, sectorEntityTmp);
+                domainTmp.getLatitude(), familyTmp, sectorEntityTmp, programmingEntityTmp);
     }
 
     @Override
@@ -41,9 +43,15 @@ public class TreeEntityAssembler implements EntityAssembler<TreeEntity, TreeDoma
         
         var scientificNameDomainTmp = getFamilyEntityAssembler().toDomain(entityTmp.getFamily());
         var sectorDomainTmp = getSectorEntityAssembler().toDomain(entityTmp.getSector());
+        var programmingDomainTmp = getProgrammingEntityAssembler().toDomain(entityTmp.getProgramming());
 
-        return new TreeDomain(entityTmp.getId(), entityTmp.getLongitude(),
-                entityTmp.getLatitude(), scientificNameDomainTmp, sectorDomainTmp);
+        return new TreeDomain(
+        		entityTmp.getId(), 
+        		entityTmp.getLongitude(),
+                entityTmp.getLatitude(), 
+                scientificNameDomainTmp, 
+                sectorDomainTmp,
+                programmingDomainTmp);
     }
 
     @Override

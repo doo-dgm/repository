@@ -51,7 +51,7 @@ public class AdministratorDTO {
     }
 
     public String getUsername() {
-        return TextHelper.getDefaultWithTrim(username);
+        return username;
     }
 
     public void setUsername(final String username) {
@@ -59,7 +59,7 @@ public class AdministratorDTO {
     }
 
     public String getEmail() {
-        return TextHelper.getDefaultWithTrim(email);
+        return email;
     }
 
     public void setEmail(final String email) {
@@ -70,12 +70,12 @@ public class AdministratorDTO {
         return emailConfirmed;
     }
 
-    public void setEmailConfirmed(boolean emailConfirmed) {
+    public void setEmailConfirmed(final boolean emailConfirmed) {
         this.emailConfirmed = emailConfirmed;
     }
 
     public String getMobilePhone() {
-        return TextHelper.getDefaultWithTrim(mobilePhone);
+        return mobilePhone;
     }
 
     public void setMobilePhone(final String mobilePhone) {
@@ -86,7 +86,7 @@ public class AdministratorDTO {
         return mobilePhoneConfirmed;
     }
 
-    public void setMobilePhoneConfirmed(boolean mobilePhoneConfirmed) {
+    public void setMobilePhoneConfirmed(final boolean mobilePhoneConfirmed) {
         this.mobilePhoneConfirmed = mobilePhoneConfirmed;
     }
 }

@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.dto;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -14,13 +15,13 @@ public class MunicipalityDTO {
     public MunicipalityDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setName(TextHelper.getDefault());
-        setState(null);
+        setState(new StateDTO());
     }
 
     public MunicipalityDTO(final UUID id) {
         setId(id);
         setName(TextHelper.getDefault());
-        setState(null);
+        setState(new StateDTO());
     }
 
     public MunicipalityDTO(final UUID id, final String name, final StateDTO state) {
@@ -38,7 +39,7 @@ public class MunicipalityDTO {
     }
 
     public String getName() {
-        return TextHelper.getDefaultWithTrim(name);
+        return name;
     }
 
     public void setName(final String name) {
@@ -50,7 +51,7 @@ public class MunicipalityDTO {
     }
 
     public void setState(final StateDTO state) {
-        this.state = state == null ? new StateDTO() : state;
+        this.state = ObjectHelper.getDefault(state, new StateDTO());
     }
 }
 

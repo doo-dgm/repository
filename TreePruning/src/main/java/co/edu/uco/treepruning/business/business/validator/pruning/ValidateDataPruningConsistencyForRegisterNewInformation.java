@@ -1,6 +1,5 @@
 package co.edu.uco.treepruning.business.business.validator.pruning;
 
-import co.edu.uco.treepruning.business.business.rule.generics.DateFormatValueIsValidRule;
 import co.edu.uco.treepruning.business.business.rule.generics.DateRangeValueIsValidRule;
 import co.edu.uco.treepruning.business.business.rule.generics.DateValueIsEmptyDate;
 import co.edu.uco.treepruning.business.business.rule.generics.StringLengthValueIsValidRule;

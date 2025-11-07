@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -14,13 +15,13 @@ public final class SectorEntity {
     public SectorEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setName(TextHelper.getDefault());
-        setMunicipality(null);
+        setMunicipality(new MunicipalityEntity());
     }
 
     public SectorEntity(final UUID id) {
         setId(id);
         setName(TextHelper.getDefault());
-        setMunicipality(null);
+        setMunicipality(new MunicipalityEntity());
     }
 
     public SectorEntity(final UUID id, final String name, final MunicipalityEntity municipality) {
@@ -38,7 +39,7 @@ public final class SectorEntity {
     }
 
     public String getName() {
-        return TextHelper.getDefaultWithTrim(name);
+        return name;
     }
 
     public void setName(final String name) {
@@ -50,7 +51,7 @@ public final class SectorEntity {
     }
 
     public void setMunicipality(final MunicipalityEntity municipality) {
-        this.municipality = municipality == null ? new MunicipalityEntity() : municipality;
+        this.municipality = ObjectHelper.getDefault(municipality, new MunicipalityEntity());
     }
 }
 

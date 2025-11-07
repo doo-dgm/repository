@@ -15,13 +15,13 @@ public class QuadrilleDTO {
     public QuadrilleDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setName(TextHelper.getDefault());
-        setManager(null);
+        setManager(new ManagerDTO());
     }
 
     public QuadrilleDTO(final UUID id) {
         setId(id);
         setName(TextHelper.getDefault());
-        setManager(null);
+        setManager(new ManagerDTO());
     }
 
     public QuadrilleDTO(final UUID id, final String name, final ManagerDTO manager) {
@@ -39,7 +39,7 @@ public class QuadrilleDTO {
     }
 
     public String getName() {
-        return TextHelper.getDefaultWithTrim(name);
+        return name;
     }
 
     public void setName(final String name) {

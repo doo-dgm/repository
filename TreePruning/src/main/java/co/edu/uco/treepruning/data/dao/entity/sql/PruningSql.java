@@ -12,11 +12,10 @@ public final class PruningSql {
                 quadrilleId,
                 typeId,
                 pqrId,
-                programmingId,
                 photographicReportPath,
                 observations
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """;
 
     public static final String FIND_BY_FILTER = 
@@ -41,6 +40,10 @@ public final class PruningSql {
 			sta.name AS stateTreeName,
 			cou.id AS countryTreeId,
 			cou.name AS countryTreeName,
+			pro.id AS programmingId,
+			pro.initialDate AS programmingInitialDate,
+			pro.frequencyMonths AS programmingFrequencyMonths,
+			pro.amount AS programmingAmount
 			qua.id AS quadrilleId,
 			qua.quadrilleName AS quadrilleName,
 			man.id AS managerPruningId,
@@ -93,15 +96,12 @@ public final class PruningSql {
 			risp.id AS riskId,
 			risp.name AS riskName,
 			pqr.photographicRecordPath AS pqrPhotographicRecordPath,                
-			pro.id AS programmingId,
-			pro.initialDate AS programmingInitialDate,
-			pro.frequencyMonths AS programmingFrequencyMonths,
-			pro.amount AS programmingAmount,
 			pru.photographicReportPath AS pruningPhotographicReportPath,
 			pru.observations AS pruningObservations
 		FROM Pruning AS pru
 		INNER JOIN Status AS sts ON pru.statusId = sts.id
 		INNER JOIN Tree AS tre ON pru.treeId = tre.id
+		INNER JOIN programming AS pro ON tre.programmingId = pro.id
 		INNER JOIN Family AS fam ON tre.familyId = fam.id
 		INNER JOIN Sector AS sec ON tre.sectorId = sec.id
 		INNER JOIN Municipality AS mun ON sec.municipalityId = mun.id
@@ -120,7 +120,6 @@ public final class PruningSql {
 		INNER JOIN Municipality AS munp ON secp.municipalityId = munp.id
 		INNER JOIN State AS stap ON munp.stateId = stap.id
 		INNER JOIN Country AS coup ON stap.countryId = coup.id
-		LEFT JOIN programming AS pro ON pru.programmingId = pro.id
 		INNER JOIN risk AS risp ON pqr.riskId = risp.id
 		""";
 

@@ -16,6 +16,7 @@ public final class PruningDomain extends Domain {
     private TreeDomain tree;
     private TypeDomain type;
     private PQRDomain pqr;
+    private QuadrilleDomain quadrille;
     private String photographicRecordPath;
     private String observations;
 
@@ -27,6 +28,7 @@ public final class PruningDomain extends Domain {
         setTree(new TreeDomain());
         setType(new TypeDomain());
         setPqr(new PQRDomain());
+        setQuadrille(new QuadrilleDomain());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
@@ -39,19 +41,27 @@ public final class PruningDomain extends Domain {
         setTree(new TreeDomain());
         setType(new TypeDomain());
         setPqr(new PQRDomain());
+        setQuadrille(new QuadrilleDomain());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
-    public PruningDomain(final UUID id, final StatusDomain status, final LocalDate plannedDate, final LocalDate executedDate,
-                         final TreeDomain tree, final TypeDomain type,
+    public PruningDomain(final UUID id, 
+    					final StatusDomain status, 
+    					final LocalDate plannedDate, 
+    					final LocalDate executedDate,
+                         final TreeDomain tree, 
+                         final QuadrilleDomain quadrille,
+                         final TypeDomain type,
                          final PQRDomain pqr, 
-                         final String photographicRecordPath, final String observations) {
+                         final String photographicRecordPath, 
+                         final String observations) {
         super(id);
         setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
+        setQuadrille(quadrille);
         setType(type);
         setPqr(pqr);
         setPhotographicRecordPath(photographicRecordPath);
@@ -89,6 +99,15 @@ public final class PruningDomain extends Domain {
     public void setTree(final TreeDomain tree) {
         this.tree = ObjectHelper.getDefault(tree, new TreeDomain());
     }
+    
+    public QuadrilleDomain getQuadrille() {
+        return quadrille;
+    }
+
+    public void setQuadrille(final QuadrilleDomain quadrille) {
+        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDomain());
+    }
+
 
     public TypeDomain getType() {
         return type;

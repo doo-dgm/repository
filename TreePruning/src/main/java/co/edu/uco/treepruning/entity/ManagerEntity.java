@@ -3,7 +3,7 @@ package co.edu.uco.treepruning.entity;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 
 public final class ManagerEntity {
 
@@ -12,12 +12,12 @@ public final class ManagerEntity {
 
     public ManagerEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setPerson(null);
+        setPerson(new PersonEntity());
     }
 
     public ManagerEntity(final UUID id) {
         setId(id);
-        setPerson(null);
+        setPerson(new PersonEntity());
     }
 
     public ManagerEntity(final UUID id, final PersonEntity person) {
@@ -38,7 +38,7 @@ public final class ManagerEntity {
     }
 
     public void setPerson(final PersonEntity person) {
-        this.person = person == null ? new PersonEntity() : person;
+        this.person = ObjectHelper.getDefault(person, new PersonEntity());
     }
 }
 

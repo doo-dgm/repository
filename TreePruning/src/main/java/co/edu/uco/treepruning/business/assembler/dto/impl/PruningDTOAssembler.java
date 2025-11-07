@@ -1,7 +1,6 @@
 package co.edu.uco.treepruning.business.assembler.dto.impl;
 
 import static co.edu.uco.treepruning.business.assembler.dto.impl.PQRDTOAssembler.getPQRDTOAssembler;
-import static co.edu.uco.treepruning.business.assembler.dto.impl.ProgrammingDTOAssembler.getProgrammingDTOAssembler;
 import static co.edu.uco.treepruning.business.assembler.dto.impl.QuadrilleDTOAssembler.getQuadrilleDTOAssembler;
 import static co.edu.uco.treepruning.business.assembler.dto.impl.StatusDTOAssembler.getStatusDTOAssembler;
 import static co.edu.uco.treepruning.business.assembler.dto.impl.TreeDTOAssembler.getTreeDTOAssembler;
@@ -28,14 +27,14 @@ public class PruningDTOAssembler implements DTOAssembler<PruningDTO, PruningDoma
 	}
 	
 	@Override
-	public PruningDTO toDTO(PruningDomain domain) {
+	public PruningDTO toDTO(final PruningDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new PruningDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		var statusDtoTmp = getStatusDTOAssembler().toDTO(domainTmp.getStatus());
 		var treeDtoTmp = getTreeDTOAssembler().toDTO(domainTmp.getTree());
 		var quadrilleDtoTmp = getQuadrilleDTOAssembler().toDTO(domainTmp.getQuadrille());
 		var typeDtoTmp = getTypeDTOAssembler().toDTO(domainTmp.getType());
 		var pqrDtoTmp = getPQRDTOAssembler().toDTO(domainTmp.getPqr());
-		var ProgrammingDtoTmp = getProgrammingDTOAssembler().toDTO(domainTmp.getProgramming());	
+		
 		
 		return new PruningDTO(
 				domainTmp.getId(),
@@ -46,7 +45,6 @@ public class PruningDTOAssembler implements DTOAssembler<PruningDTO, PruningDoma
 				quadrilleDtoTmp,
 				typeDtoTmp,
 				pqrDtoTmp,
-				ProgrammingDtoTmp,
 				domainTmp.getPhotographicRecordPath(),
 				domainTmp.getObservations()
 				
@@ -54,14 +52,14 @@ public class PruningDTOAssembler implements DTOAssembler<PruningDTO, PruningDoma
 	}
 
 	@Override
-	public PruningDomain toDomain(PruningDTO dto) {
+	public PruningDomain toDomain(final PruningDTO dto) {
 		var dtoTmp = ObjectHelper.getDefault(dto, new PruningDTO(UUIDHelper.getUUIDHelper().getDefault()));
 		var statusDomainTmp = getStatusDTOAssembler().toDomain(dtoTmp.getStatus());
 		var treeDomainTmp = getTreeDTOAssembler().toDomain(dtoTmp.getTree());
 		var quadrilleDomainTmp = getQuadrilleDTOAssembler().toDomain(dtoTmp.getQuadrille());
 		var typeDomainTmp = getTypeDTOAssembler().toDomain(dtoTmp.getType());
 		var pqrDomainTmp = getPQRDTOAssembler().toDomain(dtoTmp.getPqr());
-		var programmingDomainTmp = getProgrammingDTOAssembler().toDomain(dtoTmp.getProgramming());
+		
 		
 		return new PruningDomain(
 				dtoTmp.getId(),
@@ -72,7 +70,6 @@ public class PruningDTOAssembler implements DTOAssembler<PruningDTO, PruningDoma
 				quadrilleDomainTmp,
 				typeDomainTmp,
 				pqrDomainTmp,
-				programmingDomainTmp,
 				dtoTmp.getPhotographicRecordPath(),
 				dtoTmp.getObservations()
 				);

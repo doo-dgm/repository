@@ -37,7 +37,7 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
         var quadrilleEntityTmp = getQuadrilleEntityAssembler().toEntity(domainTmp.getQuadrille());
         var typeEntityTmp = getTypeEntityAssembler().toEntity(domainTmp.getType());
         var pqrEntityTmp = getPQREntityAssembler().toEntity(domainTmp.getPqr());
-        var programmingEntityTmp = getProgrammingEntityAssembler().toEntity(domainTmp.getProgramming());
+        
 
         return new PruningEntity(
                 domainTmp.getId(),
@@ -48,7 +48,6 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
                 quadrilleEntityTmp,
                 typeEntityTmp,
                 pqrEntityTmp,
-                programmingEntityTmp,
                 domainTmp.getPhotographicRecordPath(),
                 domainTmp.getObservations()
         );
@@ -64,7 +63,7 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
         var quadrilleDomainTmp = getQuadrilleEntityAssembler().toDomain(entityTmp.getQuadrille());
         var typeDomainTmp = getTypeEntityAssembler().toDomain(entityTmp.getType());
         var pqrDomainTmp = getPQREntityAssembler().toDomain(entityTmp.getPqr());
-        var programmingDomainTmp = getProgrammingEntityAssembler().toDomain(entityTmp.getProgramming());
+        
 
         return new PruningDomain(
                 entityTmp.getId(),
@@ -75,7 +74,6 @@ public class PruningEntityAssembler implements EntityAssembler<PruningEntity, Pr
                 quadrilleDomainTmp,
                 typeDomainTmp,
                 pqrDomainTmp,
-                programmingDomainTmp,
                 entityTmp.getPhotographicRecordPath(),
                 entityTmp.getObservations()
         );

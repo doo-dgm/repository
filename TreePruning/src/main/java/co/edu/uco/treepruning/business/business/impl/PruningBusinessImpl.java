@@ -12,15 +12,14 @@ import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRIsNotCl
 import co.edu.uco.treepruning.business.business.validator.pruning.ValidateDataPruningConsistencyForRegisterNewInformation;
 import co.edu.uco.treepruning.business.business.validator.status.ValidateStatusExistsById;
 import co.edu.uco.treepruning.business.business.validator.tree.ValidateTreeExistsById;
+import co.edu.uco.treepruning.business.business.validator.tree.ValidateTreeHasPendingPruningTheSameDay;
 import co.edu.uco.treepruning.business.business.validator.type.ValidateTypeExistsById;
 import co.edu.uco.treepruning.business.business.validator.type.ValidateTypeIsCorrective;
 import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.business.domain.StatusDomain;
-import co.edu.uco.treepruning.business.domain.TypeDomain;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
-import co.edu.uco.treepruning.entity.TypeEntity;
 
 public class PruningBusinessImpl implements PruningBusiness {
 	
@@ -40,8 +39,7 @@ public class PruningBusinessImpl implements PruningBusiness {
 			
 			
 			ValidateTreeExistsById.executeValidation(pruningDomain.getTree().getId(), daoFactory);
-			
-			//ValidateQuadrilleExistsById.executeValidation(pruningDomain.getQuadrille().getId(), daoFactory);
+			ValidateTreeHasPendingPruningTheSameDay.executeValidation(pruningDomain.getTree().getId(), pruningDomain.getPlannedDate(), daoFactory);
 			
 			ValidateTypeExistsById.executeValidation(pruningDomain.getType().getId(), daoFactory);
 			ValidateTypeIsCorrective.executeValidation(pruningDomain.getType().getId(), daoFactory);

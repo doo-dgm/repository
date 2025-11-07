@@ -18,7 +18,6 @@ public final class PruningEntity {
     private QuadrilleEntity quadrille;
     private TypeEntity type;
     private PQREntity pqr;
-    private ProgrammingEntity programming;
     private String photographicRecordPath;
     private String observations;
 
@@ -31,7 +30,6 @@ public final class PruningEntity {
         setQuadrille(new QuadrilleEntity());
         setType(new TypeEntity());
         setPqr(new PQREntity());
-        setProgramming(new ProgrammingEntity());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
@@ -44,14 +42,13 @@ public final class PruningEntity {
         setQuadrille(new QuadrilleEntity());
         setType(new TypeEntity());
         setPqr(new PQREntity());
-        setProgramming(new ProgrammingEntity());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
     public PruningEntity(final UUID id, final StatusEntity status, final LocalDate plannedDate, final LocalDate executedDate,
                          final TreeEntity tree, final QuadrilleEntity quadrille, final TypeEntity type,
-                         final PQREntity pqr, final ProgrammingEntity programming,
+                         final PQREntity pqr,
                          final String photographicRecordPath, final String observations) {
         setId(id);
         setStatus(status);
@@ -61,7 +58,6 @@ public final class PruningEntity {
         setQuadrille(quadrille);
         setType(type);
         setPqr(pqr);
-        setProgramming(programming);
         setPhotographicRecordPath(photographicRecordPath);
         setObservations(observations);
     }
@@ -103,7 +99,7 @@ public final class PruningEntity {
     }
 
     public void setTree(final TreeEntity tree) {
-        this.tree = tree == null ? new TreeEntity() : tree;
+        this.tree = ObjectHelper.getDefault(tree, new TreeEntity());
     }
 
     public QuadrilleEntity getQuadrille() {
@@ -111,7 +107,7 @@ public final class PruningEntity {
     }
 
     public void setQuadrille(final QuadrilleEntity quadrille) {
-        this.quadrille = quadrille == null ? new QuadrilleEntity() : quadrille;
+        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleEntity());
     }
 
     public TypeEntity getType() {
@@ -119,7 +115,7 @@ public final class PruningEntity {
     }
 
     public void setType(final TypeEntity type) {
-        this.type = type == null ? new TypeEntity() : type;
+        this.type = ObjectHelper.getDefault(type, new TypeEntity());
     }
 
     public PQREntity getPqr() {
@@ -127,15 +123,7 @@ public final class PruningEntity {
     }
 
     public void setPqr(final PQREntity pqr) {
-        this.pqr = pqr == null ? new PQREntity() : pqr;
-    }
-
-    public ProgrammingEntity getProgramming() {
-        return programming;
-    }
-
-    public void setProgramming(final ProgrammingEntity programming) {
-        this.programming = programming == null ? new ProgrammingEntity() : programming;
+        this.pqr = ObjectHelper.getDefault(pqr, new PQREntity());
     }
 
     public String getPhotographicRecordPath() {

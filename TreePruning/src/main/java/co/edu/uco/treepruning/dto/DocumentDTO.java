@@ -38,7 +38,7 @@ public class DocumentDTO {
     }
 
     public String getName() {
-        return TextHelper.getDefaultWithTrim(name);
+        return name;
     }
 
     public void setName(final String name) {
@@ -46,7 +46,7 @@ public class DocumentDTO {
     }
 
     public String getCode() {
-        return TextHelper.getDefaultWithTrim(code);
+        return code;
     }
 
     public void setCode(final String code) {

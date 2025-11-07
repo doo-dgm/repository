@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -124,7 +126,7 @@ public final class PersonEntity {
     }
 
     public void setDocument(final DocumentEntity document) {
-        this.document = document == null ? new DocumentEntity() : document;
+        this.document = ObjectHelper.getDefault(document, new DocumentEntity());
     }
 
     public String getDocumentNumber() {
@@ -188,7 +190,7 @@ public final class PersonEntity {
     }
 
     public void setAge(final int age) {
-        this.age = age;
+        this.age = NumericHelper.getDefaultInt(age);
     }
 }
 

@@ -41,9 +41,8 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 			preparedStatement.setObject(6, entity.getQuadrille().getId());
 			preparedStatement.setObject(7, entity.getType().getId());
 			preparedStatement.setObject(8, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getPqr().getId()) ? null : entity.getPqr().getId()));
-			preparedStatement.setObject(9, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getProgramming().getId()) ? null : entity.getProgramming().getId()));
-			preparedStatement.setString(10, entity.getPhotographicRecordPath());
-			preparedStatement.setString(11, entity.getObservations());
+			preparedStatement.setString(9, entity.getPhotographicRecordPath());
+			preparedStatement.setString(10, entity.getObservations());
 
 			preparedStatement.executeUpdate();
 			
@@ -63,7 +62,7 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	public List<PruningEntity> findByFilter(final PruningEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-		
+		System.out.println(sql);
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
 
 			for (var index = 0; index < parameterList.size(); index++) {
@@ -146,9 +145,6 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getPqr().getId()),
 				"pru.pqrId = ?", filterEntityValidated.getPqr().getId());
-		
-		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getProgramming().getId()),
-				"pru.programmingId = ?", filterEntityValidated.getProgramming().getId());
 		
 		addCondition(conditions, parameterList, !TextHelper.isEmptyWithTrim(filterEntityValidated.getPhotographicRecordPath()),
 				"pru.photographicReportPath = ?", filterEntityValidated.getPhotographicRecordPath());

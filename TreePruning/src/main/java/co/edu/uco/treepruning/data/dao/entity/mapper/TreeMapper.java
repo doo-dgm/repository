@@ -21,6 +21,9 @@ public final class TreeMapper {
         	var sector = SectorMapper.treeMap(resultSet);
         	tree.setSector(sector);
         	
+            var programming = ProgrammingMapper.map(resultSet);
+            tree.setProgramming(programming);
+        	
             tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("treeId")));
             tree.setLongitude(resultSet.getString("treeLongitude"));
             tree.setLatitude(resultSet.getString("treeLatitude"));            

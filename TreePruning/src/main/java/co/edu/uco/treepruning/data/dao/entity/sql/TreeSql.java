@@ -9,8 +9,9 @@ public final class TreeSql {
                 latitude,
                 familyId,
                 sectorId
+                programmingId
             )
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?)
             """;
 
     public static final String FIND_BY_FILTER = """
@@ -28,13 +29,18 @@ public final class TreeSql {
                 st.id AS stateTreeId,
                 st.name AS stateTreeName,
                 c.id AS countryTreeId,
-                c.name AS countryTreeName
+                c.name AS countryTreeName,
+                pro.id AS programmingId,
+				pro.initialDate AS programmingInitialDate,
+				pro.frequencyMonths AS programmingFrequencyMonths,
+				pro.amount AS programmingAmount
             FROM Tree AS t
             INNER JOIN Family AS f ON t.familyId = f.id
             INNER JOIN Sector AS s ON t.sectorId = s.id
             INNER JOIN Municipality AS m ON s.municipalityId = m.id
             INNER JOIN State AS st ON m.stateId = st.id
             INNER JOIN Country AS c ON st.countryId = c.id
+            INNER JOIN programming AS pro ON t.programmingId = pro.id
             """;
 
     public static final String UPDATE = """

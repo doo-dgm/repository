@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.dto;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public class ManagerDTO {
@@ -11,12 +12,12 @@ public class ManagerDTO {
 
     public ManagerDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setPerson(null);
+        setPerson(new PersonDTO());
     }
 
     public ManagerDTO(final UUID id) {
         setId(id);
-        setPerson(null);
+        setPerson(new PersonDTO());
     }
 
     public ManagerDTO(final UUID id, final PersonDTO person) {
@@ -37,7 +38,7 @@ public class ManagerDTO {
     }
 
     public void setPerson(final PersonDTO person) {
-        this.person = person == null ? new PersonDTO() : person;
+        this.person = ObjectHelper.getDefault(person, new PersonDTO());
     }
 }
 

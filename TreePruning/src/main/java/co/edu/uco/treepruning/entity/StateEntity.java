@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -14,13 +15,13 @@ public final class StateEntity {
     public StateEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
         setName(TextHelper.getDefault());
-        setCountry(null);
+        setCountry(new CountryEntity());
     }
 
     public StateEntity(final UUID id) {
         setId(id);
         setName(TextHelper.getDefault());
-        setCountry(null);
+        setCountry(new CountryEntity());
     }
 
     public StateEntity(final UUID id, final String name, final CountryEntity country) {
@@ -38,7 +39,7 @@ public final class StateEntity {
     }
 
     public String getName() {
-        return TextHelper.getDefaultWithTrim(name);
+        return name;
     }
 
     public void setName(final String name) {
@@ -50,7 +51,7 @@ public final class StateEntity {
     }
 
     public void setCountry(final CountryEntity country) {
-        this.country = country == null ? new CountryEntity() : country;
+        this.country = ObjectHelper.getDefault(country, new CountryEntity());
     }
 }
 

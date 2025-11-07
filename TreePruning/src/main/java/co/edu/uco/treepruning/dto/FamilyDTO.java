@@ -38,7 +38,7 @@ public class FamilyDTO {
     }
 
     public String getScientificName() {
-        return TextHelper.getDefaultWithTrim(scientificName);
+        return scientificName;
     }
 
     public void setScientificName(final String scientificName) {
@@ -46,7 +46,7 @@ public class FamilyDTO {
     }
 
     public String getCommonName() {
-        return TextHelper.getDefaultWithTrim(commonName);
+        return commonName;
     }
 
     public void setCommonName(final String commonName) {

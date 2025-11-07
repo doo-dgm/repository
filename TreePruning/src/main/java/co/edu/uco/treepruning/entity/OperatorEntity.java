@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class OperatorEntity {
@@ -41,7 +42,7 @@ public final class OperatorEntity {
     }
 
     public void setPerson(final PersonEntity person) {
-        this.person = person == null ? new PersonEntity() : person;
+        this.person = ObjectHelper.getDefault(person, new PersonEntity());
     }
 
     public QuadrilleEntity getQuadrille() {
@@ -49,7 +50,7 @@ public final class OperatorEntity {
     }
 
     public void setQuadrille(final QuadrilleEntity quadrille) {
-        this.quadrille = quadrille == null ? new QuadrilleEntity() : quadrille;
+        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleEntity());
     }
 }
 

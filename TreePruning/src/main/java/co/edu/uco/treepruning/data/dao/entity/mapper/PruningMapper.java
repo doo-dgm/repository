@@ -30,8 +30,6 @@ public final class PruningMapper {
             var pqr = PQRMapper.pruningMap(resultSet);
             pruning.setPqr(pqr);
             
-            var programming = ProgrammingMapper.map(resultSet);
-            pruning.setProgramming(programming);
      
             pruning.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("pruningId")));
             pruning.setPlannedDate(DateHelper.getDateHelper().dateToLocalDate(resultSet.getDate("pruningPlannedDate")));

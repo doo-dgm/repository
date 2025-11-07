@@ -15,6 +15,7 @@ public class PruningDTO {
     private LocalDate plannedDate;
     private LocalDate executedDate;
     private TreeDTO tree;
+    private QuadrilleDTO quadrille;
     private TypeDTO type;
     private PQRDTO pqr;
     private String photographicRecordPath;
@@ -26,6 +27,7 @@ public class PruningDTO {
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDTO());
+        setQuadrille(new QuadrilleDTO());
         setType(new TypeDTO());
         setPqr(new PQRDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
@@ -38,21 +40,29 @@ public class PruningDTO {
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());
         setTree(new TreeDTO());
+        setQuadrille(new QuadrilleDTO());
         setType(new TypeDTO());
         setPqr(new PQRDTO());
         setPhotographicRecordPath(TextHelper.getDefault());
         setObservations(TextHelper.getDefault());
     }
 
-    public PruningDTO(final UUID id, final StatusDTO status, final LocalDate plannedDate, final LocalDate executedDate,
-                      final TreeDTO tree, final TypeDTO type,
-                      final PQRDTO pqr, final String photographicRecordPath,
-                      final String observations) {
+    public PruningDTO(final UUID id, 
+    		final StatusDTO status, 
+    		final LocalDate plannedDate, 
+    		final LocalDate executedDate,
+    		final TreeDTO tree,
+    		final QuadrilleDTO quadrille, 
+    		final TypeDTO type,
+    		final PQRDTO pqr, 
+    		final String photographicRecordPath,
+            final String observations) {
         setId(id);
         setStatus(status);
         setPlannedDate(plannedDate);
         setExecutedDate(executedDate);
         setTree(tree);
+        setQuadrille(quadrille);
         setType(type);
         setPqr(pqr);
         setPhotographicRecordPath(photographicRecordPath);
@@ -98,6 +108,14 @@ public class PruningDTO {
     public void setTree(final TreeDTO tree) {
         this.tree = ObjectHelper.getDefault(tree, new TreeDTO());
     }
+    
+    public QuadrilleDTO getQuadrille() {
+        return quadrille;
+    }
+
+    public void setQuadrille(final QuadrilleDTO quadrille) {
+        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDTO());
+    }
 
     public TypeDTO getType() {
         return type;
@@ -116,7 +134,7 @@ public class PruningDTO {
     }
 
     public String getPhotographicRecordPath() {
-        return TextHelper.getDefaultWithTrim(photographicRecordPath);
+        return photographicRecordPath;
     }
 
     public void setPhotographicRecordPath(final String photographicRecordPath) {
@@ -124,7 +142,7 @@ public class PruningDTO {
     }
 
     public String getObservations() {
-        return TextHelper.getDefaultWithTrim(observations);
+        return observations;
     }
 
     public void setObservations(final String observations) {

@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
+import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
 
 public final class ProgrammingEntity {
 
@@ -55,7 +56,7 @@ public final class ProgrammingEntity {
     }
 
     public void setFrequencyMonths(final int frequencyMonths) {
-        this.frequencyMonths = frequencyMonths;
+        this.frequencyMonths = NumericHelper.getDefaultInt(frequencyMonths);
     }
 
     public int getAmount() {
@@ -63,7 +64,7 @@ public final class ProgrammingEntity {
     }
 
     public void setAmount(final int amount) {
-        this.amount = amount;
+        this.amount = NumericHelper.getDefaultInt(amount);
     }
 }
 

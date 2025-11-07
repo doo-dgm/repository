@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.dto;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
@@ -50,6 +51,6 @@ public class SectorDTO {
     }
 
     public void setMunicipality(final MunicipalityDTO municipality) {
-        this.municipality = municipality == null ? new MunicipalityDTO() : municipality;
+        this.municipality = ObjectHelper.getDefault(municipality, new MunicipalityDTO());
     }
 }

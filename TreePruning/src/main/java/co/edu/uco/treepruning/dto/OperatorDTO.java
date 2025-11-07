@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.dto;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public class OperatorDTO {
@@ -12,14 +13,14 @@ public class OperatorDTO {
 
     public OperatorDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setPerson(null);
-        setQuadrille(null);
+        setPerson(new PersonDTO());
+        setQuadrille(new QuadrilleDTO());
     }
 
     public OperatorDTO(final UUID id) {
         setId(id);
-        setPerson(null);
-        setQuadrille(null);
+        setPerson(new PersonDTO());
+        setQuadrille(new QuadrilleDTO());
     }
 
     public OperatorDTO(final UUID id, final PersonDTO person, final QuadrilleDTO quadrille) {
@@ -41,7 +42,7 @@ public class OperatorDTO {
     }
 
     public void setPerson(final PersonDTO person) {
-        this.person = person == null ? new PersonDTO() : person;
+        this.person = ObjectHelper.getDefault(person, new PersonDTO());
     }
 
     public QuadrilleDTO getQuadrille() {
@@ -49,7 +50,7 @@ public class OperatorDTO {
     }
 
     public void setQuadrille(final QuadrilleDTO quadrille) {
-        this.quadrille = quadrille == null ? new QuadrilleDTO() : quadrille;
+        this.quadrille = ObjectHelper.getDefault(quadrille, new QuadrilleDTO());
     }
 }
 

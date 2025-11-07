@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static co.edu.uco.treepruning.business.assembler.dto.impl.FamilyDTOAssembler.getFamilyDTOAssembler;
+import static co.edu.uco.treepruning.business.assembler.dto.impl.ProgrammingDTOAssembler.getProgrammingDTOAssembler;
 import static co.edu.uco.treepruning.business.assembler.dto.impl.SectorDTOAssembler.getSectorDTOAssembler;
 
 import co.edu.uco.treepruning.business.assembler.dto.DTOAssembler;
@@ -25,23 +26,39 @@ public class TreeDTOAssembler implements DTOAssembler<TreeDTO, TreeDomain> {
 	}
 
 	@Override
-	public TreeDTO toDTO(TreeDomain domain) {
+	public TreeDTO toDTO(final TreeDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new TreeDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		var familyDtoTmp = getFamilyDTOAssembler().toDTO(domainTmp.getFamily());
 		var sectorTmp =getSectorDTOAssembler().toDTO(domainTmp.getSector());
-		return new TreeDTO(domainTmp.getId(), domainTmp.getLongitude(), domainTmp.getLatitude(), familyDtoTmp, sectorTmp);
+		var ProgrammingDtoTmp = getProgrammingDTOAssembler().toDTO(domainTmp.getProgramming());	
+		
+		return new TreeDTO(
+				domainTmp.getId(), 
+				domainTmp.getLongitude(), 
+				domainTmp.getLatitude(), 
+				familyDtoTmp, 
+				sectorTmp,
+				ProgrammingDtoTmp);
 	}
 
 	@Override
-	public TreeDomain toDomain(TreeDTO dto) {
+	public TreeDomain toDomain(final TreeDTO dto) {
 		var dtoTmp =ObjectHelper.getDefault(dto, new TreeDTO(UUIDHelper.getUUIDHelper().getDefault()));
 		var familyDomainTmp = getFamilyDTOAssembler().toDomain(dtoTmp.getFamily());
 		var sectorDomainTmp = getSectorDTOAssembler().toDomain(dtoTmp.getSector());
-		return new TreeDomain(dtoTmp.getId(), dtoTmp.getLongitude(), dtoTmp.getLatitude(), familyDomainTmp, sectorDomainTmp);
+		var programmingDomainTmp = getProgrammingDTOAssembler().toDomain(dtoTmp.getProgramming());
+		
+		return new TreeDomain(
+				dtoTmp.getId(), 
+				dtoTmp.getLongitude(), 
+				dtoTmp.getLatitude(), 
+				familyDomainTmp, 
+				sectorDomainTmp,
+				programmingDomainTmp);
 	}
 
 	@Override
-	public List<TreeDTO> toDTO(List<TreeDomain> domainList) {
+	public List<TreeDTO> toDTO(final List<TreeDomain> domainList) {
 		var treeDTOList = new ArrayList<TreeDTO>();
 		
 		for (var tree : domainList) {

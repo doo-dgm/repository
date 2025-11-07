@@ -2,6 +2,7 @@ package co.edu.uco.treepruning.dto;
 
 import java.util.UUID;
 
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public class PruningToolDTO {
@@ -12,14 +13,14 @@ public class PruningToolDTO {
 
     public PruningToolDTO() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setPruning(null);
-        setTool(null);
+        setPruning(new PruningDTO());
+        setTool(new ToolDTO());
     }
 
     public PruningToolDTO(final UUID id) {
         setId(id);
-        setPruning(null);
-        setTool(null);
+        setPruning(new PruningDTO());
+        setTool(new ToolDTO());
     }
 
     public PruningToolDTO(final UUID id, final PruningDTO pruning, final ToolDTO tool) {
@@ -41,7 +42,7 @@ public class PruningToolDTO {
     }
 
     public void setPruning(final PruningDTO pruning) {
-        this.pruning = pruning == null ? new PruningDTO() : pruning;
+        this.pruning = ObjectHelper.getDefault(pruning,	new PruningDTO());
     }
 
     public ToolDTO getTool() {
@@ -49,7 +50,7 @@ public class PruningToolDTO {
     }
 
     public void setTool(final ToolDTO tool) {
-        this.tool = tool == null ? new ToolDTO() : tool;
+        this.tool = ObjectHelper.getDefault(tool, new ToolDTO());
     }
 }
 

@@ -2,7 +2,7 @@ package co.edu.uco.treepruning.entity;
 
 import java.util.UUID;
 
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 
 public final class PruningToolEntity {
@@ -13,14 +13,14 @@ public final class PruningToolEntity {
 
     public PruningToolEntity() {
         setId(UUIDHelper.getUUIDHelper().getDefault());
-        setPruning(null);
-        setTool(null);
+        setPruning(new PruningEntity());
+        setTool(new ToolEntity());
     }
 
     public PruningToolEntity(final UUID id) {
         setId(id);
-        setPruning(null);
-        setTool(null);
+        setPruning(new PruningEntity());
+        setTool(new ToolEntity());
     }
 
     public PruningToolEntity(final UUID id, final PruningEntity pruning, final ToolEntity tool) {
@@ -42,7 +42,7 @@ public final class PruningToolEntity {
     }
 
     public void setPruning(final PruningEntity pruning) {
-        this.pruning = pruning == null ? new PruningEntity() : pruning;
+        this.pruning = ObjectHelper.getDefault(pruning, new PruningEntity());
     }
 
     public ToolEntity getTool() {
@@ -50,7 +50,7 @@ public final class PruningToolEntity {
     }
 
     public void setTool(final ToolEntity tool) {
-        this.tool = tool == null ? new ToolEntity() : tool;
+        this.tool = ObjectHelper.getDefault(tool, new ToolEntity());
     }
 }
 
