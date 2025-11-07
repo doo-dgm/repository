@@ -1,6 +1,6 @@
 package co.edu.uco.treepruning.controller;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +21,13 @@ import co.edu.uco.treepruning.business.facade.impl.PruningFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.dto.PQRDTO;
 import co.edu.uco.treepruning.dto.PruningDTO;
+import co.edu.uco.treepruning.dto.QuadrilleDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
 import co.edu.uco.treepruning.dto.TreeDTO;
+import co.edu.uco.treepruning.dto.TypeDTO;
 
 @CrossOrigin
 @RestController
@@ -135,44 +137,42 @@ public class PruningController {
 
     @GetMapping
     public ResponseEntity<Response<PruningDTO>> findPrunings(
-            @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String plannedDate,
-            @RequestParam(required = false) String executedDate,
+            @RequestParam(required = false) Date plannedDate,
+            @RequestParam(required = false) Date executedDate,
             @RequestParam(required = false) UUID statusId,
-            @RequestParam(required = false) UUID treeId) {
+            @RequestParam(required = false) UUID treeId,
+            @RequestParam(required = false) UUID quadrilleId,
+            @RequestParam(required = false) UUID typeId,
+            @RequestParam(required = false) UUID pqrId) {
 
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
         try {
             var facade = new PruningFacadeImpl();
-            var dateHelper = DateHelper.getDateHelper();
-
+    
             PruningDTO filter = new PruningDTO();
-            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
+            filter.setPlannedDate(DateHelper.getDateHelper().dateToLocalDate(plannedDate));
+            filter.setExecutedDate(DateHelper.getDateHelper().dateToLocalDate(executedDate));
 
-     
-            try {
-                LocalDate parsedPlanned = LocalDate.parse(TextHelper.getDefaultWithTrim(plannedDate));
-                filter.setPlannedDate(dateHelper.getDefault(parsedPlanned));
-            } catch (final Exception exception) {
-                filter.setPlannedDate(dateHelper.getDefault());
-            }
-
-            try {
-                LocalDate parsedExecuted = LocalDate.parse(TextHelper.getDefaultWithTrim(executedDate));
-                filter.setExecutedDate(dateHelper.getDefault(parsedExecuted));
-            } catch (final Exception exception) {
-                filter.setExecutedDate(dateHelper.getDefault());
-            }
             var status = new StatusDTO();
             status.setId(UUIDHelper.getUUIDHelper().getDefault(statusId));
             filter.setStatus(status);
 
-        
             var tree = new TreeDTO();
             tree.setId(UUIDHelper.getUUIDHelper().getDefault(treeId));
             filter.setTree(tree);
 
+            var quadrille = new QuadrilleDTO();
+            quadrille.setId(UUIDHelper.getUUIDHelper().getDefault(quadrilleId));
+            filter.setQuadrille(quadrille);
+
+            var type = new TypeDTO();
+            type.setId(UUIDHelper.getUUIDHelper().getDefault(typeId));
+            filter.setType(type);
+
+            var pqr = new PQRDTO();
+            pqr.setId(UUIDHelper.getUUIDHelper().getDefault(pqrId));
+            filter.setPqr(pqr);
 
             responseObjectData.setData(facade.findPruningsByFilter(filter));
             responseObjectData.addMessage("");

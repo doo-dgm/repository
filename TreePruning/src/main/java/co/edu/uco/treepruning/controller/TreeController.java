@@ -20,7 +20,6 @@ import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.TreeDTO;
 import co.edu.uco.treepruning.dto.FamilyDTO;
-import co.edu.uco.treepruning.dto.ProgrammingDTO;
 import co.edu.uco.treepruning.dto.SectorDTO;
 
 @CrossOrigin
@@ -39,8 +38,7 @@ public class TreeController {
             @RequestParam(required = false) String longitude,
             @RequestParam(required = false) String latitude,
             @RequestParam(required = false) UUID familyId,
-            @RequestParam(required = false) UUID sectorId,
-            @RequestParam(required = false) UUID programmingId
+            @RequestParam(required = false) UUID sectorId
     ) {
         Response<TreeDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
@@ -59,10 +57,6 @@ public class TreeController {
             SectorDTO sector = new SectorDTO();
             sector.setId(UUIDHelper.getUUIDHelper().getDefault(sectorId));
             filter.setSector(sector);
-
-            ProgrammingDTO programming = new ProgrammingDTO();
-            programming.setId(UUIDHelper.getUUIDHelper().getDefault(programmingId));
-            filter.setProgramming(programming);
 
             responseObjectData.setData(facade.findTreesByFilter(filter));
             responseObjectData.addMessage("");

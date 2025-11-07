@@ -1,6 +1,6 @@
 package co.edu.uco.treepruning.controller;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,9 +18,11 @@ import co.edu.uco.treepruning.business.facade.impl.PQRFacadeImpl;
 import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.PQRDTO;
+import co.edu.uco.treepruning.dto.PersonDTO;
+import co.edu.uco.treepruning.dto.RiskDTO;
+import co.edu.uco.treepruning.dto.SectorDTO;
 import co.edu.uco.treepruning.dto.StatusDTO;
 
 @CrossOrigin
@@ -35,31 +37,36 @@ public class PQRController {
 
     @GetMapping
     public ResponseEntity<Response<PQRDTO>> findPQRs(
-            @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String date,
-            @RequestParam(required = false) UUID statusId) {
+            @RequestParam(required = false) Date date,
+            @RequestParam(required = false) UUID statusId,
+            @RequestParam(required = false) UUID riskId,
+            @RequestParam(required = false) UUID sectorId,
+            @RequestParam(required = false) UUID personId) {
 
         Response<PQRDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
         
         try {
             var facade = new PQRFacadeImpl();
-            var dateHelper = DateHelper.getDateHelper();
 
-            
             PQRDTO filter = new PQRDTO();
-            filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
-
-            try {
-                LocalDate parsedDate = LocalDate.parse(TextHelper.getDefaultWithTrim(date));
-                filter.setDate(dateHelper.getDefault(parsedDate));
-            } catch (final Exception exception) {
-                filter.setDate(dateHelper.getDefault());
-            }
+            filter.setDate(DateHelper.getDateHelper().dateToLocalDate(date));
 
             var status = new StatusDTO();
             status.setId(UUIDHelper.getUUIDHelper().getDefault(statusId));
             filter.setStatus(status);
+            
+            var risk = new RiskDTO();
+            risk.setId(UUIDHelper.getUUIDHelper().getDefault(riskId));
+            filter.setRisk(risk);
+            
+            var sector = new SectorDTO();
+            sector.setId(UUIDHelper.getUUIDHelper().getDefault(sectorId));
+            filter.setSector(sector);
+            
+            var person = new PersonDTO();
+            person.setId(UUIDHelper.getUUIDHelper().getDefault(personId));
+            filter.setPerson(person);
 
             responseObjectData.setData(facade.findPQRSByFilter(filter));
             responseObjectData.addMessage("");

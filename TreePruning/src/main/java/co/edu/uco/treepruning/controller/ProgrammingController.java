@@ -1,6 +1,6 @@
 package co.edu.uco.treepruning.controller;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +19,6 @@ import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.NumericHelper;
-import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
 import co.edu.uco.treepruning.dto.ProgrammingDTO;
 
@@ -36,7 +35,7 @@ public class ProgrammingController {
     @GetMapping
     public ResponseEntity<Response<ProgrammingDTO>> findProgrammings(
             @RequestParam(required = false) UUID id,
-            @RequestParam(required = false) String initialDate, 
+            @RequestParam(required = false) Date initialDate, 
             @RequestParam(required = false) Integer frequencyMonths,
             @RequestParam(required = false) Integer amount) {
 
@@ -45,20 +44,10 @@ public class ProgrammingController {
 
         try {
             var facade = new ProgrammingFacadeImpl();
-            var dateHelper = DateHelper.getDateHelper();
-
          
             ProgrammingDTO filter = new ProgrammingDTO();
             filter.setId(UUIDHelper.getUUIDHelper().getDefault(id));
-            
-            try {
-                String dateText = TextHelper.getDefaultWithTrim(initialDate);
-                LocalDate parsed = LocalDate.parse(dateText);
-                filter.setInitialDate(dateHelper.getDefault(parsed));
-            } catch (final Exception exception) {
-                filter.setInitialDate(dateHelper.getDefault());
-            }
-
+            filter.setInitialDate(DateHelper.getDateHelper().dateToLocalDate(initialDate));
             filter.setFrequencyMonths(NumericHelper.getDefaultInt(frequencyMonths));
             filter.setAmount(NumericHelper.getDefaultInt(amount));
 
