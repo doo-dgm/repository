@@ -58,7 +58,7 @@ public class SqlServerDAOFactory extends DAOFactory {
 		
 	public SqlServerDAOFactory() {
 		openConnection();
-		jdbcTemplate = new JdbcTemplate();
+		this.jdbcTemplate = new JdbcTemplate();
 	}
 	
 	private static final String PROPERTIES_FILE = "/application.properties";

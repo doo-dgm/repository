@@ -31,9 +31,8 @@ public final class ProgrammingFacadeImpl implements ProgrammingFacade {
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();
 
-            var userMessage = "";
-            var technicalMessage = "";
-            exception.printStackTrace();
+            var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getTitle();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } finally {
@@ -59,8 +58,8 @@ public final class ProgrammingFacadeImpl implements ProgrammingFacade {
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();
 
-            var userMessage = "";
-            var technicalMessage = "";
+            var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getTitle();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         } finally {
             daoFactory.closeConnection();
@@ -84,8 +83,8 @@ public final class ProgrammingFacadeImpl implements ProgrammingFacade {
         } catch (final Exception exception) {
             daoFactory.rollbackTransaction();
 
-            var userMessage = "";
-            var technicalMessage = "";
+            var userMessage = MessagesEnum.USER_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getTitle();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PROGRAMMING_FIND_BY_FILTER_UNEXPECTED.getContent();
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } finally {
@@ -93,4 +92,3 @@ public final class ProgrammingFacadeImpl implements ProgrammingFacade {
         }
     }
 }
-

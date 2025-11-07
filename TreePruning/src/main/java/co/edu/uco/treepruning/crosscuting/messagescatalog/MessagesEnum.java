@@ -95,6 +95,53 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED("Error inesperado ejecutando TypeDAO.findByFilter",
 		"Error inesperado ejecutando el query en TypeSqlServerDAO.findByFilter. Revise la traza de errores para mas detalles."),
 
+	// Mapper - Tree
+	USER_ERROR_TREE_MAPPER("Ocurrió un problema al mapear el árbol desde el ResultSet",
+			"Error al intentar extraer los campos del ResultSet para construir TreeEntity. Verifique esquema y nombres de columnas."),
+	TECHNICAL_ERROR_TREE_MAPPER("Error técnico mapeando TreeMapper",
+			"Se presentó un error técnico al mapear el ResultSet a TreeEntity. Revise la traza de errores para más detalle."),
+	USER_ERROR_TREE_MAPPER_UNEXPECTED("Ocurrió un problema INESPERADO al mapear el árbol",
+			"Se presentó un error inesperado al mapear el ResultSet a TreeEntity. Por favor contacte al administrador del sistema."),
+	TECHNICAL_ERROR_TREE_MAPPER_UNEXPECTED("Error inesperado mapeando TreeMapper",
+			"Se presentó un error inesperado al mapear el ResultSet a TreeEntity. Revise la traza de errores para más detalle."),
+
+	// DAO - Tree (create, find, update, delete)
+	USER_ERROR_TREE_CREATE("Se ha presentado un problema tratando de registrar el árbol. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
+			"Se produjo un error al ejecutar la operación de creación de Tree en la base de datos."),
+	TECHNICAL_ERROR_TREE_CREATE("Error técnico creando Tree",
+			"Error SQL ejecutando TreeSqlServerDAO.create. Revise la traza de errores para más detalles."),
+	USER_ERROR_TREE_CREATE_UNEXPECTED("Se ha presentado un problema INESPERADO creando el árbol",
+			"Se produjo una excepción inesperada al crear el árbol. Revise la traza de errores para más detalles."),
+	TECHNICAL_ERROR_TREE_CREATE_UNEXPECTED("Error inesperado creando Tree",
+			"Excepción inesperada al ejecutar la creación de Tree. Revise la traza de errores para más detalles."),
+
+	USER_ERROR_TREE_FIND_BY_FILTER("Se ha presentado un problema tratando de consultar árboles. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
+			"Se produjo un error al ejecutar la consulta de Tree en la base de datos."),
+	TECHNICAL_ERROR_TREE_FIND_BY_FILTER("Error técnico consultando Tree",
+			"Error SQL ejecutando TreeSqlServerDAO.findByFilter. Revise la traza de errores para más detalles."),
+	USER_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED("Se ha presentado un problema INESPERADO consultando árboles",
+			"Se produjo una excepción inesperada al consultar árboles. Revise la traza de errores para más detalles."),
+	TECHNICAL_ERROR_TREE_FIND_BY_FILTER_UNEXPECTED("Error inesperado consultando Tree",
+			"Excepción inesperada al ejecutar TreeSqlServerDAO.findByFilter. Revise la traza de errores para más detalles."),
+
+	USER_ERROR_TREE_UPDATE("Se ha presentado un problema tratando de modificar el árbol. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
+			"Se produjo un error al ejecutar la operación de actualización de Tree en la base de datos."),
+	TECHNICAL_ERROR_TREE_UPDATE("Error técnico modificando Tree",
+			"Error SQL ejecutando TreeSqlServerDAO.update. Revise la traza de errores para más detalles."),
+	USER_ERROR_TREE_UPDATE_UNEXPECTED("Se ha presentado un problema INESPERADO tratando de modificar el árbol",
+			"Se produjo una excepción inesperada al intentar actualizar el árbol. Revise la traza de errores para más detalles."),
+	TECHNICAL_ERROR_TREE_UPDATE_UNEXPECTED("Error inesperado modificando Tree",
+			"Excepción inesperada al ejecutar la actualización de Tree. Revise la traza completa de la excepción para identificar la causa."),
+
+	USER_ERROR_TREE_DELETE("Se ha presentado un problema tratando de eliminar el árbol. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
+			"Se produjo un error al ejecutar la operación de eliminación de Tree en la base de datos."),
+	TECHNICAL_ERROR_TREE_DELETE("Error técnico eliminando Tree",
+			"Error SQL ejecutando TreeSqlServerDAO.delete. Revise la traza de errores para más detalles."),
+	USER_ERROR_TREE_DELETE_UNEXPECTED("Se ha presentado un problema INESPERADO eliminando el árbol",
+			"Se produjo una excepción inesperada al eliminar el árbol. Revise la traza de errores para más detalles."),
+	TECHNICAL_ERROR_TREE_DELETE_UNEXPECTED("Error inesperado eliminando Tree",
+			"Excepción inesperada al ejecutar la eliminación de Tree. Revise la traza completa de la excepción para identificar la causa."),
+
 	// Mapper - Type
 	USER_ERROR_TYPE_MAPPER("Ocurrió un problema al mapear el tipo desde el ResultSet",
 		"Error al intentar extraer los campos del ResultSet para construir TypeEntity. Verifique esquema y nombres de columnas."),
@@ -308,6 +355,16 @@ public enum MessagesEnum {
 		"Se presentó un error inesperado al mapear el ResultSet a PruningToolEntity. Por favor contacte al administrador del sistema."),
 	TECHNICAL_ERROR_PRUNING_TOOL_MAPPER_UNEXPECTED("Error inesperado mapeando PruningToolMapper",
 		"Se presentó un error inesperado al mapear el ResultSet a PruningToolEntity. Revise la traza de errores para más detalle."),
+
+	// Mapper - Tool
+	USER_ERROR_TOOL_MAPPER("Ocurrió un problema al mapear la herramienta desde el ResultSet",
+			"Error al intentar extraer los campos del ResultSet para construir ToolEntity. Verifique esquema y nombres de columnas."),
+	TECHNICAL_ERROR_TOOL_MAPPER("Error técnico mapeando ToolMapper",
+			"Se presentó un error técnico al mapear el ResultSet a ToolEntity. Revise la traza de errores para más detalle."),
+	USER_ERROR_TOOL_MAPPER_UNEXPECTED("Ocurrió un problema INESPERADO al mapear la herramienta",
+			"Se presentó un error inesperado al mapear el ResultSet a ToolEntity. Por favor contacte al administrador del sistema."),
+	TECHNICAL_ERROR_TOOL_MAPPER_UNEXPECTED("Error inesperado mapeando ToolMapper",
+			"Se presentó un error inesperado al mapear el ResultSet a ToolEntity. Revise la traza de errores para más detalle."),
 
 	// DAO - PruningTool (create, find, update, delete)
 	USER_ERROR_PRUNING_TOOL_CREATE("Se ha presentado un problema tratando de registrar la herramienta de poda. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
