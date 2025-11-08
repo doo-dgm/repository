@@ -23,17 +23,15 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public void scheduleCorrectivePruning(final PruningDTO pruningDTO) {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
-			
-			daoFactory.initTransaction();
-			
-			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
-			business.scheduleCorrectivePruning(domain);
-			
-			daoFactory.commitTransaction();
+				daoFactory.initTransaction();
+				
+				var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
+				business.scheduleCorrectivePruning(domain);
+				
+				daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
 			daoFactory.rollbackTransaction();
 			throw exception;
@@ -51,7 +49,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public void cancelPruning(final UUID id, final StatusDTO status) {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
@@ -77,7 +74,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public void reschedulePruning(final UUID id, final PruningDTO pruningDTO) {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 
 		try {
@@ -103,17 +99,15 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public void completePruning(final UUID id, final StatusDTO status) {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
-			
-			daoFactory.initTransaction();
-			
-			var statusDomain = getStatusDTOAssembler().toDomain(status);
-			business.completePruning(id, statusDomain);
-			
-			daoFactory.commitTransaction();
+				daoFactory.initTransaction();
+				
+				var statusDomain = getStatusDTOAssembler().toDomain(status);
+				business.completePruning(id, statusDomain);
+				
+				daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
 			daoFactory.rollbackTransaction();
 			throw exception;
@@ -130,7 +124,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public List<PruningDTO> findAllPrunings() {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
@@ -156,7 +149,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public List<PruningDTO> findPruningsByFilter(final PruningDTO pruningFilters) {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 
 		try {
@@ -180,7 +172,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 
 	@Override
 	public PruningDTO findSpecificPruning(final UUID id) {
-		var daoFactory = DAOFactory.getFactory();
 		var business = new PruningBusinessImpl(daoFactory);
 
 		try {

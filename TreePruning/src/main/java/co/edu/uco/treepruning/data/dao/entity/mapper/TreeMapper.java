@@ -29,17 +29,16 @@ public final class TreeMapper {
             tree.setLatitude(resultSet.getString("treeLatitude"));            
 
         } catch (final SQLException exception) {
-            var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER.getContent();
-            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_MAPPER.getContent();
+            var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER.getTitle();
+            var technicalMessage = String.format("%s - %s", MessagesEnum.TECHNICAL_ERROR_TREE_MAPPER.getContent(), exception.getMessage());
             throw TreePruningException.create(exception, userMessage, technicalMessage);
 
         } catch (final Exception exception) {
-            var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER_UNEXPECTED.getContent();
-            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TREE_MAPPER_UNEXPECTED.getContent();
+            var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER_UNEXPECTED.getTitle();
+            var technicalMessage = String.format("%s - %s", MessagesEnum.TECHNICAL_ERROR_TREE_MAPPER_UNEXPECTED.getContent(), exception.toString());
             throw TreePruningException.create(exception, userMessage, technicalMessage);
         }
 
         return tree;
     }
 }
-

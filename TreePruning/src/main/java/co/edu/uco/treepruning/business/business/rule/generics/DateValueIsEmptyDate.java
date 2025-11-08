@@ -6,6 +6,7 @@ import co.edu.uco.treepruning.business.business.rule.Rule;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
 public class DateValueIsEmptyDate implements Rule {
 	
@@ -21,14 +22,14 @@ public class DateValueIsEmptyDate implements Rule {
 	@Override
 	public void execute(final Object... data) {
 		if (ObjectHelper.isNull(data)) {
-			var userMessage = "Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...";
-			var technicalMessage = "No se recibieron los parametros requeridos para ejecutar la regla de DateValueIsEmptyDate.";
+			var userMessage = MessagesEnum.USER_ERROR_DATE_VALUE_IS_EMPTY_DATA_IS_NULL.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DATE_VALUE_IS_EMPTY_DATA_IS_NULL.getContent();
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		
 		if (data.length < 2) {
-			var userMessage = "Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...";
-			var technicalMessage = "Se requerian dos parametros y llegó una cantidad menor a esta ejecutar la regla de DateValueIsEmptyDate";
+			var userMessage = MessagesEnum.USER_ERROR_DATE_VALUE_IS_EMPTY_INSUFFICIENT_PARAMETERS.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DATE_VALUE_IS_EMPTY_INSUFFICIENT_PARAMETERS.getContent();
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		
@@ -36,8 +37,8 @@ public class DateValueIsEmptyDate implements Rule {
 		var dataName = (String) data[1];
 		
 		if (DateHelper.getDateHelper().isDefaultDate(dateData)) {
-			var userMessage = "El dato [".concat(dataName).concat("] es requerido para llevar a cabo la operacion deseada.");
-			var technicalMessage = "La regla DateValueIsEmptyDate falló porque el dato [".concat(dataName).concat("] requerido para llevar a cabo la operacion esta vacio.");
+			var userMessage = String.format(MessagesEnum.USER_ERROR_DATE_VALUE_IS_EMPTY.getTitle(), dataName);
+			var technicalMessage = String.format(MessagesEnum.TECHNICAL_ERROR_DATE_VALUE_IS_EMPTY.getContent(), dataName);
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		

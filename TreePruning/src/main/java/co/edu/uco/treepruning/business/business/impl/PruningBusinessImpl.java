@@ -11,6 +11,7 @@ import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRExistsB
 import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRIsNotClosed;
 import co.edu.uco.treepruning.business.business.validator.pruning.ValidateDataPruningConsistencyForRegisterNewInformation;
 import co.edu.uco.treepruning.business.business.validator.status.ValidateStatusExistsById;
+import co.edu.uco.treepruning.business.business.validator.status.ValidateStatusIsNotClosed;
 import co.edu.uco.treepruning.business.business.validator.tree.ValidateTreeExistsById;
 import co.edu.uco.treepruning.business.business.validator.tree.ValidateTreeHasPendingPruningTheSameDay;
 import co.edu.uco.treepruning.business.business.validator.type.ValidateTypeExistsById;
@@ -33,20 +34,16 @@ public class PruningBusinessImpl implements PruningBusiness {
 	public void scheduleCorrectivePruning(final PruningDomain pruningDomain) {
 		
 		try {
-			ValidateDataPruningConsistencyForRegisterNewInformation.executeValidation(pruningDomain);
-			
-			ValidateStatusExistsById.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
-			
-			
+			ValidateDataPruningConsistencyForRegisterNewInformation.executeValidation(pruningDomain, daoFactory);
 			ValidateTreeExistsById.executeValidation(pruningDomain.getTree().getId(), daoFactory);
-			ValidateTreeHasPendingPruningTheSameDay.executeValidation(pruningDomain.getTree().getId(), pruningDomain.getPlannedDate(), daoFactory);
-			
+			ValidateStatusExistsById.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
+			ValidateStatusIsNotClosed.executeValidation(pruningDomain.getStatus().getId(), daoFactory);
 			ValidateTypeExistsById.executeValidation(pruningDomain.getType().getId(), daoFactory);
 			ValidateTypeIsCorrective.executeValidation(pruningDomain.getType().getId(), daoFactory);
-			
 			ValidatePQRExistsById.executeValidation(pruningDomain.getPqr().getId(), daoFactory);
 			ValidatePQRIsNotClosed.executeValidation(pruningDomain.getPqr().getId(), daoFactory);
-			
+			ValidateTreeHasPendingPruningTheSameDay.executeValidation(pruningDomain.getTree().getId(), pruningDomain.getPlannedDate(), daoFactory);
+
 			var pruningEntity = getPruningEntityAssembler().toEntity(pruningDomain);
 			
 			pruningEntity.setId(generateId());
@@ -58,7 +55,6 @@ public class PruningBusinessImpl implements PruningBusiness {
 			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
-			// Manejo de excepciones si es necesario
 			var userMessage = "";
 			var technicalMessage = "";
 			throw TreePruningException.create(exception, userMessage, technicalMessage);

@@ -1,13 +1,13 @@
 package co.edu.uco.treepruning.test;
 
-import co.edu.uco.treepruning.business.facade.impl.PruningFacadeImpl;
+//import co.edu.uco.treepruning.business.facade.impl.PruningFacadeImpl;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 
 public class TestUserRegistration {
 	public static void main(String[] args) {
 		try {
 						
-			var facade = new PruningFacadeImpl();
+			//var facade = new PruningFacadeImpl();
 			//facade.schedulePruning();
 			
 			System.out.println("Gane el semestre");

@@ -4,6 +4,7 @@ import co.edu.uco.treepruning.business.business.rule.Rule;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
 public class StringLengthValueIsValidRule implements Rule {
 	
@@ -19,14 +20,14 @@ public class StringLengthValueIsValidRule implements Rule {
 	@Override
 	public void execute(final Object... data) {
 		if (ObjectHelper.isNull(data)) {
-			var userMessage = "Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...";
-			var technicalMessage = "No se recibieron los parametros requeridos para ejecutar la regla de StringLengthValueIsValidRule.";
+			var userMessage = MessagesEnum.USER_ERROR_STRING_LENGTH_RULE_DATA_IS_NULL.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STRING_LENGTH_RULE_DATA_IS_NULL.getContent();
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		
 		if (data.length < 5) {
-			var userMessage = "Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...";
-			var technicalMessage = "Se requerian cinco parametros y llegó una cantidad menor a esta ejecutar la regla de StringLengthValueIsValidRule";
+			var userMessage = MessagesEnum.USER_ERROR_STRING_LENGTH_INSUFFICIENT_PARAMETERS.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_STRING_LENGTH_INSUFFICIENT_PARAMETERS.getContent();
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		
@@ -37,8 +38,8 @@ public class StringLengthValueIsValidRule implements Rule {
 		var mustApplyTrim = (boolean) data[4];
 		
 		if (TextHelper.lenthIsValid(stringData, minLength, maxLength, mustApplyTrim)) {
-			var userMessage = "El dato [".concat(dataName).concat("] no tiene una longitud entre ").concat(String.valueOf(minLength)).concat(" y ").concat(String.valueOf(maxLength)).concat("...");
-			var technicalMessage = "El dato [".concat(dataName).concat("] no tiene una longitud entre ").concat(String.valueOf(minLength)).concat(" y ").concat(String.valueOf(maxLength)).concat("...");
+			var userMessage = String.format(MessagesEnum.USER_ERROR_STRING_LENGTH_INVALID_LENGTH.getTitle(), dataName, String.valueOf(minLength), String.valueOf(maxLength));
+			var technicalMessage = String.format(MessagesEnum.TECHNICAL_ERROR_STRING_LENGTH_INVALID_LENGTH.getContent(), dataName, String.valueOf(minLength), String.valueOf(maxLength));
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		

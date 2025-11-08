@@ -3,7 +3,6 @@ package co.edu.uco.treepruning.data.dao.entity.sqlserver;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

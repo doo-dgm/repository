@@ -43,11 +43,10 @@ public class PruningController {
     public ResponseEntity<Response<PruningDTO>> scheduleCorrectivePruning(@RequestBody PruningDTO pruningDTO) {
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
-
         try {
             var facade = new PruningFacadeImpl();
             facade.scheduleCorrectivePruning(pruningDTO);
-            responseObjectData.addMessage("");
+            responseObjectData.addMessage("Poda correctiva ejecutada con exito");
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());

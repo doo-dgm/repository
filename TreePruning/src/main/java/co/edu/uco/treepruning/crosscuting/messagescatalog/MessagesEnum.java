@@ -95,15 +95,222 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_TYPE_FIND_BY_FILTER_UNEXPECTED("Error inesperado ejecutando TypeDAO.findByFilter",
 		"Error inesperado ejecutando el query en TypeSqlServerDAO.findByFilter. Revise la traza de errores para mas detalles."),
 
-	// Mapper - Tree
-	USER_ERROR_TREE_MAPPER("Ocurrió un problema al mapear el árbol desde el ResultSet",
-			"Error al intentar extraer los campos del ResultSet para construir TreeEntity. Verifique esquema y nombres de columnas."),
-	TECHNICAL_ERROR_TREE_MAPPER("Error técnico mapeando TreeMapper",
-			"Se presentó un error técnico al mapear el ResultSet a TreeEntity. Revise la traza de errores para más detalle."),
-	USER_ERROR_TREE_MAPPER_UNEXPECTED("Ocurrió un problema INESPERADO al mapear el árbol",
-			"Se presentó un error inesperado al mapear el ResultSet a TreeEntity. Por favor contacte al administrador del sistema."),
-	TECHNICAL_ERROR_TREE_MAPPER_UNEXPECTED("Error inesperado mapeando TreeMapper",
-			"Se presentó un error inesperado al mapear el ResultSet a TreeEntity. Revise la traza de errores para más detalle."),
+	// Rule - TypeIsCorrectiveRule (validation messages)
+	USER_ERROR_TYPE_RULE_DATA_IS_NULL("Se ha presentado un problema validando los datos de entrada para la regla 'TypeIsCorrective'",
+		"Los parametros recibidos para ejecutar la regla TypeIsCorrectiveRule llegaron nulos."),
+	TECHNICAL_ERROR_TYPE_RULE_DATA_IS_NULL("Parametros nulos en regla TypeIsCorrective",
+		"El array de parametros pasado a TypeIsCorrectiveRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_TYPE_RULE_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'TypeIsCorrective'",
+		"La regla TypeIsCorrectiveRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_TYPE_RULE_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla TypeIsCorrective",
+		"La invocacion de TypeIsCorrectiveRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_TYPE_NOT_FOUND_CORRECTIVE("No existe un tipo registrado como correctivo. Por favor verifique la información y vuelva a intentar.",
+		"No existe ningun tipo de poda con el nombre 'Correctiva' en la base de datos."),
+	TECHNICAL_ERROR_TYPE_NOT_FOUND_CORRECTIVE("Tipo 'Correctiva' no encontrado en base de datos",
+		"La consulta a TypeDAO.findByFilter no devolvio resultados para una entidad Type con nombre 'Correctiva'. Verifique los datos de referencia en la BD."),
+
+	// Rule - DateFormatValueIsValidRule (validation messages)
+	USER_ERROR_DATE_FORMAT_RULE_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla DateFormatValueIsValidRule."),
+	TECHNICAL_ERROR_DATE_FORMAT_RULE_DATA_IS_NULL("Parametros nulos en regla DateFormatValueIsValid",
+		"El array de parametros pasado a DateFormatValueIsValidRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_DATE_FORMAT_RULE_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'DateFormatValueIsValid'",
+		"La regla DateFormatValueIsValidRule requiere 2 parametros: date (LocalDate) y dataName (String); los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_DATE_FORMAT_RULE_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla DateFormatValueIsValid",
+		"La invocacion de DateFormatValueIsValidRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_DATE_FORMAT_INVALID_VALUE("El dato [%s] tiene un formato invalido para llevar a cabo la operacion deseada.",
+		"La regla DateFormatValueIsValidRule ha identificado que un dato tiene formato invalido."),
+	TECHNICAL_ERROR_DATE_FORMAT_INVALID_VALUE("La regla DateFormatValueIsValidRule falló por formato inválido en dato [%s]",
+		"La regla DateFormatValueIsValidRule falló porque el dato [%s] requerido para llevar a cabo la operacion tiene un formato invalido."),
+
+	// Rule - DateRangeValueIsValidRule (validation messages)
+	USER_ERROR_DATE_RANGE_RULE_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla DateRangeValueIsValidRule."),
+	TECHNICAL_ERROR_DATE_RANGE_RULE_DATA_IS_NULL("Parametros nulos en regla DateRangeValueIsValid",
+		"El array de parametros pasado a DateRangeValueIsValidRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_DATE_RANGE_RULE_INSUFFICIENT_PARAMETERS("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"La regla DateRangeValueIsValidRule requiere 2 parametros: date (LocalDate) y dataName (String); los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_DATE_RANGE_RULE_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla DateRangeValueIsValid",
+		"La invocacion de DateRangeValueIsValidRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_DATE_RANGE_INVALID_VALUE("El dato [%s] debe ser una fecha posterior o igual a la fecha actual para llevar a cabo la operacion deseada.",
+		"La regla DateRangeValueIsValidRule ha identificado que un dato no cumple el rango de fecha esperado."),
+	TECHNICAL_ERROR_DATE_RANGE_INVALID_VALUE("La regla DateRangeValueIsValidRule falló por rango inválido en dato [%s]",
+		"La regla DateRangeValueIsValidRule falló porque el dato [%s] requerido para llevar a cabo la operacion no es una fecha posterior o igual a la fecha actual."),
+
+	// Rule - DateValueIsEmptyDate (validation messages)
+	USER_ERROR_DATE_VALUE_IS_EMPTY_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla DateValueIsEmptyDate."),
+	TECHNICAL_ERROR_DATE_VALUE_IS_EMPTY_DATA_IS_NULL("Parametros nulos en regla DateValueIsEmptyDate",
+		"El array de parametros pasado a DateValueIsEmptyDate.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_DATE_VALUE_IS_EMPTY_INSUFFICIENT_PARAMETERS("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"La regla DateValueIsEmptyDate requiere 2 parametros: date (LocalDate) y dataName (String); los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_DATE_VALUE_IS_EMPTY_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla DateValueIsEmptyDate",
+		"La invocacion de DateValueIsEmptyDate.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_DATE_VALUE_IS_EMPTY("El dato [%s] es requerido para llevar a cabo la operacion deseada.",
+		"El dato requerido no fue proporcionado para completar la operacion deseada."),
+	TECHNICAL_ERROR_DATE_VALUE_IS_EMPTY("La regla DateValueIsEmptyDate falló por dato vacio [%s]",
+		"La regla DateValueIsEmptyDate falló porque el dato [%s] requerido para llevar a cabo la operacion esta vacio."),
+
+	// Rule - TypeExistsByIdRule (validation messages)
+	USER_ERROR_TYPE_EXISTS_BY_ID_DATA_IS_NULL("Se ha presentado un problema validando los datos de entrada para la regla 'TypeExistsById'",
+		"Los parametros recibidos para ejecutar la regla TypeExistsByIdRule llegaron nulos."),
+	TECHNICAL_ERROR_TYPE_EXISTS_BY_ID_DATA_IS_NULL("Parametros nulos en regla TypeExistsById",
+		"El array de parametros pasado a TypeExistsByIdRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_TYPE_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'TypeExistsById'",
+		"La regla TypeExistsByIdRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_TYPE_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla TypeExistsById",
+		"La invocacion de TypeExistsByIdRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_TYPE_ID_IS_EMPTY("El identificador del tipo no puede ser vacío",
+		"Se intenta validar la existencia de un tipo con un identificador por defecto/vacio (UUID por defecto)."),
+	TECHNICAL_ERROR_TYPE_ID_IS_EMPTY("Identificador de tipo vacio en validacion",
+		"TypeExistsByIdRule recibió un UUID por defecto (UUID vacío) para la validación. Verifique el origen del id enviado."),
+
+	USER_ERROR_TYPE_NOT_FOUND_BY_ID("El tipo especificado no existe. Por favor verifique el identificador y vuelva a intentar.",
+		"No se encontró un tipo con el identificador especificado en la base de datos."),
+	TECHNICAL_ERROR_TYPE_NOT_FOUND_BY_ID("Tipo no encontrado por id en base de datos",
+		"La consulta a TypeDAO.findById devolvió un resultado vacío o con id por defecto para el id solicitado. id consultado: %s"),
+
+	// Rule - TreeExistsByIdRule (validation messages) - centralizadas
+	USER_ERROR_TREE_EXISTS_BY_ID_DATA_IS_NULL("Se ha presentado un problema validando los datos de entrada para la regla 'TreeExistsById'",
+		"Los parametros recibidos para ejecutar la regla TreeExistsByIdRule llegaron nulos."),
+	TECHNICAL_ERROR_TREE_EXISTS_BY_ID_DATA_IS_NULL("Parametros nulos en regla TreeExistsById",
+		"El array de parametros pasado a TreeExistsByIdRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_TREE_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'TreeExistsById'",
+		"La regla TreeExistsByIdRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_TREE_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla TreeExistsById",
+		"La invocacion de TreeExistsByIdRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_TREE_ID_IS_EMPTY("El identificador del árbol no puede ser vacío",
+		"Se intenta validar la existencia de un árbol con un identificador por defecto/vacio (UUID por defecto)."),
+	TECHNICAL_ERROR_TREE_ID_IS_EMPTY("Identificador de árbol vacio en validacion",
+		"TreeExistsByIdRule recibió un UUID por defecto (UUID vacío) para la validación. Verifique el origen del id enviado."),
+
+	USER_ERROR_TREE_NOT_FOUND_BY_ID("El árbol especificado no existe. Por favor verifique el identificador y vuelva a intentar.",
+		"No se encontró un árbol con el identificador especificado en la base de datos."),
+	TECHNICAL_ERROR_TREE_NOT_FOUND_BY_ID("Árbol no encontrado por id en base de datos",
+		"La consulta a TreeDAO.findById devolvió un resultado vacío o con id por defecto para el id solicitado. id consultado: %s"),
+
+	// Rule - IdValueIsNotDefaultValueRule (validation messages)
+	USER_ERROR_ID_VALUE_IS_NOT_DEFAULT_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla IdValueIsNotDefaultValueRule."),
+	TECHNICAL_ERROR_ID_VALUE_IS_NOT_DEFAULT_DATA_IS_NULL("Parametros nulos en regla IdValueIsNotDefaultValue",
+		"El array de parametros pasado a IdValueIsNotDefaultValueRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_ID_VALUE_IS_NOT_DEFAULT_INSUFFICIENT_PARAMETERS("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"Se requerian dos parametros y llegó una cantidad menor a esta ejecutar la regla de IdValueIsNotDefaultValueRule"),
+	TECHNICAL_ERROR_ID_VALUE_IS_NOT_DEFAULT_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla IdValueIsNotDefaultValue",
+		"La invocacion de IdValueIsNotDefaultValueRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_ID_VALUE_IS_DEFAULT("El identificador del %s no puede ser el valor por defecto...",
+		"La validación detectó que el identificador del %s es el UUID por defecto."),
+	TECHNICAL_ERROR_ID_VALUE_IS_DEFAULT("Identificador con valor por defecto en validación",
+		"La regla IdValueIsNotDefaultValueRule detectó que el identificador del %s tiene el valor por defecto. Revise el origen del id enviado."),
+
+	// Rule - StringLengthValueIsValidRule (validation messages)
+	USER_ERROR_STRING_LENGTH_RULE_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla StringLengthValueIsValidRule."),
+	TECHNICAL_ERROR_STRING_LENGTH_RULE_DATA_IS_NULL("Parametros nulos en regla StringLengthValueIsValid",
+		"El array de parametros pasado a StringLengthValueIsValidRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_STRING_LENGTH_INSUFFICIENT_PARAMETERS("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"Se requerian cinco parametros y llegó una cantidad menor a esta ejecutar la regla de StringLengthValueIsValidRule"),
+	TECHNICAL_ERROR_STRING_LENGTH_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla StringLengthValueIsValid",
+		"La invocacion de StringLengthValueIsValidRule.execute() no proporciono la cantidad minima de parametros requerida (5). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_STRING_LENGTH_INVALID_LENGTH("El dato [%s] no tiene una longitud entre %s y %s...",
+		"El dato [%s] no tiene una longitud entre %s y %s..."),
+	TECHNICAL_ERROR_STRING_LENGTH_INVALID_LENGTH("La regla StringLengthValueIsValid falló por longitud invalida en dato [%s]",
+		"La regla StringLengthValueIsValidRule falló porque el dato [%s] requerido para llevar a cabo la operacion no tiene una longitud entre %s y %s."),
+
+	// Rule - StringValueIsPresentRule (validation messages)
+	USER_ERROR_STRING_VALUE_IS_PRESENT_DATA_IS_NULL("Los datos para validar la presencia de un valor en una cadena de texto no pueden ser nulos",
+		"Se ha recibido un arreglo de datos nulo para validar la presencia de un valor en una cadena de texto"),
+	TECHNICAL_ERROR_STRING_VALUE_IS_PRESENT_DATA_IS_NULL("Parametros nulos en regla StringValueIsPresent",
+		"El array de parametros pasado a StringValueIsPresentRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_STRING_VALUE_IS_PRESENT_INSUFFICIENT_PARAMETERS("Se requieren tres parametros para validar la presencia de un valor en una cadena de texto",
+		"Se han recibido %s parametros para validar la presencia de un valor en una cadena de texto, se esperaban tres"),
+	TECHNICAL_ERROR_STRING_VALUE_IS_PRESENT_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla StringValueIsPresent",
+		"La invocacion de StringValueIsPresentRule.execute() no proporciono la cantidad minima de parametros requerida (3). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_STRING_VALUE_IS_PRESENT("El dato [%s] es requerido para llevar a cabo la operacion deseada.",
+		"El dato [%s] es requerido para llevar a cabo la operacion deseada."),
+	TECHNICAL_ERROR_STRING_VALUE_IS_PRESENT("La regla StringValueIsPresentRule falló por dato vacio [%s]",
+		"La regla StringValueIsPresentRule falló porque el dato [%s] requerido para llevar a cabo la operacion esta vacio."),
+
+	// New Rule messages for Status and PQR (centralized)
+	// Rule - StatusExistsByIdRule (validation messages)
+	USER_ERROR_STATUS_EXISTS_BY_ID_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla de StatusExistsByIdRule."),
+	TECHNICAL_ERROR_STATUS_EXISTS_BY_ID_DATA_IS_NULL("Parametros nulos en regla StatusExistsById",
+		"El array de parametros pasado a StatusExistsByIdRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_STATUS_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"La regla StatusExistsByIdRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_STATUS_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla StatusExistsById",
+		"La invocacion de StatusExistsByIdRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_STATUS_ID_IS_EMPTY("El identificador del estado no puede ser vacio...",
+		"Se esta tratando de validar la existencia de un estado con un identificador vacio."),
+	TECHNICAL_ERROR_STATUS_ID_IS_EMPTY("Identificador de estado vacio en validacion",
+		"StatusExistsByIdRule recibió un UUID por defecto (UUID vacío) para la validación. Verifique el origen del id enviado."),
+
+	USER_ERROR_STATUS_NOT_FOUND_BY_ID("El estado deseado no existe...",
+		"El estado con id[%s] no existe..."),
+	TECHNICAL_ERROR_STATUS_NOT_FOUND_BY_ID("Estado no encontrado por id en base de datos",
+		"La consulta a StatusDAO.findById devolvió un resultado vacío o con id por defecto para el id solicitado. id consultado: %s"),
+
+	USER_ERROR_STATUS_IS_CLOSED("El estado especificado no es válido para la operación porque está en 'Cerrado'",
+		"El estado con id[%s] se encuentra en estado 'Cerrado'."),
+	TECHNICAL_ERROR_STATUS_IS_CLOSED("Estado en 'Cerrado' invalida operacion",
+		"StatusIsNotClosedRule detectó que el estado con id[%s] está en 'Cerrado'. Verifique el flujo de negocio."),
+
+	// Rule - PQRExistsByIdRule (validation messages)
+	USER_ERROR_PQR_EXISTS_BY_ID_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"No se recibieron los parametros requeridos para ejecutar la regla de PQRExistsByIdRule."),
+	TECHNICAL_ERROR_PQR_EXISTS_BY_ID_DATA_IS_NULL("Parametros nulos en regla PQRExistsById",
+		"El array de parametros pasado a PQRExistsByIdRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_PQR_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
+		"La regla PQRExistsByIdRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_PQR_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla PQRExistsById",
+		"La invocacion de PQRExistsByIdRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_PQR_ID_IS_EMPTY("El identificador de la PQR no puede ser vacio...",
+		"Se esta tratando de validar la existencia de una PQR con un identificador vacio."),
+	TECHNICAL_ERROR_PQR_ID_IS_EMPTY("Identificador de PQR vacio en validacion",
+		"PQRExistsByIdRule recibió un UUID por defecto (UUID vacío) para la validación. Verifique el origen del id enviado."),
+
+	USER_ERROR_PQR_NOT_FOUND_BY_ID("La PQR especificada no existe...",
+		"La PQR con id[%s] no existe..."),
+	TECHNICAL_ERROR_PQR_NOT_FOUND_BY_ID("PQR no encontrada por id en base de datos",
+		"La consulta a PQRDAO.findById devolvió un resultado vacío o con id por defecto para el id solicitado. id consultado: %s"),
+
+	USER_ERROR_PQR_IS_NOT_CLOSED_DATA_IS_NULL("Los datos para validar que la PQR no este cerrada son obligatorios...",
+		"Se esta tratando de validar que una PQR no este cerrada con datos nulos."),
+	TECHNICAL_ERROR_PQR_IS_NOT_CLOSED_DATA_IS_NULL("Parametros nulos en regla PQRIsNotClosed",
+		"El array de parametros pasado a PQRIsNotClosedRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_PQR_IS_NOT_CLOSED_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'PQRIsNotClosed'",
+		"La regla PQRIsNotClosedRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_PQR_IS_NOT_CLOSED_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla PQRIsNotClosed",
+		"La invocacion de PQRIsNotClosedRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_PQR_ALREADY_CLOSED("La PQR especificada ya se encuentra cerrada...",
+		"La PQR con id[%s] se encuentra en estado cerrado."),
+	TECHNICAL_ERROR_PQR_ALREADY_CLOSED("PQR ya cerrada invalida operacion",
+		"PQRIsNotClosedRule detectó que la PQR con id[%s] está en 'Cerrado'. Verifique el flujo de negocio."),
 
 	// DAO - Tree (create, find, update, delete)
 	USER_ERROR_TREE_CREATE("Se ha presentado un problema tratando de registrar el árbol. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
@@ -131,7 +338,7 @@ public enum MessagesEnum {
 	USER_ERROR_TREE_UPDATE_UNEXPECTED("Se ha presentado un problema INESPERADO tratando de modificar el árbol",
 			"Se produjo una excepción inesperada al intentar actualizar el árbol. Revise la traza de errores para más detalles."),
 	TECHNICAL_ERROR_TREE_UPDATE_UNEXPECTED("Error inesperado modificando Tree",
-			"Excepción inesperada al ejecutar la actualización de Tree. Revise la traza completa de la excepción para identificar la causa."),
+			"Excepción inesperada al ejecutar la actualización de Tree. Revise la traza de errores para más detalles."),
 
 	USER_ERROR_TREE_DELETE("Se ha presentado un problema tratando de eliminar el árbol. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema",
 			"Se produjo un error al ejecutar la operación de eliminación de Tree en la base de datos."),
@@ -140,7 +347,7 @@ public enum MessagesEnum {
 	USER_ERROR_TREE_DELETE_UNEXPECTED("Se ha presentado un problema INESPERADO eliminando el árbol",
 			"Se produjo una excepción inesperada al eliminar el árbol. Revise la traza de errores para más detalles."),
 	TECHNICAL_ERROR_TREE_DELETE_UNEXPECTED("Error inesperado eliminando Tree",
-			"Excepción inesperada al ejecutar la eliminación de Tree. Revise la traza completa de la excepción para identificar la causa."),
+			"Excepción inesperada al ejecutar la eliminación de Tree. Revise la traza de errores para más detalles."),
 
 	// Mapper - Type
 	USER_ERROR_TYPE_MAPPER("Ocurrió un problema al mapear el tipo desde el ResultSet",
@@ -345,6 +552,16 @@ public enum MessagesEnum {
 		"Se presentó un error inesperado al mapear el ResultSet a PruningEntity. Por favor contacte al administrador del sistema."),
 	TECHNICAL_ERROR_PRUNING_MAPPER_UNEXPECTED("Error inesperado mapeando PruningMapper",
 		"Se presentó un error inesperado al mapear el ResultSet a PruningEntity. Revise la traza de errores para más detalle."),
+
+	// Mapper - Tree
+	USER_ERROR_TREE_MAPPER("Ocurrió un problema al mapear el árbol desde el ResultSet",
+		"Error al intentar extraer los campos del ResultSet para construir TreeEntity. Verifique esquema y nombres de columnas."),
+	TECHNICAL_ERROR_TREE_MAPPER("Error técnico mapeando TreeMapper",
+		"Se presentó un error técnico al mapear el ResultSet a TreeEntity. Revise la traza de errores para más detalle."),
+	USER_ERROR_TREE_MAPPER_UNEXPECTED("Ocurrió un problema INESPERADO al mapear el árbol",
+		"Se presentó un error inesperado al mapear el ResultSet a TreeEntity. Por favor contacte al administrador del sistema."),
+	TECHNICAL_ERROR_TREE_MAPPER_UNEXPECTED("Error inesperado mapeando TreeMapper",
+		"Se presentó un error inesperado al mapear el ResultSet a TreeEntity. Revise la traza de errores para más detalle."),
 
 	// Mapper - PruningTool
 	USER_ERROR_PRUNING_TOOL_MAPPER("Ocurrió un problema al mapear la herramienta de poda desde el ResultSet",
@@ -613,7 +830,7 @@ public enum MessagesEnum {
 
 	// Generic DAO operation messages (used when no entity-specific message exists)
 	USER_ERROR_DAO_EXECUTE("Error realizando operación de datos",
-		"Se ha presentado un problema al ejecutar la operación solicitada en la capa de acceso a datos. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+		"Se presentó un problema al intentar ejecutar una operación en el DAO. Por favor intente de nuevo y si el problema persiste contacte al administrador del sistema."),
 	TECHNICAL_ERROR_DAO_EXECUTE("Error técnico ejecutando operación de datos",
 		"Se produjo un error técnico en la capa DAO. Revise la traza de errores para identificar el punto de fallo y tomar las acciones necesarias."),
 	USER_ERROR_DAO_EXECUTE_UNEXPECTED("Error inesperado realizando operación de datos",
@@ -720,7 +937,7 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_MANAGER_UPDATE("Error técnico modificando manager",
 		"Error SQL ejecutando ManagerSqlServerDAO.update. Revise la traza de errores para más detalles."),
 	USER_ERROR_MANAGER_UPDATE_UNEXPECTED("Se ha presentado un problema INESPERADO tratando de modificar el manager",
-		"Se produjo una excepción inesperada al intentar actualizar el manager. Revise la traza de errores para más detalles."),
+		"Se produjo una excepción inesperada al intentar modificar el manager. Revise la traza de errores para más detalles."),
 	TECHNICAL_ERROR_MANAGER_UPDATE_UNEXPECTED("Error inesperado modificando manager",
 		"Excepción inesperada al ejecutar la actualización del manager. Revise la traza de errores para más detalles."),
 
@@ -903,9 +1120,23 @@ public enum MessagesEnum {
 		"Se produjo una excepción inesperada al eliminar la poda. Revise la traza de errores para más detalles."),
 	TECHNICAL_ERROR_PRUNING_DELETE_UNEXPECTED("Error inesperado eliminando poda",
 		"Excepción inesperada al ejecutar la eliminación en PruningSqlServerDAO.delete. Revise la traza de errores para más detalles."),
-	
 
-;
+	// Rule - TreeHasPendingPruningTheSameDayRule (validation messages)
+	USER_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_DATA_IS_NULL("Se ha presentado un problema validando los datos de entrada para la regla 'TreeHasPendingPruningTheSameDay'",
+		"Los parametros recibidos para ejecutar la regla TreeHasPendingPruningTheSameDayRule llegaron nulos."),
+	TECHNICAL_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_DATA_IS_NULL("Parametros nulos en regla TreeHasPendingPruningTheSameDay",
+		"El array de parametros pasado a TreeHasPendingPruningTheSameDayRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'TreeHasPendingPruningTheSameDay'",
+		"La regla TreeHasPendingPruningTheSameDayRule requiere 3 parametros: treeId (UUID), plannedDate (LocalDate) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla TreeHasPendingPruningTheSameDay",
+		"La invocacion de TreeHasPendingPruningTheSameDayRule.execute() no proporciono la cantidad minima de parametros requerida (3). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_FOUND("Ya existe una poda programada para este árbol en la fecha indicada.",
+		"Se encontró un registro de poda para el árbol con id [%s] en la fecha [%s]."),
+	TECHNICAL_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_FOUND("Poda pendiente encontrada para árbol en la misma fecha",
+		"La consulta a PruningDAO.findByFilter devolvió resultados para Tree id [%s] y fecha [%s]. Verifique la integridad de datos y la lógica aplicada.");
+
 	
 	private String title;
 	private String content;

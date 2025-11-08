@@ -6,6 +6,7 @@ import co.edu.uco.treepruning.business.business.rule.Rule;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 
 public class DateRangeValueIsValidRule implements Rule{
 	
@@ -22,14 +23,14 @@ public class DateRangeValueIsValidRule implements Rule{
 	public void execute(final Object... data) {
 		
 		if (ObjectHelper.isNull(data)) {
-			var userMessage = "Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...";
-			var technicalMessage = "No se recibieron los parametros requeridos para ejecutar la regla de DateRangeValueIsValidRule.";
+			var userMessage = MessagesEnum.USER_ERROR_DATE_RANGE_RULE_DATA_IS_NULL.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DATE_RANGE_RULE_DATA_IS_NULL.getContent();
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		
 		if (data.length < 2) {
-			var userMessage = "Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...";
-			var technicalMessage = "Se requerian tres parametros y llegó una cantidad menor a esta ejecutar la regla de DateRangeValueIsValidRule";
+			var userMessage = MessagesEnum.USER_ERROR_DATE_RANGE_RULE_INSUFFICIENT_PARAMETERS.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_DATE_RANGE_RULE_INSUFFICIENT_PARAMETERS.getContent();
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 		
@@ -37,8 +38,8 @@ public class DateRangeValueIsValidRule implements Rule{
 		var dataName = (String) data[1];
 		
 		if (!DateHelper.getDateHelper().isLocalDateAfterOrEquals(date)) {
-			var userMessage = "El dato [".concat(dataName).concat("] debe ser una fecha posterior o igual a la fecha actual para llevar a cabo la operacion deseada.");
-			var technicalMessage = "La regla DateRangeValueIsValidRule falló porque el dato [".concat(dataName).concat("] requerido para llevar a cabo la operacion no es una fecha posterior o igual a la fecha actual.");
+			var userMessage = String.format(MessagesEnum.USER_ERROR_DATE_RANGE_INVALID_VALUE.getTitle(), dataName);
+			var technicalMessage = String.format(MessagesEnum.TECHNICAL_ERROR_DATE_RANGE_INVALID_VALUE.getContent(), dataName);
 			throw TreePruningException.create(userMessage,	technicalMessage);
 		}
 	}

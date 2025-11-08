@@ -2,10 +2,12 @@ package co.edu.uco.treepruning.business.business.validator.pruning;
 
 import co.edu.uco.treepruning.business.business.rule.generics.DateRangeValueIsValidRule;
 import co.edu.uco.treepruning.business.business.rule.generics.DateValueIsEmptyDate;
+import co.edu.uco.treepruning.business.business.rule.generics.IdValueIsNotDefaultValueRule;
 import co.edu.uco.treepruning.business.business.rule.generics.StringLengthValueIsValidRule;
 import co.edu.uco.treepruning.business.business.validator.Validator;
 import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
+import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class ValidateDataPruningConsistencyForRegisterNewInformation implements Validator {
 	
@@ -21,16 +23,23 @@ public class ValidateDataPruningConsistencyForRegisterNewInformation implements 
 	@Override
 	public void validate(final Object... data) {
 		var pruningDomainData = (PruningDomain) data[0];
+		var daoFactory = (DAOFactory) data[1];
 		
-		validateEmptyData(pruningDomainData);
+		validateEmptyData(pruningDomainData, daoFactory);
 		
 		validateDataLength(pruningDomainData);
 		
 		validateDateFormat(pruningDomainData);
+		
 	}
 	
-	private void validateEmptyData(final PruningDomain data) {
+	private void validateEmptyData(final PruningDomain data, final DAOFactory daoFactory) {
+		System.out.println(data.getPlannedDate());
 		DateValueIsEmptyDate.executeRule(data.getPlannedDate(), "fecha planificada");
+		IdValueIsNotDefaultValueRule.executeRule(data.getTree().getId(), "identificador del arbol");
+		IdValueIsNotDefaultValueRule.executeRule(data.getStatus().getId(), "identificador del estado");
+		IdValueIsNotDefaultValueRule.executeRule(data.getType().getId(), "identificador del tipo de poda");
+		IdValueIsNotDefaultValueRule.executeRule(data.getPqr().getId(), "identificador de la PQR");
 	}
 	
 	private void validateDataLength(final PruningDomain data) {

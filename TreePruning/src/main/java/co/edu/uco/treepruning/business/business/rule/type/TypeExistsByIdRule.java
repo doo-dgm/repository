@@ -6,6 +6,7 @@ import co.edu.uco.treepruning.business.business.rule.Rule;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class TypeExistsByIdRule implements Rule {
@@ -23,22 +24,22 @@ public class TypeExistsByIdRule implements Rule {
 	public void execute(final Object... data) {
 
 		if (ObjectHelper.isNull(data)) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_EXISTS_BY_ID_DATA_IS_NULL.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_EXISTS_BY_ID_DATA_IS_NULL.getContent();
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 
 		if (data.length < 2) {
-			var userMessage = "";
-			var technicalMessage = "";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_EXISTS_BY_ID_INSUFFICIENT_PARAMETERS.getContent();
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 		
 		var id = (UUID) data[0];
 		
 		if (UUIDHelper.getUUIDHelper().isDefaultUUID(id)) {
-			var userMessage = "El identificador del tipo no puede ser vacio...";
-			var technicalMessage = "Se esta tratando de validar la existencia de un estado con un identificador vacio.";
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_ID_IS_EMPTY.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_ID_IS_EMPTY.getContent();
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 		
@@ -47,8 +48,8 @@ public class TypeExistsByIdRule implements Rule {
 		var type = daoFactory.getTypeDAO().findById(id);
 		
 		if (UUIDHelper.getUUIDHelper().isDefaultUUID(type.getId())) {
-			var userMessage = "El tipo especificado no existe...";
-			var technicalMessage = "El tipo con id[".concat(id.toString()).concat("] no existe...");
+			var userMessage = MessagesEnum.USER_ERROR_TYPE_NOT_FOUND_BY_ID.getTitle();
+			var technicalMessage = String.format(MessagesEnum.TECHNICAL_ERROR_TYPE_NOT_FOUND_BY_ID.getContent(), id.toString());
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 		

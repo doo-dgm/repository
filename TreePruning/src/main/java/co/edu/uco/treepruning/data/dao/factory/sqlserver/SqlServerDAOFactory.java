@@ -2,8 +2,6 @@ package co.edu.uco.treepruning.data.dao.factory.sqlserver;
 
 import java.util.Properties;
 
-import org.springframework.jdbc.core.JdbcTemplate;
-
 import java.io.InputStream;
 import java.sql.DriverManager;
 
@@ -30,6 +28,9 @@ import co.edu.uco.treepruning.data.dao.entity.StatusDAO;
 import co.edu.uco.treepruning.data.dao.entity.ToolDAO;
 import co.edu.uco.treepruning.data.dao.entity.TreeDAO;
 import co.edu.uco.treepruning.data.dao.entity.TypeDAO;
+import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
+
+// Import concrete SQL Server DAO implementations
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.AdministratorSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.CountrySqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.DocumentSqlServerDAO;
@@ -50,15 +51,11 @@ import co.edu.uco.treepruning.data.dao.entity.sqlserver.StatusSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.ToolSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.TreeSqlServerDAO;
 import co.edu.uco.treepruning.data.dao.entity.sqlserver.TypeSqlServerDAO;
-import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
 public class SqlServerDAOFactory extends DAOFactory {
 	
-	private JdbcTemplate jdbcTemplate;
-		
 	public SqlServerDAOFactory() {
 		openConnection();
-		this.jdbcTemplate = new JdbcTemplate();
 	}
 	
 	private static final String PROPERTIES_FILE = "/application.properties";

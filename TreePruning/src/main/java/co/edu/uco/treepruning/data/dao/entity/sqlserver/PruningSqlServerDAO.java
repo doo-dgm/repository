@@ -96,15 +96,51 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		try {
 			var preparedStatement = this.getConnection().prepareStatement(PruningSql.UPDATE);
 
-			} catch (final SQLException exception) {
-				
-			}
+			preparedStatement.setObject(1, entity.getStatus().getId());
+			preparedStatement.setObject(2,  entity.getPlannedDate());
+			preparedStatement.setObject(3, entity.getExecutedDate());
+			preparedStatement.setObject(4, entity.getTree().getId());
+			preparedStatement.setObject(5, entity.getQuadrille().getId());
+			preparedStatement.setObject(6, entity.getType().getId());
+			preparedStatement.setObject(7, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getPqr().getId()) ? null : entity.getPqr().getId()));
+			preparedStatement.setString(8, entity.getPhotographicRecordPath());
+			preparedStatement.setString(9, entity.getObservations());
+			preparedStatement.setObject(10, entity.getId());
+
+			preparedStatement.executeUpdate();
+			
+		} catch (final SQLException exception) {
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_UPDATE.getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_UPDATE_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
 		
 	}
 
 	@Override
 	public void delete(final UUID entity) {
-		// TODO Auto-generated method stub
+		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
+		
+		try {
+			var preparedStatement = this.getConnection().prepareStatement(PruningSql.DELETE);
+
+			preparedStatement.setObject(1, entity);
+
+			preparedStatement.executeUpdate();
+			
+		} catch (final SQLException exception) {
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_DELETE.getContent();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_DELETE.getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} catch (final Exception exception) {
+            var userMessage = MessagesEnum.USER_ERROR_PRUNING_DELETE_UNEXPECTED.getContent();
+            var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_DELETE_UNEXPECTED.getContent();
+            throw TreePruningException.create(exception, userMessage, technicalMessage);
+        }
 		
 	}
 	
