@@ -47,8 +47,7 @@ public class TreeHasPendingPruningTheSameDayRule implements Rule {
 		pruningEntity.setPlannedDate(plannedDate);
 		
 		var pruning = daoFactory.getPruningDAO().findByFilter(pruningEntity);
-		
-		// If there's at least one pruning found for the same tree and date, raise an exception
+
 		if (!pruning.isEmpty()) {
 			var userMessage = MessagesEnum.USER_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_FOUND.getTitle();
 			var technicalMessage = String.format(MessagesEnum.TECHNICAL_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_FOUND.getContent(), treeId.toString(), plannedDate.toString());

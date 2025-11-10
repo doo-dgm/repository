@@ -15,6 +15,7 @@ public final class PruningMapper {
         var pruning = new PruningEntity();
 
         try {
+        	System.out.println("Mapping pruning from result set...");
             var status = StatusMapper.pruningMap(resultSet);
             pruning.setStatus(status);
             

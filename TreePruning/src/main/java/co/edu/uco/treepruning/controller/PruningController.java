@@ -22,6 +22,7 @@ import co.edu.uco.treepruning.controller.dto.Response;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.DateHelper;
 import co.edu.uco.treepruning.crosscuting.helper.UUIDHelper;
+import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.dto.PQRDTO;
 import co.edu.uco.treepruning.dto.PruningDTO;
 import co.edu.uco.treepruning.dto.QuadrilleDTO;
@@ -40,21 +41,21 @@ public class PruningController {
     }
 
     @PostMapping("/corrective")
-    public ResponseEntity<Response<PruningDTO>> scheduleCorrectivePruning(@RequestBody PruningDTO pruningDTO) {
+    public ResponseEntity<Response<PruningDTO>> scheduleCorrectivePruning(final @RequestBody PruningDTO pruningDTO) {
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
         try {
             var facade = new PruningFacadeImpl();
             facade.scheduleCorrectivePruning(pruningDTO);
-            responseObjectData.addMessage("Poda correctiva ejecutada con exito");
+            responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_CORRECTIVE_SCHEDULED.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            System.out.println(exception.getMessage());
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
@@ -69,15 +70,14 @@ public class PruningController {
         try {
             var facade = new PruningFacadeImpl();
             facade.cancelPruning(id, status);
-            responseObjectData.addMessage("");
+            responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_CANCELLED.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
@@ -92,16 +92,15 @@ public class PruningController {
         try {
             var facade = new PruningFacadeImpl();
             facade.reschedulePruning(id, pruningDTO);
-            responseObjectData.addMessage("");
+            responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_RESCHEDULED.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
             exception.printStackTrace();
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
@@ -117,16 +116,15 @@ public class PruningController {
         try {
             var facade = new PruningFacadeImpl();
             facade.completePruning(id, status);
-            responseObjectData.addMessage("");
+            responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_COMPLETED.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
             exception.printStackTrace();
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
@@ -174,16 +172,15 @@ public class PruningController {
             filter.setPqr(pqr);
 
             responseObjectData.setData(facade.findPruningsByFilter(filter));
-            responseObjectData.addMessage("");
+            responseObjectData.addMessage(MessagesEnum.USER_SUCC_OPERATION_DONE.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
             exception.printStackTrace();
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }
@@ -199,16 +196,15 @@ public class PruningController {
         try {
             var facade = new PruningFacadeImpl();
             responseObjectData.setData(List.of(facade.findSpecificPruning(id)));
-            responseObjectData.addMessage("");
+            responseObjectData.addMessage(MessagesEnum.USER_SUCC_OPERATION_DONE.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.NOT_FOUND;
             exception.printStackTrace();
         } catch (final Exception exception) {
-            var userMessage = "";
             responseObjectData = Response.createFailedResponse();
-            responseObjectData.addMessage(userMessage);
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
             exception.printStackTrace();
         }

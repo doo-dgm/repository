@@ -138,7 +138,7 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_DATE_RANGE_RULE_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla DateRangeValueIsValid",
 		"La invocacion de DateRangeValueIsValidRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
 
-	USER_ERROR_DATE_RANGE_INVALID_VALUE("El dato [%s] debe ser una fecha posterior o igual a la fecha actual para llevar a cabo la operacion deseada.",
+	USER_ERROR_DATE_RANGE_INVALID_VALUE("El dato [%s] debe ser una fecha igual o posterior a la fecha actual para llevar a cabo la operacion deseada.",
 		"La regla DateRangeValueIsValidRule ha identificado que un dato no cumple el rango de fecha esperado."),
 	TECHNICAL_ERROR_DATE_RANGE_INVALID_VALUE("La regla DateRangeValueIsValidRule falló por rango inválido en dato [%s]",
 		"La regla DateRangeValueIsValidRule falló porque el dato [%s] requerido para llevar a cabo la operacion no es una fecha posterior o igual a la fecha actual."),
@@ -1135,9 +1135,26 @@ public enum MessagesEnum {
 	USER_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_FOUND("Ya existe una poda programada para este árbol en la fecha indicada.",
 		"Se encontró un registro de poda para el árbol con id [%s] en la fecha [%s]."),
 	TECHNICAL_ERROR_TREE_HAS_PENDING_PRUNING_THE_SAME_DAY_FOUND("Poda pendiente encontrada para árbol en la misma fecha",
-		"La consulta a PruningDAO.findByFilter devolvió resultados para Tree id [%s] y fecha [%s]. Verifique la integridad de datos y la lógica aplicada.");
+			"La consulta a PruningDAO.findByFilter devolvió resultados para Tree id [%s] y fecha [%s]. Verifique la integridad de datos y la lógica aplicada."),
 
-	
+	// Controller - PruningController messages (centralized)
+	SUCCESS_PRUNING_CORRECTIVE_SCHEDULED("Poda correctiva programada exitosamente",
+		"La solicitud para programar la poda correctiva fue procesada con éxito."),
+	SUCCESS_PRUNING_CANCELLED("Poda cancelada con éxito",
+		"La solicitud para cancelar la poda fue procesada con éxito."),
+	SUCCESS_PRUNING_RESCHEDULED("Poda reprogramada con éxito",
+		"La solicitud para reprogramar la poda fue procesada con éxito."),
+	SUCCESS_PRUNING_COMPLETED("Poda completada con éxito",
+		"La solicitud para marcar la poda como completada fue procesada con éxito."),
+
+	USER_ERROR_CONTROLLER_UNEXPECTED("Se ha presentado un problema inesperado al procesar la solicitud",
+		"Se produjo una excepción inesperada en el controlador mientras se procesaba la solicitud. Intente de nuevo y si el problema persiste contacte al administrador del sistema."),
+	TECHNICAL_ERROR_CONTROLLER_UNEXPECTED("Error técnico inesperado en controlador",
+		"Excepción no controlada en el controlador. Revise la traza de errores para identificar la causa y tomar las acciones necesarias."),
+
+	USER_SUCC_OPERATION_DONE("Operación realizada con éxito",
+		"La operación solicitada se realizó correctamente.");
+
 	private String title;
 	private String content;
 	

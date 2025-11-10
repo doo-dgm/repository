@@ -26,12 +26,12 @@ public final class PruningFacadeImpl implements PruningFacade {
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
-				daoFactory.initTransaction();
-				
-				var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
-				business.scheduleCorrectivePruning(domain);
-				
-				daoFactory.commitTransaction();
+			daoFactory.initTransaction();
+			
+			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
+			business.scheduleCorrectivePruning(domain);
+			
+			daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
 			daoFactory.rollbackTransaction();
 			throw exception;

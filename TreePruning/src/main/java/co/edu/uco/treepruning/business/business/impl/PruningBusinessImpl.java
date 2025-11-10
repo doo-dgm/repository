@@ -7,6 +7,7 @@ import java.util.UUID;
 import static co.edu.uco.treepruning.business.assembler.entity.impl.PruningEntityAssembler.getPruningEntityAssembler;
 
 import co.edu.uco.treepruning.business.business.PruningBusiness;
+import co.edu.uco.treepruning.business.business.validator.generics.ValidateDateRange;
 import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRExistsById;
 import co.edu.uco.treepruning.business.business.validator.pqr.ValidatePQRIsNotClosed;
 import co.edu.uco.treepruning.business.business.validator.pruning.ValidateDataPruningConsistencyForRegisterNewInformation;
@@ -43,8 +44,18 @@ public class PruningBusinessImpl implements PruningBusiness {
 			ValidatePQRExistsById.executeValidation(pruningDomain.getPqr().getId(), daoFactory);
 			ValidatePQRIsNotClosed.executeValidation(pruningDomain.getPqr().getId(), daoFactory);
 			ValidateTreeHasPendingPruningTheSameDay.executeValidation(pruningDomain.getTree().getId(), pruningDomain.getPlannedDate(), daoFactory);
-
-			var pruningEntity = getPruningEntityAssembler().toEntity(pruningDomain);
+			ValidateDateRange.executeValidation(pruningDomain.getPlannedDate(), "fecha planificada");
+			
+			var pruningDomainValues = new PruningDomain();
+			
+			pruningDomainValues.setTree(pruningDomain.getTree());
+			pruningDomainValues.setPlannedDate(pruningDomain.getPlannedDate());
+			pruningDomainValues.setStatus(pruningDomain.getStatus());
+			pruningDomainValues.setType(pruningDomain.getType());
+			pruningDomainValues.setPqr(pruningDomain.getPqr());
+			pruningDomainValues.setObservations(pruningDomain.getObservations());
+			
+			var pruningEntity = getPruningEntityAssembler().toEntity(pruningDomainValues);
 			
 			pruningEntity.setId(generateId());
 			

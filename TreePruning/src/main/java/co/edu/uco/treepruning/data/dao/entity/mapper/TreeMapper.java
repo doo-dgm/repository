@@ -26,7 +26,7 @@ public final class TreeMapper {
         	
             tree.setId(UUIDHelper.getUUIDHelper().getFromString(resultSet.getString("treeId")));
             tree.setLongitude(resultSet.getString("treeLongitude"));
-            tree.setLatitude(resultSet.getString("treeLatitude"));            
+            tree.setLatitude(resultSet.getString("treeLatitude"));
 
         } catch (final SQLException exception) {
             var userMessage = MessagesEnum.USER_ERROR_TREE_MAPPER.getTitle();

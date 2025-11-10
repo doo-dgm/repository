@@ -62,13 +62,14 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	public List<PruningEntity> findByFilter(final PruningEntity filterEntity) {
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-
+		
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
 
 			for (var index = 0; index < parameterList.size(); index++) {
+
 				preparedStatement.setObject(index + 1, parameterList.get(index));
 			}
-			
+
 			return executeSentenceFindByFilter(preparedStatement);
 			
 		} catch (final SQLException exception) {

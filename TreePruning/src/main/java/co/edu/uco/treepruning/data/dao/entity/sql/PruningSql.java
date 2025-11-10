@@ -20,7 +20,7 @@ public final class PruningSql {
 
     public static final String FIND_BY_FILTER = 
 """
-		SELECT
+				SELECT
 			pru.id AS pruningId,
 			sts.id AS statusPruningId,
 			sts.name AS statusPruningName,
@@ -101,16 +101,16 @@ public final class PruningSql {
 		FROM Pruning AS pru
 		INNER JOIN Status AS sts ON pru.statusId = sts.id
 		INNER JOIN Tree AS tre ON pru.treeId = tre.id
-		INNER JOIN programming AS pro ON tre.programmingId = pro.id
 		INNER JOIN Family AS fam ON tre.familyId = fam.id
 		INNER JOIN Sector AS sec ON tre.sectorId = sec.id
 		INNER JOIN Municipality AS mun ON sec.municipalityId = mun.id
 		INNER JOIN State AS sta ON mun.stateId = sta.id
 		INNER JOIN Country AS cou ON sta.countryId = cou.id
-		INNER JOIN Quadrille AS qua ON pru.quadrilleId = qua.id
-		INNER JOIN manager AS man ON qua.managerId = man.id
-		INNER JOIN person AS per ON man.personId = per.id
-		INNER JOIN document AS doc ON per.documentId = doc.id
+		INNER JOIN programming AS pro ON tre.programmingId = pro.id
+		LEFT JOIN quadrille AS qua ON pru.quadrilleId = qua.id
+		LEFT JOIN manager AS man ON qua.managerId = man.id
+		LEFT JOIN person AS per ON man.personId = per.id
+		LEFT JOIN document AS doc ON per.documentId = doc.id
 		INNER JOIN type AS typ ON pru.typeId = typ.id
 		LEFT JOIN pqr AS pqr ON pru.pqrId = pqr.id
 		INNER JOIN status AS stsp ON pqr.statusId = stsp.id
