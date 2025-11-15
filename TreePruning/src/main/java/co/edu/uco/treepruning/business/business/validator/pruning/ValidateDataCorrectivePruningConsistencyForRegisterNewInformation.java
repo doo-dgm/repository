@@ -8,11 +8,11 @@ import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.crosscuting.helper.TextHelper;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
 
-public class ValidateDataPruningConsistencyForRegisterNewInformation implements Validator {
+public class ValidateDataCorrectivePruningConsistencyForRegisterNewInformation implements Validator {
 	
-	private static final Validator INSTANCE = new ValidateDataPruningConsistencyForRegisterNewInformation();
+	private static final Validator INSTANCE = new ValidateDataCorrectivePruningConsistencyForRegisterNewInformation();
 	
-	private ValidateDataPruningConsistencyForRegisterNewInformation() {
+	private ValidateDataCorrectivePruningConsistencyForRegisterNewInformation() {
 	}
 	
 	public static void executeValidation(final Object... data) {
@@ -35,7 +35,6 @@ public class ValidateDataPruningConsistencyForRegisterNewInformation implements 
 		IdValueIsNotDefaultValueRule.executeRule(data.getTree().getId(), "arbol");
 		IdValueIsNotDefaultValueRule.executeRule(data.getStatus().getId(), "estado");
 		IdValueIsNotDefaultValueRule.executeRule(data.getType().getId(), "tipo de poda");
-		IdValueIsNotDefaultValueRule.executeRule(data.getPqr().getId(), "PQR");
 	}
 	
 	private void validateDataLength(final PruningDomain data) {

@@ -6,6 +6,7 @@ import static co.edu.uco.treepruning.business.assembler.dto.impl.StatusDTOAssemb
 
 import co.edu.uco.treepruning.business.assembler.dto.impl.PruningDTOAssembler;
 import co.edu.uco.treepruning.business.business.impl.PruningBusinessImpl;
+import co.edu.uco.treepruning.business.domain.PruningDomain;
 import co.edu.uco.treepruning.business.facade.PruningFacade;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
@@ -19,6 +20,31 @@ public final class PruningFacadeImpl implements PruningFacade {
 	
 	public PruningFacadeImpl() {
 		this.daoFactory = DAOFactory.getFactory();
+	}
+	
+	@Override
+	public void schedulePreventivePruning(final PruningDTO pruningDTO) {
+		var business = new PruningBusinessImpl(daoFactory);
+		
+		try {
+			daoFactory.initTransaction();
+			
+			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
+			business.schedulePreventivePruning(domain);
+			
+			daoFactory.commitTransaction();
+		} catch(final TreePruningException exception) {
+			daoFactory.rollbackTransaction();
+			throw exception;
+		} catch(final Exception exception) {
+			daoFactory.rollbackTransaction();
+			var userMessage = MessagesEnum.USER_ERROR_PRUNING_CREATE_UNEXPECTED.getTitle();
+			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_CREATE_UNEXPECTED.getContent();
+			throw TreePruningException.create(exception, userMessage, technicalMessage);
+		} finally {
+			daoFactory.closeConnection();
+		}
+		
 	}
 
 	@Override
@@ -39,7 +65,6 @@ public final class PruningFacadeImpl implements PruningFacade {
 			daoFactory.rollbackTransaction();
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_CREATE_UNEXPECTED.getTitle();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_CREATE_UNEXPECTED.getContent();
-			//exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} finally {
 			daoFactory.closeConnection();
@@ -48,14 +73,14 @@ public final class PruningFacadeImpl implements PruningFacade {
 	}
 
 	@Override
-	public void cancelPruning(final UUID id, final StatusDTO status) {
+	public void cancelPruning(final PruningDTO pruningDTO) {
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
 			daoFactory.initTransaction();
 			
-			var statusDomain = getStatusDTOAssembler().toDomain(status);
-			business.cancelPruning(id, statusDomain);
+			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
+			business.cancelPruning(domain);
 			
 			daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
@@ -98,16 +123,16 @@ public final class PruningFacadeImpl implements PruningFacade {
 	}
 
 	@Override
-	public void completePruning(final UUID id, final StatusDTO status) {
+	public void completePruning(final PruningDTO pruningDTO) {
 		var business = new PruningBusinessImpl(daoFactory);
 		
 		try {
-				daoFactory.initTransaction();
-				
-				var statusDomain = getStatusDTOAssembler().toDomain(status);
-				business.completePruning(id, statusDomain);
-				
-				daoFactory.commitTransaction();
+			daoFactory.initTransaction();
+			
+			var domain = PruningDTOAssembler.getPruningDTOAssembler().toDomain(pruningDTO);
+			business.completePruning(domain);
+			
+			daoFactory.commitTransaction();
 		} catch(final TreePruningException exception) {
 			daoFactory.rollbackTransaction();
 			throw exception;
@@ -170,25 +195,4 @@ public final class PruningFacadeImpl implements PruningFacade {
 		}
 	}
 
-	@Override
-	public PruningDTO findSpecificPruning(final UUID id) {
-		var business = new PruningBusinessImpl(daoFactory);
-
-		try {
-			daoFactory.initTransaction();
-			var domain = business.findSpecificPruning(id);
-			return PruningDTOAssembler.getPruningDTOAssembler().toDTO(domain);
-		} catch (final TreePruningException exception) {
-			daoFactory.rollbackTransaction();
-			throw exception;
-		} catch (final Exception exception) {
-			daoFactory.rollbackTransaction();
-
-			var userMessage = MessagesEnum.USER_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getTitle();
-			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_FIND_BY_FILTER_UNEXPECTED.getContent();
-			throw TreePruningException.create(exception, userMessage, technicalMessage);
-		} finally {
-			daoFactory.closeConnection();
-		}
-	}
 }

@@ -40,6 +40,28 @@ public class PruningController {
         return new PruningDTO();
     }
 
+    @PostMapping("/preventive")
+    public ResponseEntity<Response<PruningDTO>> schedulePreventivePruning(final @RequestBody PruningDTO pruningDTO) {
+        Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
+        HttpStatusCode responseStatusCode = HttpStatus.OK;
+        
+        try {
+            var facade = new PruningFacadeImpl();
+            facade.schedulePreventivePruning(pruningDTO);
+            responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_PREVENTIVE_SCHEDULED.getTitle());
+        } catch (final TreePruningException exception) {
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(exception.getUserMessage());
+            responseStatusCode = HttpStatus.BAD_REQUEST;
+        } catch (final Exception exception) {
+            responseObjectData = Response.createFailedResponse();
+            responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
+            responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
+
+        return new ResponseEntity<>(responseObjectData, responseStatusCode);
+    }
+    
     @PostMapping("/corrective")
     public ResponseEntity<Response<PruningDTO>> scheduleCorrectivePruning(final @RequestBody PruningDTO pruningDTO) {
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
@@ -52,33 +74,36 @@ public class PruningController {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
+            exception.printStackTrace();
         } catch (final Exception exception) {
             responseObjectData = Response.createFailedResponse();
-            System.out.println(exception.getMessage());
             responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            exception.printStackTrace();
         }
 
         return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
-    @PutMapping("/{id}/cancel")
-    public ResponseEntity<Response<PruningDTO>> cancelPruning(@PathVariable UUID id, @RequestBody StatusDTO status) {
+    @PutMapping("/cancel")
+    public ResponseEntity<Response<PruningDTO>> cancelPruning(final @RequestBody PruningDTO pruningDTO) {
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
             var facade = new PruningFacadeImpl();
-            facade.cancelPruning(id, status);
+            facade.cancelPruning(pruningDTO);
             responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_CANCELLED.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(exception.getUserMessage());
             responseStatusCode = HttpStatus.BAD_REQUEST;
+            exception.printStackTrace();
         } catch (final Exception exception) {
             responseObjectData = Response.createFailedResponse();
             responseObjectData.addMessage(MessagesEnum.USER_ERROR_CONTROLLER_UNEXPECTED.getTitle());
             responseStatusCode = HttpStatus.INTERNAL_SERVER_ERROR;
+            exception.printStackTrace();
         }
 
         return new ResponseEntity<>(responseObjectData, responseStatusCode);
@@ -108,14 +133,14 @@ public class PruningController {
         return new ResponseEntity<>(responseObjectData, responseStatusCode);
     }
 
-    @PutMapping("/{id}/complete")
-    public ResponseEntity<Response<PruningDTO>> completePruning(@PathVariable UUID id, @RequestBody StatusDTO status) {
+    @PutMapping("/complete")
+    public ResponseEntity<Response<PruningDTO>> completePruning(final @RequestBody PruningDTO pruningDTO) {
         Response<PruningDTO> responseObjectData = Response.createSuccededResponse();
         HttpStatusCode responseStatusCode = HttpStatus.OK;
 
         try {
             var facade = new PruningFacadeImpl();
-            facade.completePruning(id, status);
+            facade.completePruning(pruningDTO);
             responseObjectData.addMessage(MessagesEnum.SUCCESS_PRUNING_COMPLETED.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();
@@ -195,7 +220,7 @@ public class PruningController {
 
         try {
             var facade = new PruningFacadeImpl();
-            responseObjectData.setData(List.of(facade.findSpecificPruning(id)));
+            responseObjectData.setData(facade.findPruningsByFilter(new PruningDTO(id)));
             responseObjectData.addMessage(MessagesEnum.USER_SUCC_OPERATION_DONE.getTitle());
         } catch (final TreePruningException exception) {
             responseObjectData = Response.createFailedResponse();

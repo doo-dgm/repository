@@ -111,6 +111,27 @@ public enum MessagesEnum {
 	TECHNICAL_ERROR_TYPE_NOT_FOUND_CORRECTIVE("Tipo 'Correctiva' no encontrado en base de datos",
 		"La consulta a TypeDAO.findByFilter no devolvio resultados para una entidad Type con nombre 'Correctiva'. Verifique los datos de referencia en la BD."),
 
+	// Rule - TypeIsPreventiveRule (validation messages)
+	USER_ERROR_TYPE_PREVENTIVE_RULE_DATA_IS_NULL("Se ha presentado un problema validando los datos de entrada para la regla 'TypeIsPreventive'",
+		"Los parametros recibidos para ejecutar la regla TypeIsPreventiveRule llegaron nulos."),
+	TECHNICAL_ERROR_TYPE_PREVENTIVE_RULE_DATA_IS_NULL("Parametros nulos en regla TypeIsPreventive",
+		"El array de parametros pasado a TypeIsPreventiveRule.execute() es nulo. Verifique la invocacion de la regla y los datos proporcionados."),
+
+	USER_ERROR_TYPE_PREVENTIVE_RULE_INSUFFICIENT_PARAMETERS("Se ha presentado un problema validando los parametros requeridos para la regla 'TypeIsPreventive'",
+		"La regla TypeIsPreventiveRule requiere 2 parametros: id (UUID) y DAOFactory; los parametros proporcionados son insuficientes."),
+	TECHNICAL_ERROR_TYPE_PREVENTIVE_RULE_INSUFFICIENT_PARAMETERS("Parametros insuficientes en regla TypeIsPreventive",
+		"La invocacion de TypeIsPreventiveRule.execute() no proporciono la cantidad minima de parametros requerida (2). Verifique la llamada y los datos enviados."),
+
+	USER_ERROR_TYPE_NOT_FOUND_PREVENTIVE("No existe un tipo registrado como preventivo. Por favor verifique la información y vuelva a intentar.",
+		"No existe ningun tipo de poda con el nombre 'Preventiva' en la base de datos."),
+	TECHNICAL_ERROR_TYPE_NOT_FOUND_PREVENTIVE("Tipo 'Preventiva' no encontrado en base de datos",
+		"La consulta a TypeDAO.findByFilter no devolvio resultados para una entidad Type con nombre 'Preventiva'. Verifique los datos de referencia en la BD."),
+
+	USER_ERROR_TYPE_IS_NOT_PREVENTIVE("El tipo especificado no corresponde a 'Preventiva'. Por favor verifique la información y vuelva a intentar.",
+		"El tipo con id [%s] no corresponde al tipo 'Preventiva'."),
+	TECHNICAL_ERROR_TYPE_IS_NOT_PREVENTIVE("Tipo no es 'Preventiva' en validación",
+		"TypeIsPreventiveRule verificó que el tipo con id [%s] tiene el nombre [%s] distinto de 'Preventiva'."),
+
 	// Rule - DateFormatValueIsValidRule (validation messages)
 	USER_ERROR_DATE_FORMAT_RULE_DATA_IS_NULL("Se ha presentado un problema inesperado tratando de llevar a cabo la operacion deseada...",
 		"No se recibieron los parametros requeridos para ejecutar la regla DateFormatValueIsValidRule."),
@@ -1138,6 +1159,8 @@ public enum MessagesEnum {
 			"La consulta a PruningDAO.findByFilter devolvió resultados para Tree id [%s] y fecha [%s]. Verifique la integridad de datos y la lógica aplicada."),
 
 	// Controller - PruningController messages (centralized)
+	SUCCESS_PRUNING_PREVENTIVE_SCHEDULED("Poda preventiva programada exitosamente",
+		"La solicitud para programar la poda preventiva fue procesada con éxito."),
 	SUCCESS_PRUNING_CORRECTIVE_SCHEDULED("Poda correctiva programada exitosamente",
 		"La solicitud para programar la poda correctiva fue procesada con éxito."),
 	SUCCESS_PRUNING_CANCELLED("Poda cancelada con éxito",

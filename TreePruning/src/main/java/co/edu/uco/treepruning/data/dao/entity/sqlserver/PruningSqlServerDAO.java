@@ -43,7 +43,6 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 			preparedStatement.setObject(8, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getPqr().getId()) ? null : entity.getPqr().getId()));
 			preparedStatement.setString(9, entity.getPhotographicRecordPath());
 			preparedStatement.setString(10, entity.getObservations());
-
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
@@ -60,9 +59,9 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 
 	@Override
 	public List<PruningEntity> findByFilter(final PruningEntity filterEntity) {
+		System.out.println("Entering findByFilter in PruningSqlServerDAO" + filterEntity.getId());
 		var parameterList = new ArrayList<Object>();
 		var sql = createSentenceFindByFilter(filterEntity, parameterList);
-		
 		try (var preparedStatement = this.getConnection().prepareStatement(sql)) {
 
 			for (var index = 0; index < parameterList.size(); index++) {
@@ -86,7 +85,6 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 
 	@Override
 	public PruningEntity findById(final UUID id) {
-		
 		return findByFilter(new PruningEntity(id)).stream().findFirst().orElse(new PruningEntity());
 	}
 
@@ -94,25 +92,26 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 	public void update(final PruningEntity entity) {
 		SqlConnectionHelper.ensureTransactionIsStarted(getConnection());
 		
-		try {
-			var preparedStatement = this.getConnection().prepareStatement(PruningSql.UPDATE);
+		try (var preparedStatement = this.getConnection().prepareStatement(PruningSql.UPDATE)) {
+			;
 
-			preparedStatement.setObject(1, entity.getStatus().getId());
+			preparedStatement.setObject(1,  UUIDHelper.getUUIDHelper().getDefault(entity.getStatus().getId()));
 			preparedStatement.setObject(2,  entity.getPlannedDate());
 			preparedStatement.setObject(3, entity.getExecutedDate());
-			preparedStatement.setObject(4, entity.getTree().getId());
-			preparedStatement.setObject(5, entity.getQuadrille().getId());
-			preparedStatement.setObject(6, entity.getType().getId());
-			preparedStatement.setObject(7, (UUIDHelper.getUUIDHelper().isDefaultUUID(entity.getPqr().getId()) ? null : entity.getPqr().getId()));
-			preparedStatement.setString(8, entity.getPhotographicRecordPath());
+			preparedStatement.setObject(4,  UUIDHelper.getUUIDHelper().getDefault(entity.getTree().getId()));
+			preparedStatement.setObject(5, UUIDHelper.getUUIDHelper().getDefault(entity.getQuadrille().getId()));
+			preparedStatement.setObject(6,  UUIDHelper.getUUIDHelper().getDefault(entity.getType().getId()));
+			preparedStatement.setObject(7,  UUIDHelper.getUUIDHelper().getDefault(entity.getPqr().getId()));
+			preparedStatement.setString(8,  entity.getPhotographicRecordPath());
 			preparedStatement.setString(9, entity.getObservations());
-			preparedStatement.setObject(10, entity.getId());
-
+			preparedStatement.setObject(10,  entity.getId());
+			
 			preparedStatement.executeUpdate();
 			
 		} catch (final SQLException exception) {
 			var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE.getContent();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_PRUNING_UPDATE.getContent();
+			exception.printStackTrace();
 			throw TreePruningException.create(exception, userMessage, technicalMessage);
 		} catch (final Exception exception) {
             var userMessage = MessagesEnum.USER_ERROR_PRUNING_UPDATE_UNEXPECTED.getContent();
@@ -162,7 +161,7 @@ public class PruningSqlServerDAO extends SqlConnection implements PruningDAO {
 		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getId()),
 				"pru.id = ?", filterEntityValidated.getId());
-
+		
 		addCondition(conditions, parameterList, !UUIDHelper.getUUIDHelper().isDefaultUUID(filterEntityValidated.getStatus().getId()),
 				"pru.statusId = ?", filterEntityValidated.getStatus().getId());
 		

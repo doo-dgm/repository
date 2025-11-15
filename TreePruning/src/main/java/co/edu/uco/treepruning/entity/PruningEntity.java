@@ -35,6 +35,7 @@ public final class PruningEntity {
     }
 
     public PruningEntity(final UUID id) {
+    	setId(UUIDHelper.getUUIDHelper().getDefault(id));
         setStatus(new StatusEntity());
         setPlannedDate(DateHelper.getDateHelper().getDefault());
         setExecutedDate(DateHelper.getDateHelper().getDefault());

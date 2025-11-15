@@ -1,11 +1,12 @@
 package co.edu.uco.treepruning.business.business.rule.type;
 
+import java.util.UUID;
+
 import co.edu.uco.treepruning.business.business.rule.Rule;
 import co.edu.uco.treepruning.crosscuting.exception.TreePruningException;
 import co.edu.uco.treepruning.crosscuting.helper.ObjectHelper;
 import co.edu.uco.treepruning.crosscuting.messagescatalog.MessagesEnum;
 import co.edu.uco.treepruning.data.dao.factory.DAOFactory;
-import co.edu.uco.treepruning.entity.TypeEntity;
 
 public class TypeIsCorrectiveRule implements Rule {
 	
@@ -32,14 +33,12 @@ public class TypeIsCorrectiveRule implements Rule {
 			throw TreePruningException.create(userMessage, technicalMessage);
 		}
 
+		var id = (UUID) data[0];
 		var daoFactory = (DAOFactory) data[1];
 		
-		var typeEntity = new TypeEntity();
-		typeEntity.setName("Correctiva");
+		var type = daoFactory.getTypeDAO().findById(id);
 		
-		var status = daoFactory.getTypeDAO().findByFilter(typeEntity);
-		
-		if (status.isEmpty()) {
+		if (!type.getName().equals("Correctiva")) {
 			var userMessage = MessagesEnum.USER_ERROR_TYPE_NOT_FOUND_CORRECTIVE.getTitle();
 			var technicalMessage = MessagesEnum.TECHNICAL_ERROR_TYPE_NOT_FOUND_CORRECTIVE.getContent();
 			throw TreePruningException.create(userMessage, technicalMessage);

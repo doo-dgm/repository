@@ -38,7 +38,7 @@ public class StatusIsNotClosedRule implements Rule {
 		
 		var status = daoFactory.getStatusDAO().findById(id);
 		
-		if (status.getName().equals("Cerrado")) {
+		if (!status.getName().equals("Abierta")) {
 			var userMessage = MessagesEnum.USER_ERROR_STATUS_IS_CLOSED.getTitle();
 			var technicalMessage = String.format(MessagesEnum.TECHNICAL_ERROR_STATUS_IS_CLOSED.getContent(), id.toString());
 			throw TreePruningException.create(userMessage, technicalMessage);

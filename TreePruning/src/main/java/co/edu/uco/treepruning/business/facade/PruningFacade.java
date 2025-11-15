@@ -4,20 +4,19 @@ import java.util.List;
 import java.util.UUID;
 
 import co.edu.uco.treepruning.dto.PruningDTO;
-import co.edu.uco.treepruning.dto.StatusDTO;
 
 public interface PruningFacade {
-void scheduleCorrectivePruning(PruningDTO pruningDTO);
+	void schedulePreventivePruning(PruningDTO pruningDTO);
 	
-	void cancelPruning(UUID id, StatusDTO status);
+	void scheduleCorrectivePruning(PruningDTO pruningDTO);
+	
+	void cancelPruning(PruningDTO pruningDTO);
 	
 	void reschedulePruning(UUID id, PruningDTO pruningDTO);
 	
-	void completePruning(UUID id, StatusDTO status);
+	void completePruning(PruningDTO pruningDTO);
 	
 	List<PruningDTO> findAllPrunings();
 	
 	List<PruningDTO> findPruningsByFilter(PruningDTO pruningFilters);
-	
-	PruningDTO findSpecificPruning(UUID id);
 }

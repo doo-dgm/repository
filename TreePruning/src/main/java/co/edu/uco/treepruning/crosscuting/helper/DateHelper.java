@@ -38,5 +38,9 @@ public final class DateHelper {
 		return (value.isAfter(LocalDate.now()) || value.isEqual(LocalDate.now()));
 	}
 	
+	public boolean isLocalDateBefore(final LocalDate value) {
+		return (value.isBefore(LocalDate.of(2026, 12, 31)));
+	}
+	
 
 }
