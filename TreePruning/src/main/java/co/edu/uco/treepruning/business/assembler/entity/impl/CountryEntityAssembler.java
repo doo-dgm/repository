@@ -22,19 +22,19 @@ public class CountryEntityAssembler implements EntityAssembler<CountryEntity, Co
 	}
 
 	@Override
-	public CountryEntity toEntity(CountryDomain domain) {
+	public CountryEntity toEntity(final CountryDomain domain) {
 		var domainTmp = ObjectHelper.getDefault(domain, new CountryDomain(UUIDHelper.getUUIDHelper().getDefault()));
 		return new CountryEntity(domainTmp.getId(), domainTmp.getName());
 	}
 
 	@Override
-	public CountryDomain toDomain(CountryEntity entity) {
+	public CountryDomain toDomain(final CountryEntity entity) {
 		var entityTmp = ObjectHelper.getDefault(entity, new CountryEntity(UUIDHelper.getUUIDHelper().getDefault()));
 		return new CountryDomain(entityTmp.getId(), entityTmp.getName());
 	}
 
 	@Override
-	public List<CountryEntity> toEntity(List<CountryDomain> domainList) {
+	public List<CountryEntity> toEntity(final List<CountryDomain> domainList) {
 		var countryEntityList = new ArrayList<CountryEntity>();
 		
 		for (var country : domainList) {
@@ -45,7 +45,7 @@ public class CountryEntityAssembler implements EntityAssembler<CountryEntity, Co
 	}
 	
 	@Override
-	public List<CountryDomain> toDomain(List<CountryEntity> entityList) {
+	public List<CountryDomain> toDomain(final List<CountryEntity> entityList) {
 		var countryDomainList = new ArrayList<CountryDomain>();
 		
 		for (var country : entityList) {
